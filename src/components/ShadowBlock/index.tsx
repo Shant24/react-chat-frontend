@@ -1,8 +1,8 @@
 import React, { FC, memo, ReactElement } from 'react';
 
-import cn from 'classnames';
+import cls from 'classnames';
 
-import styles from './ch.module.scss';
+import styles from './styles.module.scss';
 
 interface ShadowBlockProps {
   children: ReactElement;
@@ -10,7 +10,7 @@ interface ShadowBlockProps {
 }
 
 const ShadowBlock: FC<ShadowBlockProps> = ({ children, className = '' }) => (
-  <div className={cn(styles.container, { [className]: className })}>{children}</div>
+  <div className={cls(styles.container, { [className]: className })}>{children}</div>
 );
 
 export default memo(ShadowBlock);

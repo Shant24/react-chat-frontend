@@ -1,9 +1,17 @@
 import React from 'react';
 
-import { Auth } from './components/pages';
+import { Route, Switch } from 'react-router';
+
+import { Home, Auth } from './components/pages';
 
 const App = () => {
-  return <Auth />;
+  return (
+    <Switch>
+      <Route path="/" component={Home} exact />
+
+      <Route path="/auth" component={Auth} />
+    </Switch>
+  );
 };
 
 export default App;
