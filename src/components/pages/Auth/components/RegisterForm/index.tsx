@@ -10,7 +10,8 @@ import { useFormik } from 'formik';
 import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
-import { RegisterSchema as validationSchema } from '../../../../../validation';
+import { RegisterSchema as validationSchema } from '../../../../../validations';
+import { validateFieldStatus } from '../../../../../helpers';
 
 interface IValues {
   email: string;
@@ -50,7 +51,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="email"
             hasFeedback
             help={!touched.email ? null : errors.email}
-            validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'email')}
           >
             <Input
               className={styles.inputContainer}
@@ -69,7 +70,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="username"
             hasFeedback
             help={!touched.username ? null : errors.username}
-            validateStatus={!touched.username ? '' : errors.username ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'username')}
           >
             <Input
               className={styles.inputContainer}
@@ -87,7 +88,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="password"
             hasFeedback
             help={!touched.password ? null : errors.password}
-            validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'password')}
           >
             <Input.Password
               autoComplete="new-password"
@@ -107,7 +108,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="confirmPassword"
             hasFeedback
             help={!touched.confirmPassword ? null : errors.confirmPassword}
-            validateStatus={!touched.confirmPassword ? '' : errors.confirmPassword ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'confirmPassword')}
           >
             <Input.Password
               className={cls(styles.inputContainer, styles.passwordField)}
