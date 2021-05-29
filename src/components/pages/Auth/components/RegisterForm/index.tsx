@@ -35,8 +35,6 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
   });
 
   const { values, errors, isValid, dirty, touched, handleSubmit, handleChange, handleBlur } = formik;
-  console.log('dirty', dirty);
-  console.log('isValid', isValid);
 
   return (
     <section className={styles.authSectionContainer}>
