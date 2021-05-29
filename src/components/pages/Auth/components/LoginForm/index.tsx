@@ -10,7 +10,8 @@ import { useFormik } from 'formik';
 import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
-import { LoginSchema as validationSchema } from '../../../../../validation';
+import { LoginSchema as validationSchema } from '../../../../../validations';
+import { validateFieldStatus } from '../../../../../helpers';
 
 interface IValues {
   username: string;
@@ -33,6 +34,7 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
   });
 
   const { values, errors, isValid, dirty, touched, handleSubmit, handleChange, handleBlur } = formik;
+  console.log('errors', errors);
 
   return (
     <section className={styles.authSectionContainer}>
@@ -48,7 +50,7 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
             name="username"
             hasFeedback
             help={!touched.username ? null : errors.username}
-            validateStatus={!touched.username ? '' : errors.username ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'username')}
           >
             <Input
               id="username"
@@ -68,7 +70,7 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
             name="password"
             hasFeedback
             help={!touched.password ? null : errors.password}
-            validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+            validateStatus={validateFieldStatus(values, errors, touched, 'password')}
           >
             <Input.Password
               id="password"
