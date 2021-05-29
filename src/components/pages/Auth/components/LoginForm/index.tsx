@@ -22,11 +22,14 @@ interface ILoginFormProps extends RouteComponentProps {}
 const LoginForm: FC<ILoginFormProps> = ({ history }) => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    validationSchema,
     onSubmit: (values: IValues) => {
       console.log('values a', values);
       history.push('/auth/register');
     },
+    validationSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnMount: true,
   });
 
   const { values, errors, isValid, dirty, touched, handleSubmit, handleChange, handleBlur } = formik;
