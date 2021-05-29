@@ -4,6 +4,7 @@ import { InfoCircleTwoTone } from '@ant-design/icons';
 
 import styles from '../../styles.module.scss';
 import { ShadowBlock } from '../../../..';
+import { Link } from 'react-router-dom';
 
 interface IRegisterSuccessProps {}
 
@@ -18,8 +19,12 @@ const RegisterSuccess: FC<IRegisterSuccessProps> = (props) => {
       <ShadowBlock className={styles.block}>
         <div className={styles.successContainer}>
           <InfoCircleTwoTone className={styles.infoIcon} />
+
           <h2>Verify your account</h2>
+
           <p>An email has been sent to your email with a link to confirm your account.</p>
+
+          <Link to="/auth/login">Go to Login page</Link>
         </div>
       </ShadowBlock>
     </section>

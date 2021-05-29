@@ -1,0 +1,141 @@
+@import '../../scss/variables';
+
+.message {
+  margin: 0 0 15px;
+  display: flex;
+  align-items: flex-end;
+
+  &.isMe {
+    flex-direction: row-reverse;
+
+    .avatarWrapper {
+      margin: 0 0 22px 13px;
+    }
+
+    .messageContent {
+      align-items: flex-end;
+
+      .bubbleWrapper {
+        flex-direction: row-reverse;
+
+        .bubble {
+          background-color: $chat-light;
+          border: 1px solid $border-light;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+          border-radius: 12px 12px 0 12px;
+
+          .text {
+            color: $black;
+          }
+        }
+      }
+
+      .attachmentsContainer {
+        .attachmentWrapper {
+          margin: 0 0 0 5px;
+
+          &:first-child {
+            margin: 0;
+          }
+
+          &:last-child {
+            margin: 0 0 0 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .avatarWrapper {
+    margin: 0 13px 22px 0;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .messageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .bubbleWrapper {
+      display: flex;
+      align-items: flex-end;
+
+      .bubble {
+        margin: 0;
+        padding: 12px 16px;
+        background-color: $blue;
+        border: 1px solid $blue;
+        box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
+        border-radius: 12px 12px 12px 0;
+
+        .text {
+          margin: 0;
+          max-width: 370px;
+          color: $white;
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+    }
+
+    .attachmentsContainer {
+      margin: 8px 0 0;
+      display: flex;
+
+      .attachmentWrapper {
+        margin: 0 5px 0 0;
+        height: 45px;
+        width: 45px;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+
+        &:first-child {
+          margin: 0 5px 0 0;
+        }
+
+        &:last-child {
+          margin: 0;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+
+          &:hover {
+            filter: brightness(1.2);
+          }
+        }
+      }
+    }
+
+    .date {
+      margin: 8px 0 0;
+      padding: 0;
+      color: $black;
+      font-size: 12px;
+      line-height: 117%;
+      text-align: right;
+      opacity: 0.5;
+    }
+  }
+
+  .readContainer {
+    margin: 0 10px 0 0;
+
+    &.withAttach {
+      margin: 0 10px 22px 0;
+    }
+  }
+}

@@ -1,33 +1,35 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
-import { Form, Input } from 'antd';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
+import cls from 'classnames';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import styles from '../../styles.module.scss';
-import { Button, ShadowBlock } from '../../../..';
+import '../../styles.scss';
+import { Button, ShadowBlock } from '../../../../';
+import { LoginSchema as validationSchema } from '../../../../../validation';
 
-const inputValidationOptions = {
-  username: [{ required: true, message: 'Username is required!' }],
-  password: [
-    { required: true, message: 'Password is required!' },
-    { min: 8, message: 'Password must be at least 8 characters!' },
-  ],
-};
+interface IValues {
+  username: string;
+  password: string;
+}
 
-interface ILoginFormProps {}
+interface ILoginFormProps extends RouteComponentProps {}
 
-const LoginForm: FC<ILoginFormProps> = () => {
-  const handleChange = (values: { username?: string; password?: string }) => {};
+const LoginForm: FC<ILoginFormProps> = ({ history }) => {
+  const formik = useFormik({
+    initialValues: { username: '', password: '' },
+    validationSchema,
+    onSubmit: (values: IValues) => {
+      console.log('values a', values);
+      history.push('/auth/register');
+    },
+  });
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    console.log('Success:', values);
-  };
-
-  const handleErrorFields = (errors: ValidateErrorEntity) => {
-    console.log('errors', errors);
-  };
+  const { values, errors, isValid, dirty, touched, handleSubmit, handleChange, handleBlur } = formik;
 
   return (
     <section className={styles.authSectionContainer}>
@@ -37,25 +39,23 @@ const LoginForm: FC<ILoginFormProps> = () => {
       </div>
 
       <ShadowBlock className={styles.block}>
-        <Form
-          name="signInForm"
-          initialValues={{ remember: true }}
-          onFinish={handleSubmit}
-          onFinishFailed={handleErrorFields}
-          onValuesChange={handleChange}
-          requiredMark
-        >
+        <Form className="authForm" initialValues={values} onFinish={handleSubmit} requiredMark>
           <Form.Item
             className={styles.fieldWrapper}
             name="username"
-            rules={inputValidationOptions.username}
             hasFeedback
-            validateStatus="validating"
+            help={!touched.username ? null : errors.username}
+            validateStatus={!touched.username ? '' : errors.username ? 'error' : 'success'}
           >
             <Input
-              className={styles.inputContainer}
+              id="username"
+              type="text"
               placeholder="Username"
               size="large"
+              className={styles.inputContainer}
+              value={values.username}
+              onChange={handleChange}
+              onBlur={handleBlur}
               prefix={<UserOutlined className={styles.inputIcon} />}
             />
           </Form.Item>
@@ -63,20 +63,31 @@ const LoginForm: FC<ILoginFormProps> = () => {
           <Form.Item
             className={styles.fieldWrapper}
             name="password"
-            rules={inputValidationOptions.password}
             hasFeedback
+            help={!touched.password ? null : errors.password}
+            validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
           >
             <Input.Password
-              className={styles.inputContainer}
+              id="password"
               type="password"
               placeholder="Password"
               size="large"
+              className={cls(styles.inputContainer, styles.passwordField)}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
               prefix={<LockOutlined className={styles.inputIcon} />}
             />
           </Form.Item>
 
           <Form.Item className={styles.fieldWrapper}>
-            <Button type="primary" size="large" htmlType="submit">
+            <Button
+              className={styles.submitBtn}
+              type="primary"
+              size="large"
+              htmlType="submit"
+              disabled={!(isValid && dirty)}
+            >
               Login
             </Button>
 
@@ -90,4 +101,4 @@ const LoginForm: FC<ILoginFormProps> = () => {
   );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

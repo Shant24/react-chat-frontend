@@ -14,9 +14,6 @@
   }
 
   .authSectionContainer {
-    &.success {
-    }
-
     .titleContainer {
       margin: 0 0 50px;
       text-align: center;
@@ -52,11 +49,24 @@
       }
 
       .inputContainer {
-        // padding: 10px 30px 10px 15px;
-        padding: 10px 11px 10px 15px;
+        padding: 10px 25px 10px 15px;
+
+        &.passwordField {
+          padding: 10px 11px 10px 15px;
+        }
 
         input {
           margin: 0 5px 0 0;
+        }
+      }
+
+      .submitBtn {
+        &[disabled] {
+          background: $blue-light;
+
+          &:hover {
+            color: $white;
+          }
         }
       }
 
@@ -97,7 +107,27 @@
       }
 
       p {
+        margin: 8px 0 0;
         color: $gray;
+        line-height: 120%;
+      }
+
+      a {
+        margin: 15px 0 -35px;
+        width: 80%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        background-color: $blue;
+        font-size: 17px;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }
