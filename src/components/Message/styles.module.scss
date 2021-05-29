@@ -5,47 +5,6 @@
   display: flex;
   align-items: flex-end;
 
-  &.isMe {
-    flex-direction: row-reverse;
-
-    .avatarWrapper {
-      margin: 0 0 22px 13px;
-    }
-
-    .messageContent {
-      align-items: flex-end;
-
-      .bubbleWrapper {
-        flex-direction: row-reverse;
-
-        .bubble {
-          background-color: $chat-light;
-          border: 1px solid $border-light;
-          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-          border-radius: 12px 12px 0 12px;
-
-          .text {
-            color: $black;
-          }
-        }
-      }
-
-      .attachmentsContainer {
-        .attachmentWrapper {
-          margin: 0 0 0 5px;
-
-          &:first-child {
-            margin: 0;
-          }
-
-          &:last-child {
-            margin: 0 0 0 5px;
-          }
-        }
-      }
-    }
-  }
-
   .avatarWrapper {
     margin: 0 13px 22px 0;
     width: 33px;
@@ -137,5 +96,112 @@
     &.withAttach {
       margin: 0 10px 22px 0;
     }
+  }
+
+  &.isMe {
+    flex-direction: row-reverse;
+
+    .avatarWrapper {
+      margin: 0 0 22px 13px;
+    }
+
+    .messageContent {
+      align-items: flex-end;
+
+      .bubbleWrapper {
+        flex-direction: row-reverse;
+
+        .bubble {
+          background-color: $white-lighter;
+          border-color: $border-light;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+          border-radius: 12px 12px 0 12px;
+
+          .text {
+            color: $black;
+          }
+        }
+      }
+
+      .attachmentsContainer {
+        .attachmentWrapper {
+          margin: 0 0 0 5px;
+
+          &:first-child {
+            margin: 0;
+          }
+
+          &:last-child {
+            margin: 0 0 0 5px;
+          }
+        }
+      }
+    }
+  }
+
+  &.isTyping {
+    .avatarWrapper {
+      margin: 0 13px 0 0;
+    }
+
+    .messageContent {
+      .bubbleWrapper {
+        .bubble {
+          padding: 15px 16px;
+          background-color: $blue-light;
+          border-color: $blue-light;
+
+          .typingAnimationContainer {
+            display: flex;
+
+            span {
+              margin: 0 8px 0 0;
+              width: 10px;
+              height: 10px;
+              background-color: $white-lighter;
+              border-radius: 50%;
+              opacity: 0.5;
+
+              &:last-child {
+                margin: 0;
+              }
+
+              @for $i from 1 through 3 {
+                &:nth-of-type(#{$i}) {
+                  animation: typingAnimation 1.5s ease-in-out ($i * 0.5s) infinite;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.bigImage {
+    .messageContent {
+      .attachmentsContainer {
+        margin: 8px 0 0;
+
+        .attachmentWrapper {
+          margin: 0;
+          height: 170px;
+          width: 170px;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes typingAnimation {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }

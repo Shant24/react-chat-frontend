@@ -30,8 +30,6 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
       history.push('/auth/register/success');
     },
     validationSchema,
-    validateOnBlur: true,
-    validateOnChange: true,
     validateOnMount: true,
   });
 

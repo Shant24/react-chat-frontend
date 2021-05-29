@@ -28,8 +28,6 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
       history.push('/auth/register');
     },
     validationSchema,
-    validateOnBlur: true,
-    validateOnChange: true,
     validateOnMount: true,
   });
 
