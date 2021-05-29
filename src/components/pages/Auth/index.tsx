@@ -4,8 +4,7 @@ import { Redirect, Route, Switch } from 'react-router';
 
 import styles from './styles.module.scss';
 import useWindowSize from '../../../hooks/useWindowSize';
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
+import { LoginForm, RegisterForm, Success } from './components';
 
 interface AuthProps {}
 
@@ -19,7 +18,7 @@ const Auth: FC<AuthProps> = () => {
 
         <Route path="/auth/register" exact component={RegisterForm} />
 
-        <Route path="/auth/register/success" component={RegisterForm} />
+        <Route path="/auth/register/success" component={Success} />
 
         <Redirect to="/auth/login" />
       </Switch>

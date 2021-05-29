@@ -5,12 +5,12 @@ import { Button as BaseButton } from 'antd';
 
 import styles from './styles.module.scss';
 
-interface ButtonProps {
+interface IButtonProps {
   children: ReactElement | string;
   [props: string]: any;
 }
 
-const Button: FC<ButtonProps> = ({ children, className, size, ...restProps }) => (
+const Button: FC<IButtonProps> = ({ children, className, size, ...restProps }) => (
   <BaseButton
     {...restProps}
     className={cls(styles.button, { [className]: className, [styles.large]: size === 'large' })}
