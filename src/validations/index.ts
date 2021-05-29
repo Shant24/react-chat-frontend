@@ -7,7 +7,7 @@ export const LoginSchema = yup.object({
     .trim()
     .min(2, 'Username must be at least 2 characters!')
     .max(30, 'Username must be less than 30 characters!')
-    .matches(REGEXP.username, 'Username can contain only letters and numbers, only numbers cannot be!')
+    .matches(REGEXP.username, 'Incorrect Username!')
     .required('Username is required!'),
 
   password: yup
