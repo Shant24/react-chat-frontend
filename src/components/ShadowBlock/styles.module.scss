@@ -1,7 +1,9 @@
+@import '../../scss/variables';
+
 .container {
   padding: 45px;
   width: max-content;
-  background: #fff;
+  background: $white;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.06);
   border-radius: 3px;
 }
