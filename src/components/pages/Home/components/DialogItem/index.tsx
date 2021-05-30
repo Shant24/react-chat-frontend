@@ -10,16 +10,24 @@ import { NavLink } from 'react-router-dom';
 
 interface IDialogItemProps extends IDialog {}
 
-const DialogItem: FC<IDialogItemProps> = ({
-  id,
-  user: { fullName, avatar, isOnline },
-  lastMessage: { senderName, text, isRead, created_at },
-  unreadCount,
-}) => {
-  const isMe = senderName !== fullName;
+const DialogItem: FC<IDialogItemProps> = (props) => {
+  const {
+    _id,
+    fullName: name,
+    isOnline,
+    message: {
+      text,
+      isRead,
+      created_at,
+      user: { fullName, avatar },
+    },
+    unreadCount,
+  } = props;
+
+  const isMe = fullName !== name;
 
   return (
-    <NavLink to={`/m/${id}`} className={styles.dialogItemContainer} activeClassName={styles.active}>
+    <NavLink to={`/m/${_id}`} className={styles.dialogItemContainer} activeClassName={styles.active}>
       <div className={styles.userAvatarWrapper}>
         <div className={styles.userAvatar}>
           {avatar && <img src={avatar} alt={`${fullName.split(' ')[0]} avatar`} />}
@@ -29,7 +37,7 @@ const DialogItem: FC<IDialogItemProps> = ({
 
       <div className={styles.dialogContent}>
         <div className={styles.topPart}>
-          <div className={styles.userName}>{fullName}</div>
+          <div className={styles.userName}>{name}</div>
 
           <time className={styles.sentTime}>{formatDateDistance(created_at)}</time>
         </div>

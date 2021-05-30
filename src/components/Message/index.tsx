@@ -11,17 +11,19 @@ interface IMessageProps extends IMessage {
   className?: string;
 }
 
-const Message: FC<IMessageProps> = ({
-  className = '',
-  user: { name },
-  text,
-  avatar,
-  date,
-  attachments,
-  isMe,
-  isRead,
-  isTyping,
-}) => {
+const Message: FC<IMessageProps> = (props) => {
+  const {
+    className = '',
+    user: { name },
+    text,
+    avatar,
+    date,
+    attachments,
+    isMe,
+    isRead,
+    isTyping,
+  } = props;
+
   if (!text && !attachments && !isTyping) return null;
 
   return (

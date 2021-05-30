@@ -7,24 +7,15 @@ import Demo from '../../../Demo';
 interface IHomeProps {}
 
 const Home: FC<IHomeProps> = () => {
+  // sortByNewest(Demo.dialogsArr, ['message', 'created_at']);
+
   return (
     <>
-      <DialogsList items={Demo.dialogsArr || []} />
+      <DialogsList items={Demo.dialogsArr} />
 
       <div>
-        {(Demo.chatMessagesArr || []).map(({ id, user, isMe, isRead, text, avatar, date, attachments, isTyping }) => (
-          <Message
-            key={id}
-            id={id}
-            user={user}
-            isMe={isMe}
-            isRead={isRead}
-            text={text}
-            avatar={avatar}
-            date={date}
-            attachments={attachments}
-            isTyping={isTyping}
-          />
+        {(Demo.chatMessagesArr || []).map((message) => (
+          <Message key={message._id} {...message} />
         ))}
       </div>
     </>

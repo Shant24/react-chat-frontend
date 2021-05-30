@@ -1,5 +1,5 @@
 export interface IMessage {
-  id: string;
+  _id: string;
   user: { name: string };
   text?: string;
   avatar: string;
