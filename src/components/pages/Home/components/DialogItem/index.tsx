@@ -8,17 +8,13 @@ import { formatDateDistance } from '../../../../../helpers/formatDate';
 import { MessageReadStatusIcon } from '../../../../';
 import { NavLink } from 'react-router-dom';
 
-interface IDialogItemProps {
-  dialog: IDialog;
-}
+interface IDialogItemProps extends IDialog {}
 
 const DialogItem: FC<IDialogItemProps> = ({
-  dialog: {
-    id,
-    user: { fullName, avatar, isOnline },
-    message: { senderName, text, isRead, created_at },
-    unreadCount,
-  },
+  id,
+  user: { fullName, avatar, isOnline },
+  lastMessage: { senderName, text, isRead, created_at },
+  unreadCount,
 }) => {
   const isMe = senderName !== fullName;
 

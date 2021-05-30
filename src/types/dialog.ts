@@ -5,7 +5,7 @@ export interface IDialog {
     avatar: string | null;
     isOnline: boolean;
   };
-  message: {
+  lastMessage: {
     senderName: string;
     text: string;
     isRead: boolean;

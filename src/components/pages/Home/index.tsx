@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 
 import { Message } from '../../';
-import { DialogItem } from './components';
+import { DialogsList } from './components';
 import Demo from '../../../Demo';
 
 interface IHomeProps {}
@@ -9,13 +9,9 @@ interface IHomeProps {}
 const Home: FC<IHomeProps> = () => {
   return (
     <>
-      <div style={{ margin: '0 0 20px' }}>
-        {(Demo.dialogsArr || []).map((dialog) => (
-          <DialogItem key={dialog.id} dialog={dialog} />
-        ))}
-      </div>
+      <DialogsList items={Demo.dialogsArr || []} />
 
-      <div style={{ width: '100vw' }}>
+      <div>
         {(Demo.chatMessagesArr || []).map(({ id, user, isMe, isRead, text, avatar, date, attachments, isTyping }) => (
           <Message
             key={id}
