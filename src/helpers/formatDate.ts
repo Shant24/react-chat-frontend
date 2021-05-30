@@ -1,5 +1,8 @@
-import { formatDistanceToNowStrict, format } from 'date-fns';
-import { enUS, ru, hy } from 'date-fns/locale';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
+import format from 'date-fns/format';
+import enUS from 'date-fns/locale/en-US';
+import ru from 'date-fns/locale/ru';
+import hy from 'date-fns/locale/hy';
 
 type DateType = Date | string | number;
 type LocaleType = 'us' | 'ru' | 'hy';
@@ -32,7 +35,7 @@ export const formatDateDistance = (date: DateType, showTime: boolean = false, lo
 
   excludedWordsForShowTime.forEach((word) => {
     if (formattedDate.includes(word)) {
-      formattedDate = getTime(date);
+      formattedDate = getTime(date, false);
     }
   });
 
