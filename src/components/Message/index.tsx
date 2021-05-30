@@ -1,25 +1,14 @@
 import React, { FC } from 'react';
 
 import cls from 'classnames';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import usLocale from 'date-fns/locale/en-US';
 
 import styles from './styles.module.scss';
-import { ReadIcon, SentIcon } from '../images';
+import { IMessage } from '../../types/message';
+import { formatDateDistance, getLocalTime } from '../../helpers/formatDate';
+import { MessageReadStatusIcon } from '../';
 
-interface IMessageProps {
+interface IMessageProps extends IMessage {
   className?: string;
-  user: { name: string };
-  text?: string;
-  avatar: string;
-  date?: Date | string;
-  attachments?: {
-    filename: string;
-    url: string;
-  }[];
-  isMe: boolean;
-  isRead: boolean;
-  isTyping?: boolean;
 }
 
 const Message: FC<IMessageProps> = ({
@@ -64,7 +53,9 @@ const Message: FC<IMessageProps> = ({
           )}
 
           {!isTyping && isMe && !attachments && (
-            <div className={styles.readContainer}>{isRead ? <ReadIcon /> : <SentIcon />}</div>
+            <div className={styles.readContainer}>
+              <MessageReadStatusIcon isMe={isMe} isRead={isRead} />
+            </div>
           )}
         </div>
 
@@ -83,15 +74,17 @@ const Message: FC<IMessageProps> = ({
 
         {date && (
           <time className={styles.date}>
-            {formatDistanceToNow(new Date(date), { addSuffix: true, locale: usLocale })}
+            {formatDateDistance(date)}
             {', '}
-            {new Date(date).toLocaleTimeString('ru-RU')}
+            {getLocalTime(date)}
           </time>
         )}
       </div>
 
       {!isTyping && isMe && attachments && (
-        <div className={cls(styles.readContainer, styles.withAttach)}>{isRead ? <ReadIcon /> : <SentIcon />}</div>
+        <div className={cls(styles.readContainer, styles.withAttach)}>
+          <MessageReadStatusIcon isMe={isMe} isRead={isRead} />
+        </div>
       )}
     </div>
   );

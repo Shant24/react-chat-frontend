@@ -11,21 +11,15 @@ import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
 import { RegisterSchema as validationSchema } from '../../../../../validations';
-import { validateFieldStatus } from '../../../../../helpers';
-
-interface IValues {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
+import validateFieldStatus from '../../../../../helpers/validateFieldStatus';
+import { IRegisterValues } from '../../../../../types/auth';
 
 interface IRegisterFormProps extends RouteComponentProps {}
 
 const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
-    onSubmit: (values: IValues) => {
+    onSubmit: (values: IRegisterValues) => {
       console.log('values a', values);
       history.push('/auth/register/success');
     },

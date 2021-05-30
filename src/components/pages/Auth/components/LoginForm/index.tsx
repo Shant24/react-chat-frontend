@@ -11,19 +11,15 @@ import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
 import { LoginSchema as validationSchema } from '../../../../../validations';
-import { validateFieldStatus } from '../../../../../helpers';
-
-interface IValues {
-  username: string;
-  password: string;
-}
+import validateFieldStatus from '../../../../../helpers/validateFieldStatus';
+import { ILoginValues } from '../../../../../types/auth';
 
 interface ILoginFormProps extends RouteComponentProps {}
 
 const LoginForm: FC<ILoginFormProps> = ({ history }) => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    onSubmit: (values: IValues) => {
+    onSubmit: (values: ILoginValues) => {
       console.log('values a', values);
       history.push('/auth/register');
     },
@@ -32,7 +28,6 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
   });
 
   const { values, errors, isValid, dirty, touched, handleSubmit, handleChange, handleBlur } = formik;
-  console.log('errors', errors);
 
   return (
     <section className={styles.authSectionContainer}>
