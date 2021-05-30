@@ -4,7 +4,7 @@ import cls from 'classnames';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { formatDateDistance, getLocalTime } from '../../helpers/formatDate';
+import { formatDateDistance } from '../../helpers/formatDate';
 import { MessageReadStatusIcon } from '../';
 
 interface IMessageProps extends IMessage {
@@ -72,13 +72,7 @@ const Message: FC<IMessageProps> = ({
           </div>
         )}
 
-        {date && (
-          <time className={styles.date}>
-            {formatDateDistance(date)}
-            {', '}
-            {getLocalTime(date)}
-          </time>
-        )}
+        {date && <time className={styles.date}>{formatDateDistance(date, true)}</time>}
       </div>
 
       {!isTyping && isMe && attachments && (
