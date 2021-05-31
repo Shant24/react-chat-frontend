@@ -37,7 +37,7 @@ export const RegisterSchema = yup.object({
     .max(30, 'Password must be less than 30 characters!')
     .matches(
       REGEXP.password,
-      'Password must contain lowercase and uppercase letters, numbers and special characters (@ $!% *? &)!',
+      'Password must contain lowercase and uppercase letters, numbers and special characters (@$!%*?&)!',
     )
     .required('Password is required!'),
 

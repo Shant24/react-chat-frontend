@@ -13,8 +13,8 @@ const localeArr = {
   hy,
 };
 
-const excludedWordsForShowDate: string[] = ['year', 'month', 'day', 'days'];
-const excludedWordsForShowTime: string[] = ['hour', 'hours'];
+const excludedWordsForShowDate: string[] = ['year', 'month', 'day', 'days', 'лет', 'месяц', 'день'];
+const excludedWordsForShowTime: string[] = ['hour', 'hours', 'час', 'часов'];
 
 export const formatDateDistance = (date: DateType, showTime: boolean = false, locale: LocaleType = 'us'): string => {
   let formattedDate = formatDistanceToNowStrict(new Date(date), {
@@ -23,6 +23,7 @@ export const formatDateDistance = (date: DateType, showTime: boolean = false, lo
     roundingMethod: 'floor',
   });
 
+  // TODO: change functionality
   excludedWordsForShowDate.forEach((word) => {
     if (formattedDate.includes(word)) {
       formattedDate = getDate(date);
