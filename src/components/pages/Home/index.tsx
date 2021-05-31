@@ -1,20 +1,20 @@
 import React, { FC, memo } from 'react';
 
+import demo from '../../../demo';
+import { DialogsList } from '../../';
 import { Message } from '../../';
-import { DialogsList } from './components';
-import Demo from '../../../Demo';
 
 interface IHomeProps {}
 
 const Home: FC<IHomeProps> = () => {
-  // sortByNewest(Demo.dialogsArr, ['message', 'created_at']);
+  // sortByNewest(demo.dialogsArr, ['message', 'created_at']);
 
   return (
     <>
-      <DialogsList items={Demo.dialogsArr} />
+      <DialogsList items={demo.dialogsArr} />
 
       <div>
-        {(Demo.chatMessagesArr || []).map((message) => (
+        {(demo.chatMessagesArr || []).map((message) => (
           <Message key={message._id} {...message} />
         ))}
       </div>

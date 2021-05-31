@@ -155,29 +155,6 @@
           padding: 15px 16px;
           background-color: $blue-light;
           border-color: $blue-light;
-
-          .typingAnimationContainer {
-            display: flex;
-
-            span {
-              margin: 0 8px 0 0;
-              width: 10px;
-              height: 10px;
-              background-color: $white-lighter;
-              border-radius: 50%;
-              opacity: 0.5;
-
-              &:last-child {
-                margin: 0;
-              }
-
-              @for $i from 1 through 3 {
-                &:nth-of-type(#{$i}) {
-                  animation: typingAnimation 1.5s ease-in-out ($i * 0.5s) infinite;
-                }
-              }
-            }
-          }
         }
       }
     }
@@ -197,16 +174,21 @@
       }
     }
   }
-}
 
-@keyframes typingAnimation {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
+  &.isAudio {
+    .messageContent {
+      .bubbleWrapper {
+        .bubble {
+          padding: 0;
+          max-width: 296px;
+          width: 296px;
+          position: relative;
+          background-color: $blue;
+          border: none;
+          overflow: hidden;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
