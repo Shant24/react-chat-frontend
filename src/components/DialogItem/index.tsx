@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import cls from 'classnames';
 
 import styles from './styles.module.scss';
-import { IDialog } from '../../../../../types/dialog';
-import { formatDateDistance } from '../../../../../helpers/formatDate';
-import { MessageReadStatusIcon } from '../../../../';
+import { IDialog } from '../../types/dialog';
+import { formatDateDistance } from '../../helpers/formatDate';
+import { MessageReadStatusIcon } from '..';
 import { NavLink } from 'react-router-dom';
 
 interface IDialogItemProps extends IDialog {}
@@ -59,4 +59,4 @@ const DialogItem: FC<IDialogItemProps> = (props) => {
   );
 };
 
-export default DialogItem;
+export default memo(DialogItem);

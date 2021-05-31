@@ -5,7 +5,7 @@ import cls from 'classnames';
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
 import { formatDateDistance } from '../../helpers/formatDate';
-import { MessageReadStatusIcon } from '../';
+import { MessageReadStatusIcon, LoadingMessage, AudioMessage } from '../';
 
 interface IMessageProps extends IMessage {
   className?: string;
@@ -16,6 +16,7 @@ const Message: FC<IMessageProps> = (props) => {
     className = '',
     user: { name },
     text,
+    audio,
     avatar,
     date,
     attachments,
@@ -24,13 +25,14 @@ const Message: FC<IMessageProps> = (props) => {
     isTyping,
   } = props;
 
-  if (!text && !attachments && !isTyping) return null;
+  if (!text && !attachments && !isTyping && !audio) return null;
 
   return (
     <div
       className={cls(styles.message, {
         [className]: className,
         [styles.isMe]: isMe,
+        [styles.isAudio]: audio,
         [styles.isTyping]: isTyping,
         [styles.bigImage]: !text && attachments?.length === 1,
       })}
@@ -41,19 +43,15 @@ const Message: FC<IMessageProps> = (props) => {
 
       <div className={styles.messageContent}>
         <div className={styles.bubbleWrapper}>
-          {(text || isTyping) && (
+          {(text || isTyping || audio) && (
             <div className={styles.bubble}>
-              {text && <p className={styles.text}>{text}</p>}
-              {isTyping && (
-                <div className={styles.typingAnimationContainer}>
-                  <span className={styles.one} />
-                  <span className={styles.two} />
-                  <span className={styles.three} />
-                </div>
-              )}
+              {!isTyping && text && !audio && <p className={styles.text}>{text}</p>}
+
+              {!isTyping && audio && <AudioMessage isMe={isMe} audio={audio} />}
+
+              {isTyping && <LoadingMessage />}
             </div>
           )}
-
           {!isTyping && isMe && !attachments && (
             <div className={styles.readContainer}>
               <MessageReadStatusIcon isMe={isMe} isRead={isRead} />
