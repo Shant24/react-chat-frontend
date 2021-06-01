@@ -1,0 +1,60 @@
+@import '../../scss/variables';
+
+.attachmentsContainer {
+  margin: 8px 0 0;
+  display: flex;
+
+  .attachmentWrapper {
+    margin: 0 5px 0 0;
+    height: 45px;
+    width: 45px;
+    border-radius: 8px;
+    filter: drop-shadow(0 7px 7px rgba($black-darker, 0.5));
+    cursor: pointer;
+
+    &:first-child {
+      margin: 0 5px 0 0;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      filter: brightness(1);
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+  }
+
+  &.isMe {
+    .attachmentWrapper {
+      margin: 0 0 0 5px;
+
+      &:first-child {
+        margin: 0;
+      }
+
+      &:last-child {
+        margin: 0 0 0 5px;
+      }
+    }
+  }
+
+  &.isBigImage {
+    margin: 8px 0 0;
+
+    .attachmentWrapper {
+      margin: 0;
+      height: 170px;
+      width: 170px;
+      border-radius: 8px;
+    }
+  }
+}

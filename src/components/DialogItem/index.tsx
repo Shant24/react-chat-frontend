@@ -5,7 +5,7 @@ import cls from 'classnames';
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
 import { formatDateDistance } from '../../helpers/formatDate';
-import { MessageReadStatusIcon } from '..';
+import { MessageReadStatus } from '..';
 import { NavLink } from 'react-router-dom';
 
 interface IDialogItemProps extends IDialog {}
@@ -45,14 +45,15 @@ const DialogItem: FC<IDialogItemProps> = (props) => {
         <div className={styles.bottomPart}>
           <p className={styles.messageText}>{text}</p>
 
-          <div
+          <MessageReadStatus
             className={cls(styles.readIcon, {
               [styles.unread]: !isMe && !isRead,
               [styles.unreadMore]: !isMe && !isRead && unreadCount > 9,
             })}
-          >
-            <MessageReadStatusIcon isMe={isMe} isRead={isRead} unreadCount={unreadCount} />
-          </div>
+            isMe={isMe}
+            isRead={isRead}
+            unreadCount={unreadCount}
+          />
         </div>
       </div>
     </NavLink>
