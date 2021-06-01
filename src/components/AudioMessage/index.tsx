@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import cls from 'classnames';
 
@@ -11,14 +11,14 @@ interface IAudioMessageProps {
   audio: string;
 }
 
-const AudioMessage: FC<IAudioMessageProps> = ({ isMe, audio }) => {
+const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
   let AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
 
-  const handleInit = () => {
+  const handleInitAudioData = () => {
     if (AudioRef?.current) {
       setDuration(AudioRef?.current?.duration);
       setCurrentTime(AudioRef?.current?.currentTime);
@@ -48,11 +48,11 @@ const AudioMessage: FC<IAudioMessageProps> = ({ isMe, audio }) => {
   useEffect(() => {
     const audioCurrent = AudioRef?.current;
 
-    audioCurrent?.addEventListener('loadedmetadata', handleInit);
+    audioCurrent?.addEventListener('loadedmetadata', handleInitAudioData);
     audioCurrent?.addEventListener('timeupdate', handleTimeUpdate);
     audioCurrent?.addEventListener('ended', handlePause);
     return () => {
-      audioCurrent?.removeEventListener('loadedmetadata', handleInit);
+      audioCurrent?.removeEventListener('loadedmetadata', handleInitAudioData);
       audioCurrent?.removeEventListener('timeupdate', handleTimeUpdate);
       audioCurrent?.removeEventListener('ended', handlePause);
       handlePause();
@@ -80,4 +80,4 @@ const AudioMessage: FC<IAudioMessageProps> = ({ isMe, audio }) => {
   );
 };
 
-export default AudioMessage;
+export default memo(AudioMessage);
