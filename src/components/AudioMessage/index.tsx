@@ -4,6 +4,7 @@ import cls from 'classnames';
 
 import styles from './styles.module.scss';
 import { AudioWaveIcon, PauseIcon, PlayIcon } from '../images';
+import { getProgress, getTimeDuration } from '../../helpers/audioHelper';
 
 interface IAudioMessageProps {
   isMe: boolean;
@@ -11,43 +12,58 @@ interface IAudioMessageProps {
 }
 
 const AudioMessage: FC<IAudioMessageProps> = ({ isMe, audio }) => {
-  const AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
+  let AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [duration, setDuration] = useState<number>(AudioRef?.current?.duration || 0);
-  console.log('duration', duration);
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
-  useEffect(() => {
-    if (AudioRef?.current?.duration) {
-      setDuration(AudioRef.current.duration);
+  const handleInit = () => {
+    if (AudioRef?.current) {
+      setDuration(AudioRef?.current?.duration);
+      setCurrentTime(AudioRef?.current?.currentTime);
     }
-  }, [AudioRef?.current?.duration]);
+  };
 
-  const play = () => {
+  const handleTimeUpdate = () => {
+    if (AudioRef?.current) {
+      setCurrentTime(AudioRef?.current?.currentTime);
+    }
+  };
+
+  const handlePlay = () => {
     setIsPlaying(true);
     AudioRef?.current?.play();
   };
 
-  const pause = useCallback(() => {
+  const handlePause = useCallback(() => {
     setIsPlaying(false);
     AudioRef?.current?.pause();
   }, []);
 
-  useEffect(() => {
-    return () => {
-      pause();
-    };
-  }, [pause]);
-
   const togglePlay = () => {
-    isPlaying ? pause() : play();
+    isPlaying ? handlePause() : handlePlay();
   };
+
+  useEffect(() => {
+    const audioCurrent = AudioRef?.current;
+
+    audioCurrent?.addEventListener('loadedmetadata', handleInit);
+    audioCurrent?.addEventListener('timeupdate', handleTimeUpdate);
+    audioCurrent?.addEventListener('ended', handlePause);
+    return () => {
+      audioCurrent?.removeEventListener('loadedmetadata', handleInit);
+      audioCurrent?.removeEventListener('timeupdate', handleTimeUpdate);
+      audioCurrent?.removeEventListener('ended', handlePause);
+      handlePause();
+    };
+  }, [handlePause]);
 
   return (
     <div className={styles.audioContainer} onClick={togglePlay}>
-      <audio ref={AudioRef} src={audio} preload="true" />
+      <audio ref={AudioRef} src={audio} preload="metadata" />
 
-      <div className={styles.audioProgress} style={{ width: `${35}%` }}></div>
+      <div className={styles.audioProgress} style={{ width: `${getProgress(duration, currentTime)}%` }}></div>
 
       <div className={cls(styles.audioInfo, { [styles.me]: isMe })}>
         <button className={cls(styles.audioBtn, { [styles.playing]: isPlaying, [styles.paused]: !isPlaying })}>
@@ -58,7 +74,7 @@ const AudioMessage: FC<IAudioMessageProps> = ({ isMe, audio }) => {
           <AudioWaveIcon />
         </div>
 
-        <time className={styles.audioDuration}>{duration}</time>
+        <time className={styles.audioDuration}>{getTimeDuration(duration, currentTime)}</time>
       </div>
     </div>
   );
