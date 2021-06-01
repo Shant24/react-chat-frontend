@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import cls from 'classnames';
 
@@ -12,7 +12,7 @@ interface IMessageProps extends IMessage {
   className?: string;
 }
 
-const Message: FC<IMessageProps> = (props) => {
+const Message = (props: IMessageProps) => {
   const {
     className = '',
     user: { name },
@@ -59,7 +59,7 @@ const Message: FC<IMessageProps> = (props) => {
         </div>
 
         {!isTyping && attachments && (
-          <ImageAttachments attachments={attachments} isBigImage={!text && attachments?.length === 1} isMe={isMe} />
+          <ImageAttachments attachments={attachments} isBigImage={attachments?.length === 1} isMe={isMe} />
         )}
 
         {date && <time className={styles.date}>{formatDateDistance(date, true)}</time>}
