@@ -3,7 +3,7 @@ import intervalToDuration from 'date-fns/intervalToDuration';
 const addZero = (time: number) => `0${time}`.slice(-2);
 
 export const getProgress = (duration: number, currentTime: number) => {
-  if (currentTime === duration) return 100;
+  if (currentTime === duration) return 0;
   return (currentTime / duration) * 100;
 };
 

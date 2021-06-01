@@ -5,7 +5,8 @@ import cls from 'classnames';
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
 import { formatDateDistance } from '../../helpers/formatDate';
-import { MessageReadStatusIcon, LoadingMessage, AudioMessage } from '../';
+import { MessageReadStatus, LoadingMessage, AudioMessage } from '../';
+import ImageAttachments from '../ImageAttachments';
 
 interface IMessageProps extends IMessage {
   className?: string;
@@ -34,7 +35,6 @@ const Message: FC<IMessageProps> = (props) => {
         [styles.isMe]: isMe,
         [styles.isAudio]: audio,
         [styles.isTyping]: isTyping,
-        [styles.bigImage]: !text && attachments?.length === 1,
       })}
     >
       <div className={styles.avatarWrapper}>
@@ -52,33 +52,21 @@ const Message: FC<IMessageProps> = (props) => {
               {isTyping && <LoadingMessage />}
             </div>
           )}
+
           {!isTyping && isMe && !attachments && (
-            <div className={styles.readContainer}>
-              <MessageReadStatusIcon isMe={isMe} isRead={isRead} />
-            </div>
+            <MessageReadStatus isMe={isMe} isRead={isRead} className={styles.readContainer} />
           )}
         </div>
 
         {!isTyping && attachments && (
-          <div className={styles.attachmentsContainer}>
-            {attachments.map(({ url, filename }) => (
-              <div
-                key={`${url}-${filename}`}
-                className={cls(styles.attachmentWrapper, { [styles.big]: attachments.length === 1 })}
-              >
-                <img src={url} alt={filename} title={filename} />
-              </div>
-            ))}
-          </div>
+          <ImageAttachments attachments={attachments} isBigImage={!text && attachments?.length === 1} isMe={isMe} />
         )}
 
         {date && <time className={styles.date}>{formatDateDistance(date, true)}</time>}
       </div>
 
       {!isTyping && isMe && attachments && (
-        <div className={cls(styles.readContainer, styles.withAttach)}>
-          <MessageReadStatusIcon isMe={isMe} isRead={isRead} />
-        </div>
+        <MessageReadStatus isMe={isMe} isRead={isRead} className={cls(styles.readContainer, styles.withAttachment)} />
       )}
     </div>
   );
