@@ -63,7 +63,7 @@ const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
     <div className={styles.audioContainer} onClick={togglePlay}>
       <audio ref={AudioRef} src={audio} preload="metadata" />
 
-      <div className={styles.audioProgress} style={{ width: `${getProgress(duration, currentTime)}%` }}></div>
+      <div className={styles.audioProgress} style={{ width: `${getProgress(duration, currentTime)}%` }} />
 
       <div className={cls(styles.audioInfo, { [styles.me]: isMe })}>
         <button className={cls(styles.audioBtn, { [styles.playing]: isPlaying, [styles.paused]: !isPlaying })}>
