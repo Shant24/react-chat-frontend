@@ -7,6 +7,8 @@ import { IMessage } from '../../types/message';
 import { formatDateDistance } from '../../helpers/formatDate';
 import { MessageReadStatus, LoadingMessage, AudioMessage } from '../';
 import ImageAttachments from '../ImageAttachments';
+import { generateAvatarFromName } from '../../helpers/colorGenerator';
+import Avatar from '../Avatar';
 
 interface IMessageProps extends IMessage {
   className?: string;
@@ -36,10 +38,9 @@ const Message = (props: IMessageProps) => {
         [styles.isAudio]: audio,
         [styles.isTyping]: isTyping,
       })}
+      // style={{ background: generateGradient('#3700ff') }}
     >
-      <div className={styles.avatarWrapper}>
-        <img src={avatar} alt={`${name} avatar`} />
-      </div>
+      <Avatar name={name} avatar={avatar} className={styles.avatarWrapper} />
 
       <div className={styles.messageContent}>
         <div className={styles.bubbleWrapper}>
