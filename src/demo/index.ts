@@ -1,4 +1,6 @@
 import { v4 as uuid } from 'uuid';
+
+// import { generateGradient } from '../helpers/colorGenerator';
 import { IDialog } from '../types/dialog';
 import { IMessage } from '../types/message';
 
@@ -7,6 +9,18 @@ import { IMessage } from '../types/message';
 // https://source.unsplash.com/1600x900/?women
 // https://source.unsplash.com/500x500/?women
 // https://source.unsplash.com/500x500/?men
+
+// const gradients = {
+//   blue: 'linear-gradient(135deg, hsla(217, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%)',
+// };
+
+// export const gradientArr = {
+//   red: generateGradient('#ff0000'),
+//   blue: generateGradient('#0059ff'),
+//   green: generateGradient('#00ff40'),
+//   orange: generateGradient('#ff9100'),
+//   yellow: generateGradient('#ffe600'),
+// };
 
 const audioLink = {
   intro: 'https://notificationsounds.com/storage/sounds/file-sounds-1208-message-with-intro.mp3',
@@ -40,6 +54,75 @@ const dialogsArr: IDialog[] = [
       },
     },
     unreadCount: 100,
+  },
+  {
+    _id: uuid(),
+    fullName: 'Gurgen Mahari',
+    isOnline: false,
+    message: {
+      _id: uuid(),
+      text: 'Plane tur, plane, plane tur, plane trchir tur, plane tur',
+      isRead: false,
+      created_at: '2021-05-30T00:26:00.381Z',
+      user: {
+        _id: uuid(),
+        fullName: 'Shant Sargsyan',
+        avatar:
+          'https://upload.wikimedia.org/wikipedia/commons/5/5d/%D4%B3%D5%B8%D6%82%D6%80%D5%A3%D5%A5%D5%B6_%D5%84%D5%A1%D5%B0%D5%A1%D6%80%D5%AB.jpg',
+      },
+    },
+    unreadCount: 400,
+  },
+  {
+    _id: uuid(),
+    fullName: 'Hakob Karapetyan',
+    isOnline: false,
+    message: {
+      _id: uuid(),
+      text: 'Et gorcere vonc petqa arvi? Et gorcere vonc petqa arvi?',
+      isRead: false,
+      created_at: '2021-05-30T05:10:06.695Z',
+      user: {
+        _id: uuid(),
+        fullName: 'Hakob Karapetyan',
+        avatar: 'https://source.unsplash.com/500x500/?random=212&girl,face',
+      },
+    },
+    unreadCount: 400,
+  },
+  {
+    _id: uuid(),
+    fullName: 'Hakob Karapetyan',
+    isOnline: false,
+    message: {
+      _id: uuid(),
+      text: 'Et gorcere vonc petqa arvi? Et gorcere vonc petqa arvi?',
+      isRead: false,
+      created_at: '2010-02-30T00:46:00.381Z',
+      user: {
+        _id: uuid(),
+        fullName: 'Hakob Karapetyan',
+        avatar: 'https://source.unsplash.com/500x500/?random=2&men',
+      },
+    },
+    unreadCount: 400,
+  },
+  {
+    _id: uuid(),
+    fullName: 'Aksel Bakunc',
+    isOnline: true,
+    message: {
+      _id: uuid(),
+      text: 'Es chat em sarqum!!! Es chat em sarqum!!! Es chat em sarqum!!!',
+      isRead: true,
+      created_at: '2021-05-30T13:40:25.796Z',
+      user: {
+        _id: uuid(),
+        fullName: 'Shant Sargsyan',
+        avatar: 'https://i0.wp.com/nashasreda.ru/wp-content/uploads/2015/06/Aksel-Bakunts.jpg?fit=325%2C400&ssl=1',
+      },
+    },
+    unreadCount: 3,
   },
 ];
 
@@ -152,8 +235,9 @@ const dialogsArr: IDialog[] = [
 const chatMessagesArr: IMessage[] = [
   {
     _id: uuid(),
-    user: { name: 'Shant' },
-    avatar: avatars.shant,
+    user: { name: '971' },
+    // avatar: avatars.shant,
+    avatar: '',
     date: '2021-05-31T19:00:12.358Z',
     text: audioLink.vuvuzela,
     isMe: true,
