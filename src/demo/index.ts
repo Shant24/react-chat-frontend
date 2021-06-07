@@ -235,7 +235,7 @@ const dialogsArr: IDialog[] = [
 const chatMessagesArr: IMessage[] = [
   {
     _id: uuid(),
-    user: { name: '971' },
+    user: { name: 'Marine Grigoryan' },
     // avatar: avatars.shant,
     avatar: '',
     date: '2021-05-31T19:00:12.358Z',
