@@ -1,6 +1,6 @@
 export interface IMessage {
   _id: string;
-  user: { name: string };
+  user: { fullName: string };
   text?: string;
   audio?: string;
   avatar: string;

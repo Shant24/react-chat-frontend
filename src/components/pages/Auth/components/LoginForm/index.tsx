@@ -11,7 +11,7 @@ import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
 import { LoginSchema as validationSchema } from '../../../../../validations';
-import validateFieldStatus from '../../../../../helpers/validateFieldStatus';
+import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { ILoginValues } from '../../../../../types/auth';
 
 interface ILoginFormProps extends RouteComponentProps {}
@@ -43,7 +43,7 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
             name="username"
             hasFeedback
             help={!touched.username ? null : errors.username}
-            validateStatus={validateFieldStatus(values, errors, touched, 'username')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'username')}
           >
             <Input
               id="username"
@@ -63,7 +63,7 @@ const LoginForm: FC<ILoginFormProps> = ({ history }) => {
             name="password"
             hasFeedback
             help={!touched.password ? null : errors.password}
-            validateStatus={validateFieldStatus(values, errors, touched, 'password')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'password')}
           >
             <Input.Password
               id="password"
