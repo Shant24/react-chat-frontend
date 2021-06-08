@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import styles from './styles.module.scss';
-import { filterObject, sortObject } from '../../helpers/sorting';
+import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
 import { Button, DialogItem } from '../';
 

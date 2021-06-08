@@ -8,7 +8,4 @@ export const sortObject = (object: object, condition: ConditionType[], isShowNew
   return isShowNewest ? sorted.reverse() : sorted;
 };
 
-export const filterObject = (object: object, condition: ConditionType) => {
-  const filtered = filter(object, condition);
-  return filtered;
-};
+export const filterObject = (object: object, condition: ConditionType) => filter(object, condition);

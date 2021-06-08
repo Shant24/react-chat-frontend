@@ -235,7 +235,7 @@ const dialogsArr: IDialog[] = [
 const chatMessagesArr: IMessage[] = [
   {
     _id: uuid(),
-    user: { name: 'Marine Grigoryan' },
+    user: { fullName: 'Shant Sargsyan' },
     // avatar: avatars.shant,
     avatar: '',
     date: '2021-05-31T19:00:12.358Z',
@@ -245,7 +245,7 @@ const chatMessagesArr: IMessage[] = [
   },
   {
     _id: uuid(),
-    user: { name: 'Shant' },
+    user: { fullName: 'Shant' },
     avatar: avatars.shant,
     date: '2021-05-31T20:00:12.358Z',
     audio: audioLink.intro,
@@ -254,7 +254,7 @@ const chatMessagesArr: IMessage[] = [
   },
   {
     _id: uuid(),
-    user: { name: 'Ninja' },
+    user: { fullName: 'Ninja' },
     avatar: avatars.ninja,
     date: '2021-05-31T22:00:12.358Z',
     text: audioLink.vuvuzela,
@@ -273,7 +273,7 @@ const chatMessagesArr: IMessage[] = [
   },
   {
     _id: uuid(),
-    user: { name: 'Shant' },
+    user: { fullName: 'Shant' },
     avatar: avatars.shant,
     date: '2021-05-31T20:00:12.358Z',
     audio: audioLink.jahKhalib,

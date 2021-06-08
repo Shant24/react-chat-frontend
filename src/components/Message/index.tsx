@@ -4,10 +4,9 @@ import cls from 'classnames';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { formatDateDistance } from '../../helpers/formatDate';
+import { formatDateDistance } from '../../helpers/dateHelper';
 import { MessageReadStatus, LoadingMessage, AudioMessage } from '../';
 import ImageAttachments from '../ImageAttachments';
-import { generateAvatarFromName } from '../../helpers/colorGenerator';
 import Avatar from '../Avatar';
 
 interface IMessageProps extends IMessage {
@@ -17,7 +16,7 @@ interface IMessageProps extends IMessage {
 const Message = (props: IMessageProps) => {
   const {
     className = '',
-    user: { name },
+    user: { fullName },
     text,
     audio,
     avatar,
@@ -28,19 +27,19 @@ const Message = (props: IMessageProps) => {
     isTyping,
   } = props;
 
-  if (!text && !attachments && !isTyping && !audio) return null;
+  if (!text && !attachments && !isTyping && !audio) {
+    return null;
+  }
 
   return (
     <div
-      className={cls(styles.message, {
-        [className]: className,
+      className={cls(styles.message, className, {
         [styles.isMe]: isMe,
         [styles.isAudio]: audio,
         [styles.isTyping]: isTyping,
       })}
-      // style={{ background: generateGradient('#3700ff') }}
     >
-      <Avatar name={name} avatar={avatar} className={styles.avatarWrapper} />
+      <Avatar fullName={fullName} avatar={avatar} className={styles.avatarWrapper} />
 
       <div className={styles.messageContent}>
         <div className={styles.bubbleWrapper}>
