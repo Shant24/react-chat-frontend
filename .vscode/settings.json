@@ -3,10 +3,5 @@
   "prettier.printWidth": 120,
   "editor.formatOnSave": true,
   "autoprefixer.formatOnSave": false,
-  "cSpell.words": [
-    "antd",
-    "formik",
-    "mixins",
-    "tinycolor"
-  ]
+  "cSpell.words": ["antd", "formik", "mixins"]
 }
