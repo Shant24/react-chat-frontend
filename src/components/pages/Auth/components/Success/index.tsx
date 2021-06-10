@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import { InfoCircleTwoTone } from '@ant-design/icons';
 
@@ -6,9 +6,7 @@ import styles from '../../styles.module.scss';
 import { ShadowBlock } from '../../../..';
 import { Link } from 'react-router-dom';
 
-interface IRegisterSuccessProps {}
-
-const RegisterSuccess: FC<IRegisterSuccessProps> = (props) => {
+const RegisterSuccess = () => {
   return (
     <section className={styles.authSectionContainer}>
       <div className={styles.titleContainer}>

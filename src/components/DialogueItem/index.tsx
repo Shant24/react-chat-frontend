@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 
 import cls from 'classnames';
 
@@ -9,9 +9,9 @@ import { MessageReadStatus } from '..';
 import { NavLink } from 'react-router-dom';
 import Avatar from '../Avatar';
 
-interface IDialogItemProps extends IDialog {}
+interface IDialogueItemItemProps extends IDialog {}
 
-const DialogItem: FC<IDialogItemProps> = (props) => {
+const DialogueItem = (props: IDialogueItemItemProps) => {
   const {
     _id,
     fullName: name,
@@ -60,4 +60,4 @@ const DialogItem: FC<IDialogItemProps> = (props) => {
   );
 };
 
-export default memo(DialogItem);
+export default memo(DialogueItem);

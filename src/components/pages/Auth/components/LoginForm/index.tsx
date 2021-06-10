@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 
 import cls from 'classnames';
 import Form from 'antd/lib/form';
@@ -16,7 +16,7 @@ import { ILoginValues } from '../../../../../types/auth';
 
 interface ILoginFormProps extends RouteComponentProps {}
 
-const LoginForm: FC<ILoginFormProps> = ({ history }) => {
+const LoginForm = ({ history }: ILoginFormProps) => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     onSubmit: (values: ILoginValues) => {

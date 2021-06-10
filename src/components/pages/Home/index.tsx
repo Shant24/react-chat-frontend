@@ -1,25 +1,15 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 
+import styles from './styles.module.scss';
 import demo from '../../../demo';
-import { DialogsList } from '../../';
-import { Message } from '../../';
+import { DialoguesList, Conversations } from '../../';
 
-interface IHomeProps {}
+const Home = () => (
+  <div className={styles.homeContainer}>
+    <DialoguesList dialogues={demo.dialogsArr} />
 
-const Home: FC<IHomeProps> = () => {
-  // sortByNewest(demo.dialogsArr, ['message', 'created_at']);
-
-  return (
-    <>
-      <DialogsList items={demo.dialogsArr} />
-
-      <div>
-        {(demo.chatMessagesArr || []).map((message) => (
-          <Message key={message._id} {...message} />
-        ))}
-      </div>
-    </>
-  );
-};
+    <Conversations messages={demo.chatMessagesArr} />
+  </div>
+);
 
 export default memo(Home);

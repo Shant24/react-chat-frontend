@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import cls from 'classnames';
 import Form from 'antd/lib/form';
@@ -16,7 +16,7 @@ import { IRegisterValues } from '../../../../../types/auth';
 
 interface IRegisterFormProps extends RouteComponentProps {}
 
-const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
+const RegisterForm = ({ history }: IRegisterFormProps) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {

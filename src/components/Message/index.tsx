@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import cls from 'classnames';
 
@@ -72,4 +72,4 @@ const Message = (props: IMessageProps) => {
   );
 };
 
-export default Message;
+export default memo(Message);
