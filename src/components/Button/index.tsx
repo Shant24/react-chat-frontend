@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactElement } from 'react';
+import React, { FC, memo } from 'react';
 
 import cls from 'classnames';
 import { Button as BaseButton } from 'antd';
@@ -6,7 +6,6 @@ import { Button as BaseButton } from 'antd';
 import styles from './styles.module.scss';
 
 interface IButtonProps {
-  children: ReactElement | string;
   [props: string]: any;
 }
 

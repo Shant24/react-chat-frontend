@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import cls from 'classnames';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { formatDateDistance } from '../../helpers/formatDate';
+import { formatDateDistance } from '../../helpers/dateHelper';
 import { MessageReadStatus, LoadingMessage, AudioMessage } from '../';
 import ImageAttachments from '../ImageAttachments';
+import Avatar from '../Avatar';
 
 interface IMessageProps extends IMessage {
   className?: string;
@@ -15,7 +16,7 @@ interface IMessageProps extends IMessage {
 const Message = (props: IMessageProps) => {
   const {
     className = '',
-    user: { name },
+    user: { fullName },
     text,
     audio,
     avatar,
@@ -26,20 +27,19 @@ const Message = (props: IMessageProps) => {
     isTyping,
   } = props;
 
-  if (!text && !attachments && !isTyping && !audio) return null;
+  if (!text && !attachments && !isTyping && !audio) {
+    return null;
+  }
 
   return (
     <div
-      className={cls(styles.message, {
-        [className]: className,
+      className={cls(styles.message, className, {
         [styles.isMe]: isMe,
         [styles.isAudio]: audio,
         [styles.isTyping]: isTyping,
       })}
     >
-      <div className={styles.avatarWrapper}>
-        <img src={avatar} alt={`${name} avatar`} />
-      </div>
+      <Avatar fullName={fullName} avatar={avatar} className={styles.avatarWrapper} />
 
       <div className={styles.messageContent}>
         <div className={styles.bubbleWrapper}>
@@ -72,4 +72,4 @@ const Message = (props: IMessageProps) => {
   );
 };
 
-export default Message;
+export default memo(Message);

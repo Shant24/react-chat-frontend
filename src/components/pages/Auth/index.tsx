@@ -1,29 +1,22 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 
 import { Redirect, Route, Switch } from 'react-router';
 
 import styles from './styles.module.scss';
-import useWindowSize from '../../../hooks/useWindowSize';
 import { LoginForm, RegisterForm, Success } from './components';
 
-interface AuthProps {}
+const Auth = () => (
+  <div className={styles.authContainer}>
+    <Switch>
+      <Route path="/auth/login" component={LoginForm} />
 
-const Auth: FC<AuthProps> = () => {
-  const windowSize = useWindowSize();
+      <Route path="/auth/register" exact component={RegisterForm} />
 
-  return (
-    <div className={styles.authContainer} style={{ maxHeight: windowSize.height, height: windowSize.height }}>
-      <Switch>
-        <Route path="/auth/login" component={LoginForm} />
+      <Route path="/auth/register/success" component={Success} />
 
-        <Route path="/auth/register" exact component={RegisterForm} />
-
-        <Route path="/auth/register/success" component={Success} />
-
-        <Redirect to="/auth/login" />
-      </Switch>
-    </div>
-  );
-};
+      <Redirect to="/auth/login" />
+    </Switch>
+  </div>
+);
 
 export default memo(Auth);

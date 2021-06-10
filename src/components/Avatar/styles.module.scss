@@ -1,0 +1,14 @@
+@import '../../scss/variables';
+
+.textAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: saturate(5);
+
+  span {
+    user-select: none;
+    color: $white-no-changeable;
+    filter: drop-shadow(1px 1px 5px $black-light);
+  }
+}

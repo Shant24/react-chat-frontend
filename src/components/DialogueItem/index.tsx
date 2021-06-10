@@ -1,16 +1,17 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 
 import cls from 'classnames';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
-import { formatDateDistance } from '../../helpers/formatDate';
+import { formatDateDistance } from '../../helpers/dateHelper';
 import { MessageReadStatus } from '..';
 import { NavLink } from 'react-router-dom';
+import Avatar from '../Avatar';
 
-interface IDialogItemProps extends IDialog {}
+interface IDialogueItemItemProps extends IDialog {}
 
-const DialogItem: FC<IDialogItemProps> = (props) => {
+const DialogueItem = (props: IDialogueItemItemProps) => {
   const {
     _id,
     fullName: name,
@@ -29,9 +30,8 @@ const DialogItem: FC<IDialogItemProps> = (props) => {
   return (
     <NavLink to={`/m/${_id}`} className={styles.dialogItemContainer} activeClassName={styles.active}>
       <div className={styles.userAvatarWrapper}>
-        <div className={styles.userAvatar}>
-          {avatar && <img src={avatar} alt={`${fullName.split(' ')[0]} avatar`} />}
-        </div>
+        <Avatar fullName={name} avatar={avatar || ''} className={styles.userAvatar} />
+
         {isOnline && <div className={styles.online} />}
       </div>
 
@@ -60,4 +60,4 @@ const DialogItem: FC<IDialogItemProps> = (props) => {
   );
 };
 
-export default memo(DialogItem);
+export default memo(DialogueItem);

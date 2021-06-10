@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import cls from 'classnames';
 import Form from 'antd/lib/form';
@@ -11,12 +11,12 @@ import styles from '../../styles.module.scss';
 import '../../styles.scss';
 import { Button, ShadowBlock } from '../../../../';
 import { RegisterSchema as validationSchema } from '../../../../../validations';
-import validateFieldStatus from '../../../../../helpers/validateFieldStatus';
+import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { IRegisterValues } from '../../../../../types/auth';
 
 interface IRegisterFormProps extends RouteComponentProps {}
 
-const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
+const RegisterForm = ({ history }: IRegisterFormProps) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {
@@ -43,7 +43,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="email"
             hasFeedback
             help={!touched.email ? null : errors.email}
-            validateStatus={validateFieldStatus(values, errors, touched, 'email')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'email')}
           >
             <Input
               className={styles.inputContainer}
@@ -62,7 +62,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="username"
             hasFeedback
             help={!touched.username ? null : errors.username}
-            validateStatus={validateFieldStatus(values, errors, touched, 'username')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'username')}
           >
             <Input
               className={styles.inputContainer}
@@ -80,7 +80,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="password"
             hasFeedback
             help={!touched.password ? null : errors.password}
-            validateStatus={validateFieldStatus(values, errors, touched, 'password')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'password')}
           >
             <Input.Password
               autoComplete="new-password"
@@ -100,7 +100,7 @@ const RegisterForm: FC<IRegisterFormProps> = ({ history }) => {
             name="confirmPassword"
             hasFeedback
             help={!touched.confirmPassword ? null : errors.confirmPassword}
-            validateStatus={validateFieldStatus(values, errors, touched, 'confirmPassword')}
+            validateStatus={validateFieldStatusHelper(values, errors, touched, 'confirmPassword')}
           >
             <Input.Password
               className={cls(styles.inputContainer, styles.passwordField)}
