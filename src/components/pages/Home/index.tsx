@@ -2,13 +2,15 @@ import React, { memo } from 'react';
 
 import styles from './styles.module.scss';
 import demo from '../../../demo';
-import { DialoguesList, Conversations } from '../../';
+import { DialoguesBar, Conversations } from '../../';
 
 const Home = () => (
-  <div className={styles.homeContainer}>
-    <DialoguesList dialogues={demo.dialogsArr} />
+  <div className={styles.homePage}>
+    <div className={styles.container}>
+      <DialoguesBar dialogues={demo.dialogsArr} />
 
-    <Conversations messages={demo.chatMessagesArr} />
+      {/* <Conversations messages={demo.chatMessagesArr} /> */}
+    </div>
   </div>
 );
 
