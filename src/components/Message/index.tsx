@@ -11,6 +11,7 @@ import Avatar from '../Avatar';
 
 interface IMessageProps extends IMessage {
   className?: string;
+  scrollTo: boolean;
 }
 
 const Message = (props: IMessageProps) => {
