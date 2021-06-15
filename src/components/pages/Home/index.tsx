@@ -9,7 +9,7 @@ const Home = () => (
     <div className={styles.container}>
       <DialoguesBar dialogues={demo.dialogsArr} />
 
-      {/* <Conversations messages={demo.chatMessagesArr} /> */}
+      <Conversations messages={demo.chatMessagesArr} />
     </div>
   </div>
 );
