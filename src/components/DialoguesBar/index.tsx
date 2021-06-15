@@ -1,6 +1,8 @@
 import React, { memo, useState } from 'react';
 
-import { TeamOutlined, FormOutlined, SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+import { TeamOutlined, FormOutlined, SearchOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
@@ -12,7 +14,9 @@ interface IDialoguesBarProps {
 }
 
 const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
-  const [isShowUnReads, setIsShowUnReads] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
 
   const filteredDialogues: IDialog[] = isShowUnReads
     ? filterObject(
@@ -21,11 +25,16 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
       )
     : dialogues;
 
-  const sortedDialogs: IDialog[] = sortObject(
+  const sortedDialogues: IDialog[] = sortObject(
     filteredDialogues,
     [(dialog: IDialog) => dialog.message.created_at],
     true,
   );
+
+  const handleSearch = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
+  };
 
   return (
     <div className={styles.dialoguesBarContainer}>
@@ -40,11 +49,17 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
       </div>
 
       <div className={styles.dialoguesSearchContainer}>
-        <div className={styles.inputWrapper}>
-          <SearchOutlined />
-
-          <input type="text" placeholder="Search in contacts" />
-        </div>
+        <Input
+          className={styles.searchInput}
+          value={searchValue}
+          placeholder="Search in the contacts"
+          disabled={loading}
+          allowClear
+          prefix={
+            loading ? <LoadingOutlined /> : <SearchOutlined className={styles.searchIcon} onClick={handleSearch} />
+          }
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
       </div>
 
       <div className={styles.filterBtnContainer}>
@@ -55,11 +70,11 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
         )}
       </div>
 
-      <div className={styles.dialoguesList}>
-        {sortedDialogs.map((dialog) => (
-          <DialogueItem key={dialog._id} {...dialog} />
+      <Scrollbars className={styles.dialoguesList} autoHide>
+        {sortedDialogues.map((item) => (
+          <DialogueItem key={item._id} {...item} />
         ))}
-      </div>
+      </Scrollbars>
     </div>
   );
 };

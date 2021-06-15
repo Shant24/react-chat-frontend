@@ -58,27 +58,28 @@
     margin: 22px 0 0;
     padding: 0 17px;
 
-    .inputWrapper {
-      position: relative;
+    .searchInput {
+      height: 38px;
+      background: $blue-width-light2;
+      border-radius: 2px;
+      border: none;
+      outline: none;
+      box-shadow: none;
 
-      span {
-        position: absolute;
-        top: 50%;
-        left: 10px;
-        transform: translateY(-50%);
-
-        svg {
-        }
+      &:hover,
+      :active {
+        border: none;
+        outline: none;
+        box-shadow: none;
       }
 
       input {
-        padding: 0 10px 0 32px;
-        width: 100%;
-        height: 38px;
-        background: #f7f8f9;
-        border-radius: 2px;
-        border: none;
+        background: $blue-width-light2;
       }
+    }
+
+    .searchIcon {
+      cursor: pointer;
     }
   }
 
@@ -93,8 +94,9 @@
   }
 
   .dialoguesList {
+    max-width: inherit;
+    width: 100vw !important;
     margin: 22px 0 0;
-    // padding: 0 14px;
     overflow: auto;
     flex: 1;
   }
