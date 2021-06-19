@@ -42,13 +42,24 @@
       }
     }
 
-    .createNewConversationIcon {
-      margin: 0 -10px 0 0;
-      padding: 10px;
-      font-size: 18px;
+    .createNewConversationBtn {
+      margin: 0 -7px 0 0;
+      max-width: 30px;
+      min-width: 30px !important;
+      height: 30px;
+      color: $black;
+      opacity: 0.5;
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
 
-      svg {
+      &:hover {
+        opacity: 1;
+      }
+
+      .createNewConversationIcon {
+        display: block;
+        margin: 3px 0 0;
+        font-size: 18px;
       }
     }
   }
@@ -66,6 +77,10 @@
       outline: none;
       box-shadow: none;
 
+      @media (max-width: 480px) {
+        font-size: 16px;
+      }
+
       &:hover,
       :active {
         border: none;
@@ -75,15 +90,31 @@
 
       input {
         background: $blue-width-light2;
+
+        @media (max-width: 480px) {
+          font-size: 16px;
+        }
       }
     }
 
     .searchIcon {
+      opacity: 0.5;
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     .filterBtnContainer {
       margin: 0 0 0 10px;
+      opacity: 0.7;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
 
       & > span {
         height: 100%;
