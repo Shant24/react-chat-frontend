@@ -1,0 +1,30 @@
+@import '../../scss/variables';
+
+.onlineStatusContainer {
+  position: relative;
+  display: inline-block;
+
+  &.online::before,
+  &.offline::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+  }
+
+  &.online::before {
+    background-color: $green;
+  }
+
+  &.offline::before {
+    background-color: $red-light;
+  }
+
+  .statusName {
+    opacity: 0.3;
+  }
+}

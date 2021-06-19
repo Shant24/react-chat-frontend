@@ -8,3 +8,4 @@ export { default as DialoguesBar } from './DialoguesBar';
 export { default as DialogueItem } from './DialogueItem';
 export { default as LoadingMessage } from './LoadingMessage';
 export { default as AudioMessage } from './AudioMessage';
+export { default as OnlineStatus } from './OnlineStatus';

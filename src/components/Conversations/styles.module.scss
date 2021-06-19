@@ -1,4 +1,4 @@
-@import '../../scss/_variables.scss';
+@import '../../scss/variables';
 
 .conversationsContainer {
   flex: 1;
@@ -30,31 +30,6 @@
       .name {
         font-weight: 500;
       }
-
-      .onlineStatus {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .statusIcon {
-          margin: 0 5px 0 0;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-
-          &.online {
-            background-color: $green;
-          }
-
-          &.offline {
-            background-color: $red-light;
-          }
-        }
-
-        .statusName {
-          opacity: 0.3;
-        }
-      }
     }
 
     .conversationOptions {
@@ -71,15 +46,18 @@
 
   .conversationsList {
     max-width: 100%;
-    min-width: min-content;
-    height: max-content;
-    max-height: 100%;
     width: 100vw;
-    overflow: auto;
+    max-height: 100%;
+    height: max-content;
     flex: 1;
 
-    & > div:first-child {
-      padding: 22px 0;
+    .conversationsWrapper {
+      max-width: 100%;
+      width: 100%;
+
+      & > div:first-child {
+        padding: 22px 0 0px;
+      }
     }
   }
 }

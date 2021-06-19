@@ -27,6 +27,10 @@
     }
   }
 
+  &.active {
+    background-color: darken($blue-width-light, 5%);
+  }
+
   .userAvatarWrapper {
     position: relative;
 
