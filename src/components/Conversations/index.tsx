@@ -1,12 +1,13 @@
-import React, { memo } from 'react';
+import React, { memo, RefObject, useRef } from 'react';
 
-import cls from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { EllipsisOutlined } from '@ant-design/icons';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { Message } from '..';
+import { Message, OnlineStatus } from '..';
+import { sortObject } from '../../helpers/sortingHelper';
+import { useEffect } from 'react';
 
 interface IConversationsProps {
   messages: IMessage[];
@@ -15,6 +16,15 @@ interface IConversationsProps {
 
 const Conversations = ({ messages, conversationData = {} }: IConversationsProps) => {
   const { isOnline = true } = conversationData;
+  const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
+
+  useEffect(() => {
+    if (ScrollbarsRef) {
+      ScrollbarsRef.current?.scrollToBottom();
+    }
+  }, [ScrollbarsRef, messages]);
+
+  const sortedMessages: IMessage[] = sortObject(messages, [(message: IMessage) => message.date], false);
 
   return (
     <div className={styles.conversationsContainer}>
@@ -23,11 +33,7 @@ const Conversations = ({ messages, conversationData = {} }: IConversationsProps)
           {/* TODO: integrate with backend */}
           <div className={styles.name}>{'Shant Sargsyan'}</div>
 
-          <div className={styles.onlineStatus}>
-            <span className={cls(styles.statusIcon, { [styles.online]: isOnline, [styles.offline]: !isOnline })} />
-
-            <span className={styles.statusName}>{isOnline ? 'online' : 'offline'}</span>
-          </div>
+          <OnlineStatus isOnline={isOnline} showIcon />
         </div>
 
         <div className={styles.conversationOptions}>
@@ -35,11 +41,13 @@ const Conversations = ({ messages, conversationData = {} }: IConversationsProps)
         </div>
       </div>
 
-      <Scrollbars className={styles.conversationsList} autoHide>
-        {messages.map((message, index) => (
-          <Message key={message._id} {...message} scrollTo={index + 1 === messages.length} />
-        ))}
-      </Scrollbars>
+      <div className={styles.conversationsList}>
+        <Scrollbars ref={ScrollbarsRef} className={styles.conversationsWrapper} autoHide>
+          {sortedMessages.map((message, index) => (
+            <Message key={message._id} {...message} scrollTo={sortedMessages.length + 1 === index} />
+          ))}
+        </Scrollbars>
+      </div>
     </div>
   );
 };

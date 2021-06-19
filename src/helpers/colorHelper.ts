@@ -11,7 +11,7 @@ const getColorSpectrumFromString = (fullName: string): { color: string; colorLig
   const name = `${generateNameForAvatar(fullName)}${endPrefix}`;
   const saturation = 1;
   const color = new ColorHash({ saturation }).hex(name);
-  const colorLighten = new ColorHash({ saturation, lightness: 0.9 }).hex(name);
+  const colorLighten = new ColorHash({ saturation, lightness: 0.98 }).hex(name);
   return { color, colorLighten };
 };
 

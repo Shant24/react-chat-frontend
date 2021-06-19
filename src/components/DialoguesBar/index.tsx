@@ -1,13 +1,14 @@
-import React, { memo, useState } from 'react';
+import React, { memo, RefObject, useRef, useState } from 'react';
 
-import { Input } from 'antd';
-import { TeamOutlined, FormOutlined, SearchOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Badge, Input, Tooltip } from 'antd';
+import { TeamOutlined, FormOutlined, SearchOutlined, LoadingOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
-import { Button, DialogueItem } from '..';
+import { DialogueItem } from '..';
+import { useEffect } from 'react';
 
 interface IDialoguesBarProps {
   dialogues: IDialog[];
@@ -15,21 +16,32 @@ interface IDialoguesBarProps {
 
 const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchValue, setSearchValue] = useState<string>('');
   const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
 
-  const filteredDialogues: IDialog[] = isShowUnReads
-    ? filterObject(
-        dialogues,
-        (dialog: IDialog) => !dialog.message.isRead && dialog.fullName === dialog.message.user.fullName,
-      )
-    : dialogues;
+  useEffect(() => {
+    if (ScrollbarsRef) {
+      ScrollbarsRef.current?.scrollToTop();
+    }
+  }, [ScrollbarsRef, dialogues, isShowUnReads]);
+
+  const filteredDialogues: IDialog[] = filterObject(
+    dialogues,
+    (dialog: IDialog) => !dialog.message.isRead && dialog.fullName === dialog.message.user.fullName,
+  );
 
   const sortedDialogues: IDialog[] = sortObject(
-    filteredDialogues,
+    isShowUnReads ? filteredDialogues : dialogues,
     [(dialog: IDialog) => dialog.message.created_at],
     true,
   );
+
+  useEffect(() => {
+    if (isShowUnReads && !filteredDialogues.length) {
+      setIsShowUnReads(false);
+    }
+  }, [isShowUnReads, filteredDialogues.length]);
 
   const handleSearch = () => {
     setLoading(true);
@@ -60,17 +72,21 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
           }
           onChange={(e) => setSearchValue(e.target.value)}
         />
-      </div>
 
-      <div className={styles.filterBtnContainer}>
-        {dialogues.length > 0 && (
-          <Button type="primary" className={styles.filterBtn} onClick={() => setIsShowUnReads(!isShowUnReads)}>
-            {isShowUnReads ? 'Show all messages' : 'Show Unread messages'}
-          </Button>
+        {!!filteredDialogues.length && (
+          <div className={styles.filterBtnContainer}>
+            <Tooltip placement="top" title={isShowUnReads ? 'All messages' : 'Unread messages'}>
+              <Badge dot={!isShowUnReads}>
+                <div className={styles.filterBtnWrapper} onClick={() => setIsShowUnReads(!isShowUnReads)}>
+                  <UnorderedListOutlined />
+                </div>
+              </Badge>
+            </Tooltip>
+          </div>
         )}
       </div>
 
-      <Scrollbars className={styles.dialoguesList} autoHide>
+      <Scrollbars ref={ScrollbarsRef} className={styles.dialoguesList} autoHide>
         {sortedDialogues.map((item) => (
           <DialogueItem key={item._id} {...item} />
         ))}
