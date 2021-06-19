@@ -1,8 +1,10 @@
-import React, { memo, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, memo, RefObject, useEffect, useRef, useState } from 'react';
 
 import cls from 'classnames';
-import { Button, Input } from 'antd';
+import { Button } from 'antd';
 import { AudioOutlined, CameraOutlined, SendOutlined, SmileOutlined } from '@ant-design/icons';
+import Textarea from 'rc-textarea';
+import { isMobile } from 'react-device-detect';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
@@ -10,12 +12,35 @@ import styles from './styles.module.scss';
 interface ISendMessageInputProps {}
 
 const SendMessageInput = (props: ISendMessageInputProps) => {
+  const [isMount, setIsMount] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>('');
+
+  const TextareaRef = useRef(null) as RefObject<Textarea> | null;
+
+  useEffect(() => {
+    setIsMount(true);
+  }, []);
+
+  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextValue(e.target.value);
+    e.target.scrollTo(0, e.target.scrollHeight);
+  };
+
+  const handlePressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!isMobile && !e.shiftKey) {
+      e.preventDefault();
+      // TODO: add functionality for send message when press enter
+    }
+  };
 
   const handleEmojiClick = noop;
   const handleCameraClick = noop;
-  const handleMessageClick = noop;
   const handleAudioClick = noop;
+
+  const handleMessageClick = () => {
+    // TODO: send message, remove textarea value and focus on it
+    TextareaRef?.current?.focus();
+  };
 
   return (
     <div className={styles.sendMessageInputContainer}>
@@ -29,14 +54,18 @@ const SendMessageInput = (props: ISendMessageInputProps) => {
         />
       </div>
 
-      <Input.TextArea
-        size="large"
-        className={styles.textarea}
-        value={textValue}
-        placeholder="Enter the message..."
-        autoSize={{ minRows: 1, maxRows: 3 }}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
+      {isMount && (
+        <Textarea
+          ref={TextareaRef}
+          className={styles.textarea}
+          value={textValue}
+          placeholder="Enter the message..."
+          autoSize={{ minRows: 1, maxRows: 3 }}
+          onChange={handleTextChange}
+          onPressEnter={handlePressEnter}
+          spellCheck
+        />
+      )}
 
       <div className={cls(styles.actionsContainer, styles.rightSide)}>
         <Button

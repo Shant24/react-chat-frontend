@@ -4,6 +4,7 @@
   "editor.formatOnSave": true,
   "autoprefixer.formatOnSave": false,
   "cSpell.words": [
+    "Autosize",
     "antd",
     "formik",
     "mixins",
