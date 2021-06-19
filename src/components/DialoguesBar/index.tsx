@@ -1,14 +1,14 @@
-import React, { memo, RefObject, useRef, useState } from 'react';
+import React, { memo, RefObject, useRef, useState, useEffect } from 'react';
 
-import { Badge, Input, Tooltip } from 'antd';
+import { Badge, Button, Input, Tooltip } from 'antd';
 import { TeamOutlined, FormOutlined, SearchOutlined, LoadingOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
 import { DialogueItem } from '..';
-import { useEffect } from 'react';
 
 interface IDialoguesBarProps {
   dialogues: IDialog[];
@@ -48,6 +48,8 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
     setTimeout(() => setLoading(false), 2000);
   };
 
+  const handleCreateClick = noop;
+
   return (
     <div className={styles.dialoguesBarContainer}>
       <div className={styles.dialoguesHeader}>
@@ -57,7 +59,13 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
           <span>List of conversations</span>
         </div>
 
-        <FormOutlined className={styles.createNewConversationIcon} />
+        <Button
+          type="link"
+          shape="circle"
+          className={styles.createNewConversationBtn}
+          icon={<FormOutlined className={styles.createNewConversationIcon} />}
+          onClick={handleCreateClick}
+        />
       </div>
 
       <div className={styles.dialoguesSearchContainer}>

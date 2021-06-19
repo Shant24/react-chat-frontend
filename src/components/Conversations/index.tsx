@@ -5,7 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { Message, OnlineStatus } from '..';
+import { Message, OnlineStatus, SendMessageInput } from '..';
 import { sortObject } from '../../helpers/sortingHelper';
 import { useEffect } from 'react';
 
@@ -48,6 +48,8 @@ const Conversations = ({ messages, conversationData = {} }: IConversationsProps)
           ))}
         </Scrollbars>
       </div>
+
+      <SendMessageInput />
     </div>
   );
 };

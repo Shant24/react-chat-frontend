@@ -9,3 +9,4 @@ export { default as DialogueItem } from './DialogueItem';
 export { default as LoadingMessage } from './LoadingMessage';
 export { default as AudioMessage } from './AudioMessage';
 export { default as OnlineStatus } from './OnlineStatus';
+export { default as SendMessageInput } from './SendMessageInput';
