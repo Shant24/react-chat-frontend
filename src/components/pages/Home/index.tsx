@@ -1,28 +1,23 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles.module.scss';
-import demo from '../../../demo';
 import { DialoguesBar, ConversationsPart } from '../..';
-import { IDialog } from '../../../types/dialog';
-import { IMessage } from '../../../types/message';
+import { fetchDialogues } from '../../../store/actions/dialoguesAction';
+import { fetchMessages } from '../../../store/actions/messagesAction';
+import { getDialoguesSelector } from '../../../store/selectors/dialoguesSelector';
+import { getMessagesSelector } from '../../../store/selectors/messagesSelector';
 
 const Home = () => {
-  const [dialogues, setDialogues] = useState<IDialog[]>(demo.dialogsArr);
-  const [messages, setMessages] = useState<IMessage[]>(demo.chatMessagesArr);
-
-  const getData = async () => {
-    fetch('http://localhost:3003/dialogues')
-      .then((res) => res.json())
-      .then((response) => setDialogues(response));
-
-    fetch('http://localhost:3003/messages')
-      .then((res) => res.json())
-      .then((response) => setMessages(response));
-  };
+  const dispatch = useDispatch();
+  const { dialogues } = useSelector(getDialoguesSelector);
+  const { messages } = useSelector(getMessagesSelector);
 
   useEffect(() => {
-    getData();
-  }, []);
+    dispatch(fetchDialogues('token'));
+    dispatch(fetchMessages('token'));
+  }, [dispatch]);
 
   return (
     <div className={styles.homePage}>
