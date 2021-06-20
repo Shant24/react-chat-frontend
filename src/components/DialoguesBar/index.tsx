@@ -1,15 +1,14 @@
-import React, { memo, RefObject, useRef, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 
 import { Badge, Button, Input, Tooltip } from 'antd';
 import { TeamOutlined, FormOutlined, SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Scrollbars } from 'react-custom-scrollbars';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
-import { DialogueItem } from '..';
 import { useMemo } from 'react';
+import Dialogues from '../Dialogues';
 
 interface IDialoguesBarProps {
   dialogues: IDialog[];
@@ -19,13 +18,6 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [hasUnread, setHasUnread] = useState(false);
   const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
-  const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
-
-  useEffect(() => {
-    if (ScrollbarsRef) {
-      ScrollbarsRef.current?.scrollToTop();
-    }
-  }, [ScrollbarsRef, dialogues, isShowUnReads]);
 
   const filteredDialogues: IDialog[] = useMemo(
     () =>
@@ -69,48 +61,46 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
 
   return (
     <div className={styles.dialoguesBarContainer}>
-      <div className={styles.dialoguesHeader}>
-        <div className={styles.conversationsListText}>
-          <TeamOutlined className={styles.listIcon} />
+      <div className={styles.dialoguesBarTopPart}>
+        <div className={styles.dialoguesHeader}>
+          <div className={styles.conversationsListText}>
+            <TeamOutlined className={styles.listIcon} />
 
-          <span>List of conversations</span>
+            <span>List of dialogue</span>
+          </div>
+
+          <Button
+            type="link"
+            shape="circle"
+            className={styles.createNewConversationBtn}
+            icon={<FormOutlined className={styles.createNewConversationIcon} />}
+            onClick={noop}
+          />
         </div>
 
-        <Button
-          type="link"
-          shape="circle"
-          className={styles.createNewConversationBtn}
-          icon={<FormOutlined className={styles.createNewConversationIcon} />}
-          onClick={noop}
-        />
+        <div className={styles.dialoguesSearchContainer}>
+          <Input
+            className={styles.searchInput}
+            value={searchValue}
+            placeholder="Search in the contacts"
+            allowClear
+            prefix={<SearchOutlined className={styles.searchIcon} />}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+
+          {((!searchValue && !!filteredDialogues.length) || (searchValue && hasUnread)) && (
+            <Badge className={styles.filterBtnContainer} dot={!isShowUnReads}>
+              <Tooltip title={isShowUnReads ? 'All messages' : 'Unread messages'} placement="top">
+                <div className={styles.filterBtnWrapper} onClick={() => setIsShowUnReads(!isShowUnReads)}>
+                  <UnorderedListOutlined />
+                </div>
+              </Tooltip>
+            </Badge>
+          )}
+        </div>
       </div>
 
-      <div className={styles.dialoguesSearchContainer}>
-        <Input
-          className={styles.searchInput}
-          value={searchValue}
-          placeholder="Search in the contacts"
-          allowClear
-          prefix={<SearchOutlined className={styles.searchIcon} />}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-
-        {((!searchValue && !!filteredDialogues.length) || (searchValue && hasUnread)) && (
-          <Badge className={styles.filterBtnContainer} dot={!isShowUnReads}>
-            <Tooltip title={isShowUnReads ? 'All messages' : 'Unread messages'} placement="top">
-              <div className={styles.filterBtnWrapper} onClick={() => setIsShowUnReads(!isShowUnReads)}>
-                <UnorderedListOutlined />
-              </div>
-            </Tooltip>
-          </Badge>
-        )}
-      </div>
-
-      <Scrollbars ref={ScrollbarsRef} className={styles.dialoguesList} autoHide>
-        {sortedDialogues.map((item) => (
-          <DialogueItem key={item._id} {...item} />
-        ))}
-      </Scrollbars>
+      <Dialogues items={sortedDialogues} isShowUnReads={isShowUnReads} />
     </div>
   );
 };
