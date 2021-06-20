@@ -5,8 +5,12 @@ import { setDialogues } from '../actions/dialoguesAction';
 import { IDialoguesActionTypes, IGetDialoguesAction } from '../types/dialogues';
 
 function* getDialogues({ payload }: IGetDialoguesAction) {
-  const { data } = yield dialoguesApi.getAll(payload);
-  yield put(setDialogues(data));
+  try {
+    const { data } = yield dialoguesApi.getAll(payload);
+    yield put(setDialogues(data));
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 
 export function* dialoguesSagaWatcher() {
