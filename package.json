@@ -1,6 +1,7 @@
 {
   "name": "react-chat-frontend",
   "version": "0.1.0",
+  "description": "React Chat Front-end",
   "author": {
     "name": "Shant Sargsyan",
     "email": "shant.asf@gmail.com",
