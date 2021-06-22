@@ -1,18 +1,24 @@
 import { IDialog } from '../../types/dialog';
 
 export interface IDialoguesState {
+  isLoading: boolean;
   dialogues: IDialog[];
 }
 
 export enum IDialoguesActionTypes {
+  DIALOGUES_SET_IS_LOADING = 'DIALOGUES_SET_IS_LOADING',
   DIALOGUES_REQUEST = 'DIALOGUES_REQUEST',
   DIALOGUES_REQUEST_ERROR = 'DIALOGUES_REQUEST_ERROR',
   SET_DIALOGUES = 'SET_DIALOGUES',
 }
 
-export interface IGetDialoguesAction {
+export interface IDialoguesSetIsLoadingAction {
+  type: IDialoguesActionTypes.DIALOGUES_SET_IS_LOADING;
+  payload: boolean;
+}
+
+export interface IGetAllDialoguesAction {
   type: IDialoguesActionTypes.DIALOGUES_REQUEST;
-  payload: string;
 }
 
 export interface ISetDialoguesAction {
@@ -20,4 +26,4 @@ export interface ISetDialoguesAction {
   payload: IDialog[];
 }
 
-export type IDialoguesActions = IGetDialoguesAction | ISetDialoguesAction;
+export type IDialoguesActions = IDialoguesSetIsLoadingAction | IGetAllDialoguesAction | ISetDialoguesAction;

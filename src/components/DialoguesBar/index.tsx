@@ -1,5 +1,6 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { Badge, Button, Input, Tooltip } from 'antd';
 import { TeamOutlined, FormOutlined, SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { noop } from 'lodash';
@@ -7,17 +8,20 @@ import { noop } from 'lodash';
 import styles from './styles.module.scss';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
-import { useMemo } from 'react';
 import Dialogues from '../Dialogues';
+import { getDialoguesSelector } from '../../store/selectors/dialoguesSelector';
+import { fetchDialogues } from '../../store/actions/dialoguesAction';
 
-interface IDialoguesBarProps {
-  dialogues: IDialog[];
-}
-
-const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
+const DialoguesBar = () => {
+  const dispatch = useDispatch();
+  const dialogues = useSelector(getDialoguesSelector);
   const [searchValue, setSearchValue] = useState<string>('');
   const [hasUnread, setHasUnread] = useState(false);
   const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
+
+  useEffect(() => {
+    dispatch(fetchDialogues());
+  }, [dispatch]);
 
   const filteredDialogues: IDialog[] = useMemo(
     () =>
@@ -27,6 +31,8 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
       ),
     [dialogues],
   );
+
+  console.log('filteredDialogues', filteredDialogues);
 
   const sortedDialogues: IDialog[] = useMemo(() => {
     let unread = false;
@@ -105,4 +111,4 @@ const DialoguesBar = ({ dialogues }: IDialoguesBarProps) => {
   );
 };
 
-export default memo(DialoguesBar);
+export default DialoguesBar;
