@@ -26,12 +26,12 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
 
   return (
     <Scrollbars ref={ScrollbarsRef} className={styles.dialoguesList} autoHide>
-      {!!items.length ? (
+      {isLoading ? (
+        <Spin className={styles.loadingContainer} tip="Loading dialogues" />
+      ) : !!items.length ? (
         items.map((item) => <DialogueItem key={item._id} {...item} />)
-      ) : isLoading ? (
-        <Spin className={styles.loadingContainer} size="large" />
       ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No Dialogues" />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
       )}
     </Scrollbars>
   );

@@ -20,7 +20,7 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {
-      console.log('values a', values);
+      console.log('values register', values);
       history.push('/auth/register/success');
     },
     validationSchema,

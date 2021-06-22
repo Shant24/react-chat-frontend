@@ -35,10 +35,7 @@ const ConversationsPart = () => {
       <div className={styles.conversationsHeader}>
         {dialogueRoom && (
           <div className={styles.conversationWith}>
-            <div className={styles.name}>
-              {/* TODO: integrate with backend */}
-              {dialogueRoom.fullName}
-            </div>
+            <div className={styles.name}>{dialogueRoom.fullName}</div>
 
             <OnlineStatus isOnline={dialogueRoom.isOnline} showIcon />
           </div>
@@ -49,7 +46,7 @@ const ConversationsPart = () => {
         </div>
       </div>
 
-      <Conversations items={sortedMessages} />
+      <Conversations items={sortedMessages} roomId={id} />
 
       {dialogueRoom && <SendMessageInput />}
     </div>

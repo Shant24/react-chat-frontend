@@ -11,9 +11,10 @@ import { isLoadingMessagesSelector } from '../../store/selectors/messagesSelecto
 
 interface IConversationsProps {
   items: IMessage[];
+  roomId?: string;
 }
 
-const Conversations = ({ items }: IConversationsProps) => {
+const Conversations = ({ items, roomId }: IConversationsProps) => {
   const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
   const isLoading = useSelector(isLoadingMessagesSelector);
 
@@ -27,14 +28,17 @@ const Conversations = ({ items }: IConversationsProps) => {
     <div className={styles.conversationsList}>
       <Scrollbars ref={ScrollbarsRef} className={styles.conversationsWrapper} autoHide>
         <div className={styles.messagesWrapper}>
-          {!!items.length ? (
+          {isLoading ? (
+            <Spin className={styles.messagesStatusContainer} size="large" tip="Loading messages" />
+          ) : roomId && !!items.length ? (
             items.map((message, index) => (
               <Message key={message._id} {...message} scrollTo={items.length + 1 === index} />
             ))
-          ) : isLoading ? (
-            <Spin className={styles.messagesStatusContainer} size="large" />
           ) : (
-            <Empty className={styles.messagesStatusContainer} description="No Messages" />
+            <Empty
+              className={styles.messagesStatusContainer}
+              description={roomId && !items.length ? 'No messages' : 'Open the dialogue'}
+            />
           )}
         </div>
       </Scrollbars>
