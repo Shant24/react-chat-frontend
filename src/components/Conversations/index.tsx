@@ -1,11 +1,13 @@
 import React, { memo, RefObject, useEffect, useRef } from 'react';
 
+import { useSelector } from 'react-redux';
 import Scrollbars from 'react-custom-scrollbars';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
 import { Message } from '..';
+import { isLoadingMessagesSelector } from '../../store/selectors/messagesSelector';
 
 interface IConversationsProps {
   items: IMessage[];
@@ -13,6 +15,7 @@ interface IConversationsProps {
 
 const Conversations = ({ items }: IConversationsProps) => {
   const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
+  const isLoading = useSelector(isLoadingMessagesSelector);
 
   useEffect(() => {
     if (ScrollbarsRef) {
@@ -28,8 +31,10 @@ const Conversations = ({ items }: IConversationsProps) => {
             items.map((message, index) => (
               <Message key={message._id} {...message} scrollTo={items.length + 1 === index} />
             ))
+          ) : isLoading ? (
+            <Spin className={styles.messagesStatusContainer} size="large" />
           ) : (
-            <Empty className={styles.emptyMessageContainer} description="No Messages" />
+            <Empty className={styles.messagesStatusContainer} description="No Messages" />
           )}
         </div>
       </Scrollbars>

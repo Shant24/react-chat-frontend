@@ -1,4 +1,7 @@
-export const API_URL = process.env.REACT_APP_API_URL;
+export const API_URL: string | undefined = process.env.REACT_APP_API_URL;
+
+export const ACCESS_TOKEN_KEY: string = 'access_token';
+export const REFRESH_TOKEN_KEY: string = 'refresh_token';
 
 export const REGEXP = {
   email:

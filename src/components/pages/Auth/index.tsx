@@ -8,13 +8,13 @@ import { LoginForm, RegisterForm, Success } from './components';
 const Auth = () => (
   <div className={styles.authContainer}>
     <Switch>
-      <Route path="/auth/login" component={LoginForm} />
+      <Route path="/auth" exact component={LoginForm} />
 
       <Route path="/auth/register" exact component={RegisterForm} />
 
-      <Route path="/auth/register/success" component={Success} />
+      <Route path="/auth/register/success" exact component={Success} />
 
-      <Redirect to="/auth/login" />
+      <Redirect to="/" />
     </Switch>
   </div>
 );

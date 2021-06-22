@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 
 import { PageLayout } from './components';
 import { Home, Auth } from './components/pages';
@@ -8,11 +8,16 @@ import { Home, Auth } from './components/pages';
 const App = () => (
   <PageLayout>
     <Switch>
-      <Route path="/" component={Home} exact />
+      {/* TODO: add home landing page */}
+      <Route path="/" exact component={Home} />
+
+      <Route path="/m" exact component={Home} />
 
       <Route path="/m/:id" component={Home} exact />
 
       <Route path="/auth" component={Auth} />
+
+      <Redirect to="/" />
     </Switch>
   </PageLayout>
 );

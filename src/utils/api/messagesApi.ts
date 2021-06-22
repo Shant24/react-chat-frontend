@@ -1,7 +1,7 @@
 import axios from '../../axios';
 
-const getAll = (userId: string) => axios.get('/messages');
+const getAllByDialogueId = (dialogueId: string) => axios.get(`/messages?roomId=${dialogueId}`);
 
-const messagesApi = { getAll };
+const messagesApi = { getAllByDialogueId };
 
 export default messagesApi;

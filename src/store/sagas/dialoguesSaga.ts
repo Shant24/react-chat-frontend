@@ -1,18 +1,21 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 
 import dialoguesApi from '../../utils/api/dialoguesApi';
-import { setDialogues } from '../actions/dialoguesAction';
-import { IDialoguesActionTypes, IGetDialoguesAction } from '../types/dialogues';
+import { setDialogues, setIsLoadingDialogues } from '../actions/dialoguesAction';
+import { IDialoguesActionTypes } from '../types/dialogues';
 
-function* getDialogues({ payload }: IGetDialoguesAction) {
+function* getAllDialogues() {
   try {
-    const { data } = yield dialoguesApi.getAll(payload);
+    yield put(setIsLoadingDialogues(true));
+    const { data } = yield call(dialoguesApi.getAll);
     yield put(setDialogues(data));
+    yield put(setIsLoadingDialogues(false));
   } catch (error) {
-    console.log('error', error);
+    yield put(setIsLoadingDialogues(false));
+    console.log('error', error.message);
   }
 }
 
 export function* dialoguesSagaWatcher() {
-  yield takeLatest(IDialoguesActionTypes.DIALOGUES_REQUEST, getDialogues);
+  yield takeLatest(IDialoguesActionTypes.DIALOGUES_REQUEST, getAllDialogues);
 }

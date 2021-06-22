@@ -1,33 +1,48 @@
-import React, { memo } from 'react';
+import React, { useEffect } from 'react';
 
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { EllipsisOutlined } from '@ant-design/icons';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
 import { Conversations, OnlineStatus, SendMessageInput } from '..';
 import { sortObject } from '../../helpers/sortingHelper';
+import { fetchMessages, removeMessages } from '../../store/actions/messagesAction';
+import { getAllMessagesSelector } from '../../store/selectors/messagesSelector';
+import { getDialogueById } from '../../store/selectors/dialoguesSelector';
 
-interface IConversationsPartProps {
-  messages: IMessage[];
-  conversationData?: any;
-}
+const ConversationsPart = () => {
+  const dispatch = useDispatch();
+  const { id }: { id?: string } = useParams();
 
-const ConversationsPart = ({ messages, conversationData = {} }: IConversationsPartProps) => {
-  const { isOnline = true } = conversationData;
+  const messages = useSelector(getAllMessagesSelector);
+  const dialogueRoom = useSelector(getDialogueById(id));
+
+  useEffect(() => {
+    if (id) {
+      dispatch(removeMessages());
+      dispatch(fetchMessages(id));
+    } else {
+      dispatch(removeMessages());
+    }
+  }, [dispatch, id]);
 
   const sortedMessages: IMessage[] = sortObject(messages, [(message: IMessage) => message.date], false);
 
   return (
     <div className={styles.conversationsContainer}>
       <div className={styles.conversationsHeader}>
-        <div className={styles.conversationWith}>
-          <div className={styles.name}>
-            {/* TODO: integrate with backend */}
-            Shant Sargsyan
-          </div>
+        {dialogueRoom && (
+          <div className={styles.conversationWith}>
+            <div className={styles.name}>
+              {/* TODO: integrate with backend */}
+              {dialogueRoom.fullName}
+            </div>
 
-          <OnlineStatus isOnline={isOnline} showIcon />
-        </div>
+            <OnlineStatus isOnline={dialogueRoom.isOnline} showIcon />
+          </div>
+        )}
 
         <div className={styles.conversationOptions}>
           <EllipsisOutlined />
@@ -36,9 +51,9 @@ const ConversationsPart = ({ messages, conversationData = {} }: IConversationsPa
 
       <Conversations items={sortedMessages} />
 
-      <SendMessageInput />
+      {dialogueRoom && <SendMessageInput />}
     </div>
   );
 };
 
-export default memo(ConversationsPart);
+export default ConversationsPart;
