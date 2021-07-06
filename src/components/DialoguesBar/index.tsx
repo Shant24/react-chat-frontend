@@ -32,8 +32,6 @@ const DialoguesBar = () => {
     [dialogues],
   );
 
-  console.log('filteredDialogues', filteredDialogues);
-
   const sortedDialogues: IDialog[] = useMemo(() => {
     let unread = false;
     let sorted: IDialog[] = sortObject(

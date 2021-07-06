@@ -16,6 +16,6 @@ function* getAllMessagesByDialogueId({ payload }: IGetMessagesAction) {
   }
 }
 
-export function* messagesSagaWatcher() {
+export default function* messagesSagaWatcher() {
   yield takeLatest(IMessagesActionTypes.MESSAGES_REQUEST, getAllMessagesByDialogueId);
 }

@@ -5,6 +5,7 @@ export const REFRESH_TOKEN_KEY: string = 'refresh_token';
 
 export const REGEXP = {
   email:
+    // eslint-disable-next-line max-len
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   username: /^((?=.*[A-Za-z])|(?=.*[A-Za-z])(?=.*\d))[A-Za-z\d_-]{2,30}$/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/,

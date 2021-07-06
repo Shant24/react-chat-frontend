@@ -5,15 +5,24 @@ import { Button } from 'antd';
 import { AudioOutlined, CameraOutlined, SendOutlined, SmileOutlined } from '@ant-design/icons';
 import Textarea from 'rc-textarea';
 import { isMobile } from 'react-device-detect';
+import Upload from 'rc-upload';
+import { RcFile, UploadProps } from 'rc-upload/lib/interface';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
+
+// const dummyRequest = ({ file, onSuccess }) => {
+//   setTimeout(() => {
+//     onSuccess('ok');
+//   }, 0);
+// };
 
 interface ISendMessageInputProps {}
 
 const SendMessageInput = (props: ISendMessageInputProps) => {
   const [isMount, setIsMount] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>('');
+  const [files, setFiles] = useState<RcFile[]>([]);
 
   const TextareaRef = useRef(null) as RefObject<Textarea> | null;
 
@@ -34,13 +43,46 @@ const SendMessageInput = (props: ISendMessageInputProps) => {
   };
 
   const handleEmojiClick = noop;
-  const handleCameraClick = noop;
   const handleAudioClick = noop;
 
   const handleMessageClick = () => {
     // TODO: send message, remove textarea value and focus on it
     TextareaRef?.current?.focus();
   };
+
+  /**
+   * @param file uploader actions start
+   */
+  const getFiles = (file: RcFile, fileList: RcFile[]) => {
+    // console.log('file', file);
+    // console.log('fileList', fileList);
+
+    setFiles(fileList);
+    return false;
+  };
+
+  const handleUploadStart = (file: any) => {
+    console.log('onStart', file, file.name);
+  };
+
+  const handleUploadSuccess = (ret: any) => {
+    console.log('onSuccess', ret);
+  };
+
+  const handleUploadError = (err: any) => {
+    console.log('onError', err);
+  };
+
+  const handleUploadAction = (props: UploadProps): Promise<any> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('/upload.do');
+      }, 2000);
+    });
+  };
+  /**
+   * @param file uploader actions end
+   */
 
   return (
     <div className={styles.sendMessageInputContainer}>
@@ -68,13 +110,26 @@ const SendMessageInput = (props: ISendMessageInputProps) => {
       )}
 
       <div className={cls(styles.actionsContainer, styles.rightSide)}>
-        <Button
-          type="link"
-          shape="circle"
-          className={cls(styles.btn, styles.photoBtn)}
-          icon={<CameraOutlined className={cls(styles.icon, styles.photoIcon)} />}
-          onClick={handleCameraClick}
-        />
+        <Upload
+          multiple
+          accept="image/*"
+          maxLength={8}
+          // openFileDialogOnClick
+          // customRequest={(e) => console.log('e request', e)}
+          onChange={(e) => console.log('e change', e)}
+          onStart={handleUploadStart}
+          beforeUpload={getFiles}
+          // onSuccess={handleUploadSuccess}
+          // onError={handleUploadError}
+          // action={dummyRequest}
+        >
+          <Button
+            type="link"
+            shape="circle"
+            className={cls(styles.btn, styles.photoBtn)}
+            icon={<CameraOutlined className={cls(styles.icon, styles.photoIcon)} />}
+          />
+        </Upload>
 
         <div className={styles.conditionContainer}>
           <Button

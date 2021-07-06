@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 
 import styles from '../../styles.module.scss';
 import '../../styles.scss';
-import { Button, ShadowBlock } from '../../../../';
+import { Button, ShadowBlock } from '../../../..';
 import { LoginSchema as validationSchema } from '../../../../../validations';
 import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { ILoginValues } from '../../../../../types/auth';

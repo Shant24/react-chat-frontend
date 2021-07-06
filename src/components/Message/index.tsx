@@ -5,7 +5,7 @@ import cls from 'classnames';
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
 import { formatDateDistance } from '../../helpers/dateHelper';
-import { MessageReadStatus, LoadingMessage, AudioMessage } from '../';
+import { MessageReadStatus, LoadingMessage, AudioMessage } from '..';
 import ImageAttachments from '../ImageAttachments';
 import Avatar from '../Avatar';
 
@@ -26,6 +26,7 @@ const Message = (props: IMessageProps) => {
     isMe,
     isRead,
     isTyping,
+    scrollTo, // TODO: use this
   } = props;
 
   if (!text && !attachments && !isTyping && !audio) {

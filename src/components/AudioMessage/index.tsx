@@ -12,7 +12,7 @@ interface IAudioMessageProps {
 }
 
 const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
-  let AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
+  const AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);

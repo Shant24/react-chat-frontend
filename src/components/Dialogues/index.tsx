@@ -6,7 +6,7 @@ import { Empty, Spin } from 'antd';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
-import { DialogueItem } from '../';
+import { DialogueItem } from '..';
 import { isLoadingDialoguesSelector } from '../../store/selectors/dialoguesSelector';
 
 interface IDialoguesProps {

@@ -5,9 +5,10 @@ import getAccessToken from '../utils/AccessToken';
 
 const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     Authorization: `Bearer ${getAccessToken()}`,
+    'Content-Type': 'application/json',
   },
 });
 

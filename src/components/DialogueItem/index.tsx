@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
 import cls from 'classnames';
+import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
 import { formatDateDistance } from '../../helpers/dateHelper';
 import { MessageReadStatus } from '..';
-import { NavLink } from 'react-router-dom';
 import Avatar from '../Avatar';
 
 interface IDialogueItemItemProps extends IDialog {}
