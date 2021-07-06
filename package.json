@@ -9,11 +9,12 @@
   },
   "private": true,
   "scripts": {
+    "prod": "pm2 start 'serve -s build -l 3000' --name chat-front",
     "dev": "concurrently --kill-others \"yarn start\" \"yarn start:server\"",
     "start": "react-scripts start",
     "start:server": "cd ../react-chat-backend && yarn start",
     "build": "react-scripts build",
-    "serve": "serve -s build -l 80",
+    "serve": "serve -s build -l 3000",
     "serve:s": "serve -s build -l 433",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
