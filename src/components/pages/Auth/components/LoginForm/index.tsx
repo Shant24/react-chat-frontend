@@ -21,7 +21,6 @@ const LoginForm = ({ history }: ILoginFormProps) => {
     initialValues: { username: '', password: '' },
     onSubmit: (values: ILoginValues) => {
       // TODO: add logic
-      // eslint-disable-next-line no-console
       console.log('values login', values);
       history.push('/auth/register');
     },

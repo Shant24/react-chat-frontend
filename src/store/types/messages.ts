@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { IMessage } from '../../types/message';
 
 export interface IMessagesState {

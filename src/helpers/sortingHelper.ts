@@ -1,7 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import filter from 'lodash/filter';
 
-// eslint-disable-next-line no-unused-vars
 type ConditionType = (object: any) => any;
 
 export const sortObject = (object: object, condition: ConditionType[], isShowNewest: boolean = false) => {

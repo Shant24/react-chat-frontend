@@ -12,7 +12,6 @@ function* getAllMessagesByDialogueId({ payload }: IGetMessagesAction) {
     yield put(setIsLoadingMessages(false));
   } catch (error) {
     yield put(setIsLoadingMessages(false));
-    // eslint-disable-next-line no-console
     console.log('error', error.message);
   }
 }

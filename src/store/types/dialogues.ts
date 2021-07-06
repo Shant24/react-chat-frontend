@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { IDialog } from '../../types/dialog';
 
 export interface IDialoguesState {

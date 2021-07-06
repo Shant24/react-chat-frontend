@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { createStore, applyMiddleware, Middleware, Dispatch, AnyAction } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
@@ -19,7 +18,6 @@ if (environment === 'development') {
 
 const middlewares = applyMiddleware(...middlewaresArr);
 
-// eslint-disable-next-line import/no-mutable-exports
 let store = createStore(rootReducers, middlewares);
 
 if (environment === 'development') {

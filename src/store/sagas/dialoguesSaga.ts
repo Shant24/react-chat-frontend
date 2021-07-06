@@ -12,7 +12,6 @@ function* getAllDialogues() {
     yield put(setIsLoadingDialogues(false));
   } catch (error) {
     yield put(setIsLoadingDialogues(false));
-    // eslint-disable-next-line no-console
     console.log('error', error.message);
   }
 }
