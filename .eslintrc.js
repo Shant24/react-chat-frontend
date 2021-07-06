@@ -9,12 +9,13 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: { jsx: true },
     ecmaVersion: 12,
+    sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'import/no-mutable-exports': 1,
     'no-extra-boolean-cast': 0,
-    'no-unused-vars': 1,
+    'no-unused-vars': [1, { ignoreRestSiblings: true }],
     'prefer-const': 1,
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,

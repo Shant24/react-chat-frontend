@@ -11,7 +11,6 @@ import Avatar from '../Avatar';
 
 interface IMessageProps extends IMessage {
   className?: string;
-  scrollTo: boolean;
 }
 
 const Message = (props: IMessageProps) => {
@@ -26,7 +25,6 @@ const Message = (props: IMessageProps) => {
     isMe,
     isRead,
     isTyping,
-    scrollTo, // TODO: use this
   } = props;
 
   if (!text && !attachments && !isTyping && !audio) {

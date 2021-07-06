@@ -20,6 +20,8 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {
+      // TODO: add logic
+      // eslint-disable-next-line no-console
       console.log('values register', values);
       history.push('/auth/register/success');
     },

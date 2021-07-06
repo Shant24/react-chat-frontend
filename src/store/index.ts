@@ -19,6 +19,7 @@ if (environment === 'development') {
 
 const middlewares = applyMiddleware(...middlewaresArr);
 
+// eslint-disable-next-line import/no-mutable-exports
 let store = createStore(rootReducers, middlewares);
 
 if (environment === 'development') {
