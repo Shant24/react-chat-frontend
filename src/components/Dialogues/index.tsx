@@ -1,7 +1,7 @@
 import React, { memo, RefObject, useEffect, useRef } from 'react';
 
 import { useSelector } from 'react-redux';
-import Scrollbars from 'react-custom-scrollbars-2';
+import Scrollbars from 'react-custom-scrollbars';
 import { Empty, Spin } from 'antd';
 
 import styles from './styles.module.scss';
