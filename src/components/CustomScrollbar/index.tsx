@@ -103,10 +103,6 @@ const CustomScrollbar: FC<ICustomScrollbarProps> = ({ children, className, ...re
     };
   }, [handleDocumentMouseMove, handleDocumentMouseUp]);
 
-  const showShant = () => {
-    console.log('shant');
-  };
-
   return (
     <div className={'scrollhost-container'} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div ref={scrollHostRef} className={`scrollhost ${className}`} {...restProps}>
