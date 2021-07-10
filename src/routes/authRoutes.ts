@@ -1,1 +1,3 @@
-export {};
+const authRoutes = {};
+
+export default authRoutes;
