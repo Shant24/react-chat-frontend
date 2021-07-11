@@ -2,32 +2,33 @@ import React, { memo, RefObject, useEffect, useRef } from 'react';
 
 import { useSelector } from 'react-redux';
 import { Empty, Spin } from 'antd';
-// import SimpleBarReact from 'simplebar-react';
-// import 'simplebar-react/dist/simplebar.min.css';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
 import { DialogueItem } from '../';
 import { isLoadingDialoguesSelector } from '../../store/selectors/dialoguesSelector';
-import CustomScrollbar from '../CustomScrollbar';
 
 interface IDialoguesProps {
   items: IDialog[];
+  height?: number;
   isShowUnReads: boolean;
 }
 
-const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
-  const ScrollbarsRef = useRef(null) as RefObject<HTMLDivElement> | null;
+const Dialogues = ({ items, height = 0, isShowUnReads }: IDialoguesProps) => {
+  const ScrollbarsRef = useRef() as RefObject<Scrollbars> | undefined;
   const isLoading = useSelector(isLoadingDialoguesSelector);
 
   useEffect(() => {
-    if (ScrollbarsRef) {
-      ScrollbarsRef.current?.scrollTo({ top: ScrollbarsRef.current.scrollHeight });
+    if (ScrollbarsRef?.current && isLoading && !!items.length) {
+      setTimeout(() => {
+        ScrollbarsRef.current?.scrollToTop();
+      }, 0);
     }
-  }, [ScrollbarsRef, items, isShowUnReads]);
+  }, [ScrollbarsRef, items, isLoading, isShowUnReads]);
 
   return (
-    <CustomScrollbar ref={ScrollbarsRef} className={styles.dialoguesList} autoHide>
+    <Scrollbars ref={ScrollbarsRef} style={{ height: `${height}px` }} autoHide>
       {isLoading ? (
         <Spin className={styles.loadingContainer} tip="Loading dialogues" />
       ) : !!items.length ? (
@@ -35,7 +36,7 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
       ) : (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
       )}
-    </CustomScrollbar>
+    </Scrollbars>
   );
 };
 

@@ -18,18 +18,18 @@ const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
 
-  const handleInitAudioData = () => {
+  const handleInitAudioData = useCallback(() => {
     if (AudioRef?.current) {
       setDuration(AudioRef?.current?.duration);
       setCurrentTime(AudioRef?.current?.currentTime);
     }
-  };
+  }, [AudioRef]);
 
-  const handleTimeUpdate = () => {
+  const handleTimeUpdate = useCallback(() => {
     if (AudioRef?.current) {
       setCurrentTime(AudioRef?.current?.currentTime);
     }
-  };
+  }, [AudioRef]);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -39,7 +39,7 @@ const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
   const handlePause = useCallback(() => {
     setIsPlaying(false);
     AudioRef?.current?.pause();
-  }, []);
+  }, [AudioRef]);
 
   const togglePlay = () => {
     isPlaying ? handlePause() : handlePlay();
@@ -57,7 +57,7 @@ const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
       audioCurrent?.removeEventListener('ended', handlePause);
       handlePause();
     };
-  }, [handlePause]);
+  }, [handlePause, AudioRef, handleInitAudioData, handleTimeUpdate]);
 
   return (
     <div className={styles.audioContainer} onClick={togglePlay}>
