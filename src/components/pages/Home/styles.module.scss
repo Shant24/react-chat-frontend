@@ -1,11 +1,12 @@
 .homePage {
-  height: inherit;
+  $height: var(--100vh);
+  height: $height;
 
   .container {
     margin: 0 auto;
     max-width: 1143px;
     width: 100%;
-    height: inherit;
+    height: $height;
     display: grid;
     grid-template-columns: max-content 1fr;
     background: #ffffff;
