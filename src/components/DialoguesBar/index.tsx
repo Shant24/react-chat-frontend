@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, RefObject, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Badge, Button, Input, Tooltip } from 'antd';
@@ -6,7 +6,6 @@ import { TeamOutlined, FormOutlined, SearchOutlined, UnorderedListOutlined } fro
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
-import useWindowSize from '../../hooks/useWindowSize';
 import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
 import { getDialoguesSelector } from '../../store/selectors/dialoguesSelector';
@@ -16,20 +15,9 @@ import Dialogues from '../Dialogues';
 const DialoguesBar = () => {
   const dispatch = useDispatch();
   const dialogues = useSelector(getDialoguesSelector);
-  const DialoguesPartRef = useRef(null) as RefObject<HTMLDivElement> | null;
-  const { height } = useWindowSize();
-  const [dialoguesContentHeight, setDialoguesContentHeight] = useState<number>(
-    DialoguesPartRef?.current?.offsetHeight || 0,
-  );
   const [searchValue, setSearchValue] = useState<string>('');
   const [hasUnread, setHasUnread] = useState(false);
   const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (DialoguesPartRef) {
-      setDialoguesContentHeight(DialoguesPartRef.current?.offsetHeight || 0);
-    }
-  }, [DialoguesPartRef, height]);
 
   useEffect(() => {
     dispatch(fetchDialogues());
@@ -116,9 +104,7 @@ const DialoguesBar = () => {
         </div>
       </div>
 
-      <div ref={DialoguesPartRef}>
-        <Dialogues items={sortedDialogues} height={dialoguesContentHeight} isShowUnReads={isShowUnReads} />
-      </div>
+      <Dialogues items={sortedDialogues} isShowUnReads={isShowUnReads} />
     </div>
   );
 };
