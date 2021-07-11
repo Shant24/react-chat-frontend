@@ -11,11 +11,10 @@ import { isLoadingDialoguesSelector } from '../../store/selectors/dialoguesSelec
 
 interface IDialoguesProps {
   items: IDialog[];
-  height?: number;
   isShowUnReads: boolean;
 }
 
-const Dialogues = ({ items, height = 0, isShowUnReads }: IDialoguesProps) => {
+const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
   const ScrollbarsRef = useRef() as RefObject<Scrollbars> | undefined;
   const isLoading = useSelector(isLoadingDialoguesSelector);
 
@@ -28,7 +27,7 @@ const Dialogues = ({ items, height = 0, isShowUnReads }: IDialoguesProps) => {
   }, [ScrollbarsRef, items, isLoading, isShowUnReads]);
 
   return (
-    <Scrollbars ref={ScrollbarsRef} style={{ height: `${height}px` }} autoHide>
+    <Scrollbars ref={ScrollbarsRef} autoHide>
       {isLoading ? (
         <Spin className={styles.loadingContainer} tip="Loading dialogues" />
       ) : !!items.length ? (
