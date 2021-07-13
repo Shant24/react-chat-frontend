@@ -21,7 +21,7 @@ export const formatDateDistance = (preDate: DateType, isShowTime?: boolean, loca
 
   if (isShowTime && !isThisMonth(date)) return `${getDate(date)}, ${getTime(date)}`;
 
-  let formattedDate = formatDistanceToNowStrict(date, {
+  const formattedDate = formatDistanceToNowStrict(date, {
     addSuffix: true,
     locale: localeArr[locale],
     roundingMethod: 'floor',

@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 import { REGEXP } from '../utils/constants';
 
 export const LoginSchema = yup.object({

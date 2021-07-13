@@ -1,10 +1,10 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { InfoCircleTwoTone } from '@ant-design/icons';
 
 import styles from '../../styles.module.scss';
 import { ShadowBlock } from '../../../..';
-import { Link } from 'react-router-dom';
 
 const RegisterSuccess = () => {
   return (

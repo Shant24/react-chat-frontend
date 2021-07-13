@@ -20,6 +20,7 @@ const LoginForm = ({ history }: ILoginFormProps) => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     onSubmit: (values: ILoginValues) => {
+      // TODO: add logic
       console.log('values login', values);
       history.push('/auth/register');
     },
