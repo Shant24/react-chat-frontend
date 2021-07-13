@@ -8,14 +8,16 @@ import { isMobile } from 'react-device-detect';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
+import { IImageFile } from '../../types/file';
+import ImagePreview from '../ImagePreview';
 
-interface ISendMessageInputProps {}
-
-const SendMessageInput = (props: ISendMessageInputProps) => {
+const SendMessageInput = () => {
   const [isMount, setIsMount] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>('');
+  const [images, setImages] = useState<IImageFile[]>([]);
 
   const TextareaRef = useRef(null) as RefObject<Textarea> | null;
+  const UploadInputRef = useRef(null) as RefObject<HTMLInputElement> | null;
 
   useEffect(() => {
     setIsMount(true);
@@ -34,7 +36,6 @@ const SendMessageInput = (props: ISendMessageInputProps) => {
   };
 
   const handleEmojiClick = noop;
-  const handleCameraClick = noop;
   const handleAudioClick = noop;
 
   const handleMessageClick = () => {
@@ -42,56 +43,102 @@ const SendMessageInput = (props: ISendMessageInputProps) => {
     TextareaRef?.current?.focus();
   };
 
-  return (
-    <div className={styles.sendMessageInputContainer}>
-      <div className={cls(styles.actionsContainer, styles.leftSide)}>
-        <Button
-          type="link"
-          shape="circle"
-          className={cls(styles.btn, styles.emojiBtn)}
-          icon={<SmileOutlined className={cls(styles.icon, styles.emojiIcon)} />}
-          onClick={handleEmojiClick}
-        />
-      </div>
+  const handleCameraClick = () => {
+    UploadInputRef?.current?.click();
+  };
 
-      {isMount && (
-        <Textarea
-          ref={TextareaRef}
-          className={styles.textarea}
-          value={textValue}
-          placeholder="Enter the message..."
-          autoSize={{ minRows: 1, maxRows: 3 }}
-          onChange={handleTextChange}
-          onPressEnter={handlePressEnter}
-          spellCheck
-        />
+  const handleSetFiles = (e: ChangeEvent<HTMLInputElement>) => {
+    const filesList = e.target.files;
+    if (filesList) {
+      const filesArr: IImageFile[] = [];
+      for (let i = 0; i < filesList.length; i++) {
+        const file: IImageFile = {
+          file: filesList[i],
+          name: filesList[i].name,
+          src: URL.createObjectURL(filesList[i]),
+        };
+        filesArr.push(file);
+      }
+      setImages(filesArr);
+    }
+  };
+
+  const handleRemoveImage = (imageName: string) => () => {
+    setImages(images.filter(({ name }) => name !== imageName));
+  };
+
+  return (
+    <div>
+      {!!images.length && (
+        <div>
+          {/* TODO: set styling of image preview */}
+          {images.map((image) => (
+            <ImagePreview key={image.name} image={image} handleRemove={handleRemoveImage(image.name)} />
+          ))}
+        </div>
       )}
 
-      <div className={cls(styles.actionsContainer, styles.rightSide)}>
-        <Button
-          type="link"
-          shape="circle"
-          className={cls(styles.btn, styles.photoBtn)}
-          icon={<CameraOutlined className={cls(styles.icon, styles.photoIcon)} />}
-          onClick={handleCameraClick}
-        />
-
-        <div className={styles.conditionContainer}>
+      <div className={styles.sendMessageInputContainer}>
+        <div className={cls(styles.actionsContainer, styles.leftSide)}>
           <Button
             type="link"
             shape="circle"
-            className={cls(styles.btn, styles.sendBtn, styles.conditionalIcons, { [styles.show]: textValue })}
-            icon={<SendOutlined className={cls(styles.icon, styles.sendIcon)} />}
-            onClick={handleMessageClick}
+            className={cls(styles.btn, styles.emojiBtn)}
+            icon={<SmileOutlined className={cls(styles.icon, styles.emojiIcon)} />}
+            onClick={handleEmojiClick}
           />
+        </div>
 
-          <Button
-            type="link"
-            shape="circle"
-            className={cls(styles.btn, styles.audioBtn, styles.conditionalIcons, { [styles.show]: !textValue })}
-            icon={<AudioOutlined className={cls(styles.icon, styles.audioIcon)} />}
-            onClick={handleAudioClick}
+        {isMount && (
+          <Textarea
+            ref={TextareaRef}
+            className={styles.textarea}
+            value={textValue}
+            placeholder="Enter the message..."
+            autoSize={{ minRows: 1, maxRows: 3 }}
+            onChange={handleTextChange}
+            onPressEnter={handlePressEnter}
+            spellCheck
           />
+        )}
+
+        <div className={cls(styles.actionsContainer, styles.rightSide)}>
+          <div className={styles.uploaderContainer}>
+            <Button
+              type="link"
+              shape="circle"
+              className={cls(styles.btn, styles.photoBtn)}
+              icon={<CameraOutlined className={cls(styles.icon, styles.photoIcon)} />}
+              onClick={handleCameraClick}
+            />
+
+            <input
+              ref={UploadInputRef}
+              type="file"
+              accept="image/*"
+              className={styles.uploadInput}
+              onChange={handleSetFiles}
+              multiple
+            />
+          </div>
+
+          <div className={styles.conditionContainer}>
+            <Button
+              type="link"
+              shape="circle"
+              className={cls(styles.btn, styles.sendBtn, styles.conditionalIcons, { [styles.show]: textValue })}
+              icon={<SendOutlined className={cls(styles.icon, styles.sendIcon)} />}
+              onClick={handleMessageClick}
+            />
+
+            <Button
+              type="link"
+              shape="circle"
+              className={cls(styles.btn, styles.audioBtn, styles.conditionalIcons, { [styles.show]: !textValue })}
+              icon={<AudioOutlined className={cls(styles.icon, styles.audioIcon)} />}
+              onClick={handleAudioClick}
+            />
+          </div>
         </div>
       </div>
     </div>
