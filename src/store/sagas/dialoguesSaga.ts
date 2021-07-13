@@ -16,6 +16,6 @@ function* getAllDialogues() {
   }
 }
 
-export function* dialoguesSagaWatcher() {
+export default function* dialoguesSagaWatcher() {
   yield takeLatest(IDialoguesActionTypes.DIALOGUES_REQUEST, getAllDialogues);
 }

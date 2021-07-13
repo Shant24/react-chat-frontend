@@ -38,8 +38,8 @@ const Conversations = ({ items, roomId }: IConversationsProps) => {
         {isLoading ? (
           <Spin className={styles.messagesStatusContainer} size="large" tip="Loading messages" />
         ) : roomId && !!items.length ? (
-          items.map((message, index) => (
-            <Message key={message._id} {...message} scrollTo={items.length + 1 === index} />
+          items.map((message) => (
+            <Message key={message._id} {...message} /> // scrollTo={items.length + 1 === index}
           ))
         ) : (
           <Empty description={roomId ? 'No messages' : 'Open the dialogue'} />
