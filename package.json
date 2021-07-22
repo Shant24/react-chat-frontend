@@ -24,7 +24,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
-    "add": "^2.0.6",
     "antd": "^4.16.3",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
@@ -50,7 +49,6 @@
     "sass": "^1.35.1",
     "uuid": "^8.3.2",
     "web-vitals": "^2.0.1",
-    "yarn": "^1.22.10",
     "yup": "^0.32.9"
   },
   "devDependencies": {
