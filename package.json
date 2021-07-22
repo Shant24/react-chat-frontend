@@ -48,7 +48,6 @@
     "reselect": "^4.0.0",
     "reset-css": "^5.0.1",
     "sass": "^1.35.1",
-    "server": "^1.0.34",
     "uuid": "^8.3.2",
     "web-vitals": "^2.0.1",
     "yarn": "^1.22.10",
@@ -66,7 +65,6 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/redux-logger": "^3.0.8",
     "@types/sass": "^1.16.0",
-    "@types/server": "^1.0.4",
     "@types/uuid": "^8.3.0",
     "concurrently": "^6.2.0",
     "redux-devtools-extension": "^2.13.9",
@@ -75,8 +73,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
