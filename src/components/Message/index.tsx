@@ -62,7 +62,7 @@ const Message = (props: IMessageProps) => {
           <ImageAttachments attachments={attachments} isBigImage={attachments?.length === 1} isMe={isMe} />
         )}
 
-        {date && <time className={styles.date}>{formatDateDistance(date, true)}</time>}
+        {!isTyping && date && <time className={styles.date}>{formatDateDistance(date, true)}</time>}
       </div>
 
       {!isTyping && isMe && attachments && (

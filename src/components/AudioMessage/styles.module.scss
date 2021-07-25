@@ -12,6 +12,25 @@
     height: 53px;
   }
 
+  &.isMe {
+    .audioInfo {
+      flex-direction: row-reverse;
+
+      .progressIcon {
+        svg {
+          path {
+            fill: $color-audio-icon-me;
+          }
+        }
+      }
+
+      .audioDuration {
+        color: $color-audio-time-me;
+        opacity: 0.7;
+      }
+    }
+  }
+
   audio {
     display: none;
   }
@@ -21,8 +40,8 @@
     top: 0;
     left: 0;
     height: 100%;
-    background-color: $blue-secondary;
-    transition: width 0.3s linear;
+    background-color: $bg-audio-message;
+    transition: width 0.2s linear;
     z-index: 0;
   }
 
@@ -43,10 +62,6 @@
       padding: 0 10px;
     }
 
-    &.me {
-      flex-direction: row-reverse;
-    }
-
     .audioBtn {
       width: 28px;
       height: 28px;
@@ -54,7 +69,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 50%;
-      background-color: $blue-dark;
+      background-color: $bg-audio-play-btn;
       border: none;
       cursor: pointer;
 
@@ -75,7 +90,7 @@
       }
 
       svg {
-        fill: $white;
+        fill: $color-audio-icon;
       }
     }
 
@@ -91,11 +106,15 @@
         @media (max-width: 480px) {
           max-width: 22vw;
         }
+
+        path {
+          fill: $color-audio-icon;
+        }
       }
     }
 
     .audioDuration {
-      color: $white;
+      color: $color-audio-time;
       font-size: 12px;
       line-height: 100%;
       opacity: 0.5;

@@ -1,12 +1,17 @@
 import React from 'react';
 
+import cls from 'classnames';
 import { Link } from 'react-router-dom';
-import { InfoCircleTwoTone } from '@ant-design/icons';
+import InfoCircleTwoTone from '@ant-design/icons/InfoCircleTwoTone';
+import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 
 import styles from '../../styles.module.scss';
+import useDarkMode from '../../../../../hooks/useDarkMode';
 import { ShadowBlock } from '../../../..';
 
 const RegisterSuccess = () => {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <section className={styles.authSectionContainer}>
       <div className={styles.titleContainer}>
@@ -16,7 +21,11 @@ const RegisterSuccess = () => {
 
       <ShadowBlock className={styles.block}>
         <div className={styles.successContainer}>
-          <InfoCircleTwoTone className={styles.infoIcon} />
+          {isDarkMode ? (
+            <InfoCircleOutlined className={cls(styles.infoIcon, { [styles.isDark]: isDarkMode })} />
+          ) : (
+            <InfoCircleTwoTone className={styles.infoIcon} />
+          )}
 
           <h2>Verify your account</h2>
 

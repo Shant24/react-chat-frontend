@@ -1,6 +1,6 @@
 @import '../../scss/variables';
 
-.textAvatar {
+.withoutAvatar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,7 @@
 
   span {
     user-select: none;
-    color: $white-no-changeable;
-    filter: drop-shadow(1px 1px 5px $black-light);
+    color: $color-avatar-status-border;
+    filter: drop-shadow(1px 1px 5px $color-avatar-shadow);
   }
 }

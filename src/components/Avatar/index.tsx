@@ -14,7 +14,7 @@ interface IAvatarProps {
 
 const Avatar = ({ fullName, avatar, className }: IAvatarProps) => (
   <div
-    className={cls(className, { [styles.textAvatar]: !avatar, 'textAvatar': !avatar })}
+    className={cls(className, { [styles.withoutAvatar]: !avatar})}
     {...(!avatar ? { style: { background: generateAvatarGradientFromFullName(fullName) } } : {})}
   >
     {avatar ? (<img src={avatar} alt={`${fullName} avatar`} />) : (<span>{generateNameForAvatar(fullName)}</span>)}

@@ -35,15 +35,15 @@
       .bubble {
         margin: 0;
         padding: 12px 16px;
-        background-color: $blue;
-        border: 1px solid $blue;
-        box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
+        background-color: $bg-text-message;
+        border: 1px solid $color-message-border;
+        box-shadow: 0 5px 5px $color-bubble-shadow;
         border-radius: 12px 12px 12px 0;
 
         .text {
           margin: 0;
           max-width: 370px;
-          color: $white;
+          color: $color-text-static-white;
           font-size: 14px;
           line-height: 20px;
         }
@@ -53,7 +53,7 @@
     .date {
       margin: 8px 0 0;
       padding: 0;
-      color: $black;
+      color: $color-time;
       font-size: 12px;
       line-height: 117%;
       text-align: right;
@@ -83,13 +83,13 @@
         flex-direction: row-reverse;
 
         .bubble {
-          background-color: $white-lighter;
-          border-color: $border-light;
-          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+          background-color: $bg-text-message-me;
+          border-color: $color-message-border-me;
+          box-shadow: 0 4px 4px $color-bubble-shadow-me;
           border-radius: 12px 12px 0 12px;
 
           .text {
-            color: $black;
+            color: $color-text;
           }
         }
       }
@@ -105,8 +105,8 @@
       .bubbleWrapper {
         .bubble {
           padding: 15px 16px;
-          background-color: $blue-light;
-          border-color: $blue-light;
+          background-color: $bg-loading;
+          border-color: $bg-loading;
         }
       }
     }
@@ -120,7 +120,6 @@
           max-width: 296px;
           width: 100vw;
           position: relative;
-          background-color: $blue;
           border: none;
           overflow: hidden;
           cursor: pointer;

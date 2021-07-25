@@ -17,14 +17,15 @@
   }
 
   &.online::before {
-    background-color: $green;
+    background-color: $bg-online;
   }
 
   &.offline::before {
-    background-color: $red-light;
+    background-color: $bg-offline;
   }
 
   .statusName {
+    color: $color-online-status-text;
     opacity: 0.3;
   }
 }

@@ -9,7 +9,7 @@ import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { IImageFile } from '../../types/file';
-import ImagePreview from '../ImagePreview';
+import PreviewSingleImage from '../PreviewSingleImage';
 
 const SendMessageInput = () => {
   const [isMount, setIsMount] = useState<boolean>(false);
@@ -19,13 +19,20 @@ const SendMessageInput = () => {
   const TextareaRef = useRef(null) as RefObject<Textarea> | null;
   const UploadInputRef = useRef(null) as RefObject<HTMLInputElement> | null;
 
+  const scrollToBottom = () => {
+    if (TextareaRef?.current) {
+      const { resizableTextArea: { textArea } } = TextareaRef.current;
+      textArea.scrollTo({ top: textArea.scrollHeight });
+    }
+  };
+
   useEffect(() => {
     setIsMount(true);
   }, []);
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextValue(e.target.value);
-    e.target.scrollTo(0, e.target.scrollHeight);
+    scrollToBottom();
   };
 
   const handlePressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -60,6 +67,10 @@ const SendMessageInput = () => {
         filesArr.push(file);
       }
       setImages(filesArr);
+
+      if (UploadInputRef?.current) {
+        UploadInputRef.current.value = '';
+      }
     }
   };
 
@@ -68,12 +79,12 @@ const SendMessageInput = () => {
   };
 
   return (
-    <div>
+    <div className={styles.sendMessageContainer}>
+      {/* TODO: create component from this */}
       {!!images.length && (
-        <div>
-          {/* TODO: set styling of image preview */}
+        <div className={styles.previewImagesContainer}>
           {images.map((image) => (
-            <ImagePreview key={image.name} image={image} handleRemove={handleRemoveImage(image.name)} />
+            <PreviewSingleImage key={image.name} image={image} handleRemove={handleRemoveImage(image.name)} />
           ))}
         </div>
       )}

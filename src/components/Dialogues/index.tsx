@@ -1,13 +1,14 @@
 import React, { memo, RefObject, useEffect, useRef } from 'react';
 
 import { useSelector } from 'react-redux';
-import { Empty, Spin } from 'antd';
+import Empty from 'antd/lib/empty';
+import Spin from 'antd/lib/spin';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
-import { DialogueItem } from '../';
 import { isLoadingDialoguesSelector } from '../../store/selectors/dialoguesSelector';
+import { DialogueItem } from '../';
 
 interface IDialoguesProps {
   items: IDialog[];
@@ -33,7 +34,7 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
       ) : !!items.length ? (
         items.map((item) => <DialogueItem key={item._id} {...item} />)
       ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
+        <Empty className={styles.emptyData} image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
       )}
     </Scrollbars>
   );

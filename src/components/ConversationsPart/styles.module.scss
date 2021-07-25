@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: max-content 1fr max-content;
+  background-color: $bg-content-right;
   overflow: hidden;
 
   .conversationsHeader {
@@ -19,18 +20,19 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-bottom: 1px solid $gray-light2;
-    box-shadow: 0px -13px 23px $black;
+    background-color: $bg-content-left;
+    border-bottom: 1px solid $color-border;
+    box-shadow: 0 -13px 23px $color-shadow;
     z-index: 2;
 
-    .conversationWith {
+    .conversationWithPersonContainer {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       font-size: 14px;
       line-height: 16px;
       text-align: center;
-      color: $black;
+      color: $color-username;
 
       .name {
         font-weight: 500;
@@ -40,11 +42,16 @@
     .conversationOptions {
       margin: 0 25px 0 0;
       padding: 10px;
+      color: $color-btn-icon;
+      opacity: 0.5;
       cursor: pointer;
-      color: $gray2;
 
       &:hover {
-        color: $black;
+        opacity: 1;
+      }
+
+      & > span {
+        font-size: 22px;
       }
     }
   }

@@ -1,20 +1,29 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 
+import cls from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { Badge, Button, Input, Tooltip } from 'antd';
-import { TeamOutlined, FormOutlined, SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { noop } from 'lodash';
+import Badge from 'antd/lib/badge';
+import Button from 'antd/lib/button';
+import Input from 'antd/lib/input';
+import Tooltip from 'antd/lib/tooltip';
+import TeamOutlined from '@ant-design/icons/TeamOutlined';
+import FormOutlined from '@ant-design/icons/FormOutlined';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import UnorderedListOutlined from '@ant-design/icons/UnorderedListOutlined';
 
 import styles from './styles.module.scss';
-import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { IDialog } from '../../types/dialog';
+import useDarkMode from '../../hooks/useDarkMode';
+import { filterObject, sortObject } from '../../helpers/sortingHelper';
 import { getDialoguesSelector } from '../../store/selectors/dialoguesSelector';
 import { fetchDialogues } from '../../store/actions/dialoguesAction';
+import { MoonIcon, SunIcon } from '../images';
 import Dialogues from '../Dialogues';
 
 const DialoguesBar = () => {
   const dispatch = useDispatch();
   const dialogues = useSelector(getDialoguesSelector);
+  const { isDarkMode, toggle } = useDarkMode();
   const [searchValue, setSearchValue] = useState<string>('');
   const [hasUnread, setHasUnread] = useState(false);
   const [isShowUnReads, setIsShowUnReads] = useState<boolean>(false);
@@ -34,6 +43,7 @@ const DialoguesBar = () => {
 
   const sortedDialogues: IDialog[] = useMemo(() => {
     let unread = false;
+
     let sorted: IDialog[] = sortObject(
       isShowUnReads ? filteredDialogues : dialogues,
       [(dialog: IDialog) => dialog.message.created_at],
@@ -73,13 +83,27 @@ const DialoguesBar = () => {
             <span>List of dialogue</span>
           </div>
 
-          <Button
-            type="link"
-            shape="circle"
-            className={styles.createNewConversationBtn}
-            icon={<FormOutlined className={styles.createNewConversationIcon} />}
-            onClick={noop}
-          />
+          <div className={styles.topButtonsContainer}>
+            <Tooltip title="Switch dark mode">
+              <Button type="link" shape="circle" className={styles.darkModeSwitcherContainer} onClick={toggle}>
+                <span className={cls(styles.darkModeIconWrapper, { [styles.isShown]: isDarkMode })}>
+                  <MoonIcon />
+                </span>
+                <span className={cls(styles.darkModeIconWrapper, { [styles.isShown]: !isDarkMode })}>
+                  <SunIcon />
+                </span>
+              </Button>
+            </Tooltip>
+
+            <Tooltip title="Create new conversation">
+              <Button
+                type="link"
+                shape="circle"
+                className={styles.createNewConversationBtn}
+                icon={<FormOutlined className={styles.createNewConversationIcon} />}
+              />
+            </Tooltip>
+          </div>
         </div>
 
         <div className={styles.dialoguesSearchContainer}>
@@ -88,7 +112,7 @@ const DialoguesBar = () => {
             value={searchValue}
             placeholder="Search in the contacts"
             allowClear
-            prefix={<SearchOutlined className={styles.searchIcon} />}
+            prefix={<SearchOutlined />}
             onChange={(e) => setSearchValue(e.target.value)}
           />
 
@@ -109,4 +133,4 @@ const DialoguesBar = () => {
   );
 };
 
-export default DialoguesBar;
+export default memo(DialoguesBar);

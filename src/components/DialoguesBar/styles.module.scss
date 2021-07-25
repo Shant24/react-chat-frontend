@@ -9,7 +9,8 @@
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: max-content 1fr;
-  border-right: 1px solid $gray-light2;
+  border-right: 1px solid $color-border;
+  background-color: $bg-content-left;
   overflow: hidden;
 
   @media (max-width: 480px) {
@@ -17,7 +18,7 @@
   }
 
   .dialoguesBarTopPart {
-    box-shadow: 0px -13px 23px $black;
+    box-shadow: 0 -13px 23px $color-shadow;
     z-index: 2;
 
     .dialoguesHeader {
@@ -27,7 +28,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid $gray-light2;
+      border-bottom: 1px solid $color-border;
 
       .conversationsListText {
         display: flex;
@@ -36,10 +37,14 @@
         .listIcon {
           margin: 0 7px 0 0;
           font-size: 18px;
+
+          svg {
+            fill: $color-btn-icon;
+          }
         }
 
         span {
-          color: $black;
+          color: $color-text;
 
           &:last-child {
             font-size: 14px;
@@ -49,24 +54,67 @@
         }
       }
 
-      .createNewConversationBtn {
+      .topButtonsContainer {
         margin: 0 -7px 0 0;
-        max-width: 30px;
-        min-width: 30px !important;
-        height: 30px;
-        color: $black;
-        opacity: 0.5;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
+        display: flex;
 
-        &:hover {
-          opacity: 1;
+        .darkModeSwitcherContainer {
+          max-width: 30px;
+          min-width: 30px !important;
+          height: 30px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $color-btn-icon;
+          opacity: 0.5;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          .darkModeIconWrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transform-origin: center center;
+            transition: transform 0.2s ease-in-out;
+
+            &.isShown {
+              transform: translate(-50%, -50%) scale(1);
+            }
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+
         }
 
-        .createNewConversationIcon {
-          display: block;
-          margin: 3px 0 0;
-          font-size: 18px;
+        .createNewConversationBtn {
+          margin: 0 0 0 10px;
+          max-width: 30px;
+          min-width: 30px !important;
+          height: 30px;
+          color: $color-btn-icon;
+          opacity: 0.5;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          .createNewConversationIcon {
+            display: block;
+            margin: 3px 0 0;
+            font-size: 18px;
+          }
         }
       }
     }
@@ -78,11 +126,12 @@
 
       .searchInput {
         height: 38px;
-        background: $blue-width-light2;
+        background-color: $bg-text-field;
         border-radius: 2px;
         border: none;
         outline: none;
         box-shadow: none;
+        transition: unset;
 
         @media (max-width: 480px) {
           font-size: 16px;
@@ -96,21 +145,28 @@
         }
 
         input {
-          background: $blue-width-light2;
+          background-color: $bg-text-field;
+          color: $color-input;
+          transition: unset;
+
+          &::placeholder {
+            color: $color-placeholder;
+          }
 
           @media (max-width: 480px) {
             font-size: 16px;
           }
         }
-      }
 
-      .searchIcon {
-        opacity: 0.5;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
+        svg {
+          fill: $color-btn-icon;
+          opacity: 0.5;
+          transition: all 0.2s ease-in-out;
+          cursor: pointer;
 
-        &:hover {
-          opacity: 1;
+          &:hover {
+            opacity: 1;
+          }
         }
       }
 
@@ -123,18 +179,22 @@
           opacity: 1;
         }
 
+        sup {
+          background: $bg-offline;
+        }
+
         .filterBtnWrapper {
           min-width: 38px;
           height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: $blue;
+          background-color: $bg-filter;
           cursor: pointer;
 
           svg {
             font-size: 20px;
-            fill: $white;
+            fill: $color-btn-icon-static-white;
           }
         }
       }

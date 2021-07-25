@@ -1,28 +1,24 @@
 import React, { CSSProperties, FC } from 'react';
 
+import styles from './styles.module.scss';
 import useWindowSize from '../../hooks/useWindowSize';
-
-interface IContainerStyle extends CSSProperties {
-  '--100vw': string;
-  '--100vh': string;
-}
+import useDarkMode from '../../hooks/useDarkMode';
 
 const PageLayout: FC = ({ children }) => {
   const { width, height } = useWindowSize();
+  const { isDarkMode } = useDarkMode(false);
+
+  const pageWrapperStyle = {
+    maxWidth: width,
+    width,
+    maxHeight: height,
+    height,
+    '--100vw': `${width}px`,
+    '--100vh': `${height}px`,
+  } as CSSProperties;
 
   return (
-    <div
-      style={
-        {
-          maxWidth: width,
-          width,
-          maxHeight: height,
-          height,
-          '--100vw': `${width}px`,
-          '--100vh': `${height}px`,
-        } as IContainerStyle
-      }
-    >
+    <div className={styles.app} style={pageWrapperStyle} data-theme={isDarkMode ? 'dark' : 'light'}>
       {children}
     </div>
   );

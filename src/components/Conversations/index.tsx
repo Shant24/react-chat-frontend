@@ -2,13 +2,14 @@ import React, { memo, RefObject, useEffect, useRef } from 'react';
 
 import cls from 'classnames';
 import { useSelector } from 'react-redux';
-import { Empty, Spin } from 'antd';
+import Empty from 'antd/lib/empty';
+import Spin from 'antd/lib/spin';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { Message } from '..';
 import { isLoadingMessagesSelector } from '../../store/selectors/messagesSelector';
+import { Message } from '..';
 
 interface IConversationsProps {
   items: IMessage[];
@@ -42,7 +43,7 @@ const Conversations = ({ items, roomId }: IConversationsProps) => {
             <Message key={message._id} {...message} /> // scrollTo={items.length + 1 === index}
           ))
         ) : (
-          <Empty description={roomId ? 'No messages' : 'Open the dialogue'} />
+          <Empty className={styles.emptyData} description={roomId ? 'No messages' : 'Open the dialogue'} />
         )}
       </div>
     </Scrollbars>

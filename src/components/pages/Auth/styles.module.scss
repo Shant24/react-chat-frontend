@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: $bg-body;
 
   button {
     text-transform: uppercase;
@@ -20,10 +21,13 @@
       margin: 0 0 50px;
       text-align: center;
 
+      * {
+        color: $color-text;
+      }
+
       h1 {
         margin: 0 0 5px;
         font-size: 28px;
-        color: $black;
       }
 
       p {
@@ -44,54 +48,117 @@
         &:last-child {
           margin: 0;
         }
+
+        & > div > div:first-child > span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
 
       .inputIcon {
         margin: 0 5px 0 -5px;
+        color: $color-btn-icon;
       }
 
       .inputContainer {
         padding: 10px 25px 10px 15px;
+        background-color: $bg-text-field;
+        border-color: $color-auth-input-border;
+        box-shadow: none;
+
+        &:hover {
+          background-color: $bg-text-field;
+        }
 
         &.passwordField {
           padding: 10px 11px 10px 15px;
         }
 
-        input {
-          margin: 0 5px 0 0;
-        }
-      }
-
-      .submitBtn {
-        &[disabled] {
-          background: $blue-light;
+        &.hasError {
+          border-color: $color-auth-input-border-error;
 
           &:hover {
-            color: $white;
+            border-color: $color-auth-input-border-error;
+          }
+        }
+
+        input {
+          margin: 0 5px 0 0;
+          background-color: $bg-text-field !important;
+          color: $color-input;
+          box-shadow: none;
+          border: none;
+
+          &:hover, &:focus {
+            background-color: $bg-text-field !important;
+            box-shadow: none;
+            border: none;
+          }
+        }
+
+        input + span {
+          span {
+            opacity: 0.5;
+
+            &:hover {
+              opacity: 1;
+            }
+
+            svg {
+              color: $color-btn-icon;
+            }
           }
         }
       }
 
-      .suggestLink {
-        margin: 20px 0 0;
-        width: 100%;
-        display: block;
-        color: $gray;
-        font-size: 16px;
-        line-height: 120%;
-        letter-spacing: 1px;
-        text-align: center;
-        cursor: pointer;
+      .submitBtnContainer {
+        display: flex;
+        flex-direction: column;
 
-        &:hover {
-          color: $black;
+        .submitBtn {
+          background: $bg-auth-btn;
+          color: $color-text-static-white;
+          border: none;
+          outline: none;
+
+          &:hover {
+            opacity: 0.8;
+          }
+
+          &[disabled] {
+            opacity: 0.5;
+            border: none;
+            outline: none;
+          }
+        }
+
+        .suggestLinkContainer {
+          margin: 20px 0 0;
+
+          .suggestLink {
+            margin: 0 auto;
+            width: min-content;
+            display: flex;
+            flex-direction: column;
+            color: $color-link;
+            font-size: 16px;
+            line-height: 120%;
+            letter-spacing: 1px;
+            text-align: center;
+            white-space: nowrap;
+            cursor: pointer;
+
+            &:hover {
+              color: $color-link-hover;
+            }
+          }
         }
       }
     }
 
     .successContainer {
       width: 100%;
-      height: 373px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -100,29 +167,35 @@
 
       .infoIcon {
         font-size: 48px;
+
+        &.isDark {
+          svg {
+            fill: $color-text-static-white;
+          }
+        }
       }
 
       h2 {
         margin: 10px 0 0;
         font-size: 22px;
-        color: $black;
+        color: $color-text;
       }
 
       p {
         margin: 8px 0 0;
-        color: $gray;
+        color: $color-text-static-gray;
         line-height: 120%;
       }
 
       a {
-        margin: 15px 0 -35px;
+        margin: 15px 0 0;
         width: 80%;
         height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $white;
-        background-color: $blue;
+        color: $color-text-static-white;
+        background-color: $bg-auth-btn;
         font-size: 17px;
         border-radius: 8px;
         transition: all 0.2s ease-in-out;

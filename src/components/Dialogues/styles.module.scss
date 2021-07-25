@@ -1,5 +1,11 @@
+@import "../../scss/variables";
+
 .loadingContainer {
   width: 100%;
   margin: 40px 0 0;
   text-align: center;
+}
+
+.emptyData {
+  color: $color-empty-data-text;
 }
