@@ -1,4 +1,4 @@
-import React, { memo, RefObject, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import cls from 'classnames';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ interface IConversationsProps {
 }
 
 const Conversations = ({ items, roomId }: IConversationsProps) => {
-  const ScrollbarsRef = useRef(null) as RefObject<Scrollbars> | null;
+  const ScrollbarsRef = useRef<Scrollbars>(null);
   const isLoading = useSelector(isLoadingMessagesSelector);
 
   useEffect(() => {

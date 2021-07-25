@@ -6,6 +6,8 @@
   height: 45px;
   position: relative;
   display: inline-block;
+  border-radius: 6px;
+  overflow: hidden;
 
   &:hover {
     .removeContainer {
