@@ -1,6 +1,14 @@
 @import "../../scss/variables";
 
-.conversationsContainer {
+.conversationsScrollableContainer {
+  & > div {
+    &:nth-child(2), &:nth-child(3) {
+      div {
+        background-color: $bg-scrollbar !important;
+      }
+    }
+  }
+
   .conversationsWrapper {
     padding: 22px 0 0;
     min-height: 100%;

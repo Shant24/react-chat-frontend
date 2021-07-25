@@ -29,7 +29,7 @@ const Conversations = ({ items, roomId }: IConversationsProps) => {
   }, [ScrollbarsRef, items, roomId, isLoading]);
 
   return (
-    <Scrollbars ref={ScrollbarsRef} className={styles.conversationsContainer} autoHide>
+    <Scrollbars ref={ScrollbarsRef} className={styles.conversationsScrollableContainer} autoHide>
       <div
         className={cls(styles.conversationsWrapper, {
           [styles.loading]: isLoading,
