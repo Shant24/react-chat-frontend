@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 
 import cls from 'classnames';
+import ParsedTextWithEmoji from 'react-emoji-render';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
@@ -45,11 +46,19 @@ const Message = (props: IMessageProps) => {
         <div className={styles.bubbleWrapper}>
           {(text || isTyping || audio) && (
             <div className={styles.bubble}>
-              {!isTyping && text && !audio && <p className={styles.text}>{text}</p>}
+              {!isTyping && text && !audio && (
+                <p className={styles.text}>
+                  <ParsedTextWithEmoji text={text} />
+                </p>
+              )}
 
-              {!isTyping && audio && <AudioMessage isMe={isMe} audio={audio} />}
+              {!isTyping && audio && (
+                <AudioMessage isMe={isMe} audio={audio} />
+              )}
 
-              {isTyping && <LoadingMessage />}
+              {isTyping && (
+                <LoadingMessage />
+              )}
             </div>
           )}
 

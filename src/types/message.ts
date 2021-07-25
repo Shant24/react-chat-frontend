@@ -1,5 +1,6 @@
 export interface IMessage {
   _id: string;
+  roomId: string;
   user: { fullName: string };
   text?: string;
   audio?: string;

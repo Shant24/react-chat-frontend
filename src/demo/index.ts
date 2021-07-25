@@ -769,7 +769,7 @@ const dialogsArr: IDialog[] = [
 //   unreadCount: 3,
 // },
 
-const chatMessagesArr: IMessage[] = [
+const chatMessagesArr: any[] = [
   {
     _id: uuid(),
     user: { fullName: 'Shant Sargsyan' },

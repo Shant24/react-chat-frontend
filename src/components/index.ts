@@ -12,3 +12,6 @@ export { default as LoadingMessage } from './LoadingMessage';
 export { default as AudioMessage } from './AudioMessage';
 export { default as OnlineStatus } from './OnlineStatus';
 export { default as SendMessageInput } from './SendMessageInput';
+export { default as PreviewSingleImage } from './PreviewSingleImage';
+export { default as UploaderButton } from './UploaderButton';
+export { default as EmojiButton } from './EmojiButton';

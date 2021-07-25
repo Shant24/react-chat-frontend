@@ -1,15 +1,16 @@
 import React, { ChangeEvent, KeyboardEvent, memo, RefObject, useEffect, useRef, useState } from 'react';
 
 import cls from 'classnames';
-import { Button } from 'antd';
-import { AudioOutlined, CameraOutlined, SendOutlined, SmileOutlined } from '@ant-design/icons';
+import Button from 'antd/lib/button';
+import AudioOutlined from '@ant-design/icons/AudioOutlined';
+import SendOutlined from '@ant-design/icons/SendOutlined';
 import Textarea from 'rc-textarea';
 import { isMobile } from 'react-device-detect';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { IImageFile } from '../../types/file';
-import PreviewSingleImage from '../PreviewSingleImage';
+import { UploaderButton, EmojiButton, PreviewSingleImage } from '../';
 
 const SendMessageInput = () => {
   const [isMount, setIsMount] = useState<boolean>(false);
@@ -17,7 +18,6 @@ const SendMessageInput = () => {
   const [images, setImages] = useState<IImageFile[]>([]);
 
   const TextareaRef = useRef(null) as RefObject<Textarea> | null;
-  const UploadInputRef = useRef(null) as RefObject<HTMLInputElement> | null;
 
   const scrollToBottom = () => {
     if (TextareaRef?.current) {
@@ -42,36 +42,11 @@ const SendMessageInput = () => {
     }
   };
 
-  const handleEmojiClick = noop;
   const handleAudioClick = noop;
 
   const handleMessageClick = () => {
     // TODO: send message, remove textarea value and focus on it
     TextareaRef?.current?.focus();
-  };
-
-  const handleCameraClick = () => {
-    UploadInputRef?.current?.click();
-  };
-
-  const handleSetFiles = (e: ChangeEvent<HTMLInputElement>) => {
-    const filesList = e.target.files;
-    if (filesList) {
-      const filesArr: IImageFile[] = [];
-      for (let i = 0; i < filesList.length; i++) {
-        const file: IImageFile = {
-          file: filesList[i],
-          name: filesList[i].name,
-          src: URL.createObjectURL(filesList[i]),
-        };
-        filesArr.push(file);
-      }
-      setImages(filesArr);
-
-      if (UploadInputRef?.current) {
-        UploadInputRef.current.value = '';
-      }
-    }
   };
 
   const handleRemoveImage = (imageName: string) => () => {
@@ -90,15 +65,7 @@ const SendMessageInput = () => {
       )}
 
       <div className={styles.sendMessageInputContainer}>
-        <div className={cls(styles.actionsContainer, styles.leftSide)}>
-          <Button
-            type="link"
-            shape="circle"
-            className={cls(styles.btn, styles.emojiBtn)}
-            icon={<SmileOutlined className={cls(styles.icon, styles.emojiIcon)} />}
-            onClick={handleEmojiClick}
-          />
-        </div>
+        <EmojiButton />
 
         {isMount && (
           <Textarea
@@ -114,24 +81,7 @@ const SendMessageInput = () => {
         )}
 
         <div className={cls(styles.actionsContainer, styles.rightSide)}>
-          <div className={styles.uploaderContainer}>
-            <Button
-              type="link"
-              shape="circle"
-              className={cls(styles.btn, styles.photoBtn)}
-              icon={<CameraOutlined className={cls(styles.icon, styles.photoIcon)} />}
-              onClick={handleCameraClick}
-            />
-
-            <input
-              ref={UploadInputRef}
-              type="file"
-              accept="image/*"
-              className={styles.uploadInput}
-              onChange={handleSetFiles}
-              multiple
-            />
-          </div>
+          <UploaderButton setImages={setImages} />
 
           <div className={styles.conditionContainer}>
             <Button
