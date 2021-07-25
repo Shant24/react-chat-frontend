@@ -1,0 +1,14 @@
+@import "../../scss/variables";
+
+.app {
+  @include colors;
+  @include staticColors;
+
+  &[data-theme='light'] {
+    @include lightTheme;
+  }
+
+  &[data-theme='dark'] {
+    @include darkTheme;
+  }
+}

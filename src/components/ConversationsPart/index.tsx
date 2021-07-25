@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { EllipsisOutlined } from '@ant-design/icons';
+import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 
 import styles from './styles.module.scss';
 import { IMessage } from '../../types/message';
-import { Conversations, OnlineStatus, SendMessageInput } from '..';
 import { sortObject } from '../../helpers/sortingHelper';
 import { fetchMessages, removeMessages } from '../../store/actions/messagesAction';
 import { getAllMessagesSelector } from '../../store/selectors/messagesSelector';
 import { getDialogueById } from '../../store/selectors/dialoguesSelector';
+import { Conversations, OnlineStatus, SendMessageInput } from '..';
 
 const ConversationsPart = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const ConversationsPart = () => {
     <div className={styles.conversationsContainer}>
       <div className={styles.conversationsHeader}>
         {dialogueRoom && (
-          <div className={styles.conversationWith}>
+          <div className={styles.conversationWithPersonContainer}>
             <div className={styles.name}>{dialogueRoom.fullName}</div>
 
             <OnlineStatus isOnline={dialogueRoom.isOnline} showIcon />
@@ -53,4 +53,4 @@ const ConversationsPart = () => {
   );
 };
 
-export default ConversationsPart;
+export default memo(ConversationsPart);

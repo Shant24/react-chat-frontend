@@ -1,22 +1,20 @@
 import React, { memo } from 'react';
 
 import cls from 'classnames';
-import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import LockOutlined from '@ant-design/icons/LockOutlined';
 
 import styles from '../../styles.module.scss';
-import '../../styles.scss';
-import { Button, ShadowBlock } from '../../../../';
-import { LoginSchema as validationSchema } from '../../../../../validations';
-import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { ILoginValues } from '../../../../../types/auth';
+import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
+import { LoginSchema as validationSchema } from '../../../../../validations';
+import { Button, ShadowBlock } from '../../../../';
 
-interface ILoginFormProps extends RouteComponentProps {}
-
-const LoginForm = ({ history }: ILoginFormProps) => {
+const LoginForm = ({ history }: RouteComponentProps) => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     onSubmit: (values: ILoginValues) => {
@@ -38,7 +36,7 @@ const LoginForm = ({ history }: ILoginFormProps) => {
       </div>
 
       <ShadowBlock className={styles.block}>
-        <Form className="authForm" initialValues={values} onFinish={handleSubmit} requiredMark>
+        <Form initialValues={values} onFinish={handleSubmit} requiredMark>
           <Form.Item
             className={styles.fieldWrapper}
             name="username"
@@ -51,7 +49,7 @@ const LoginForm = ({ history }: ILoginFormProps) => {
               type="text"
               placeholder="Username"
               size="large"
-              className={styles.inputContainer}
+              className={cls(styles.inputContainer, { [styles.hasError]: errors.username })}
               value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -71,7 +69,7 @@ const LoginForm = ({ history }: ILoginFormProps) => {
               type="password"
               placeholder="Password"
               size="large"
-              className={cls(styles.inputContainer, styles.passwordField)}
+              className={cls(styles.inputContainer, styles.passwordField, { [styles.hasError]: errors.password })}
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -79,7 +77,7 @@ const LoginForm = ({ history }: ILoginFormProps) => {
             />
           </Form.Item>
 
-          <Form.Item className={styles.fieldWrapper}>
+          <Form.Item className={cls(styles.fieldWrapper, styles.submitBtnContainer)}>
             <Button
               className={styles.submitBtn}
               type="primary"
@@ -90,9 +88,11 @@ const LoginForm = ({ history }: ILoginFormProps) => {
               Login
             </Button>
 
-            <Link to="/auth/register" className={styles.suggestLink}>
-              Register
-            </Link>
+            <div className={styles.suggestLinkContainer}>
+              <Link to="/auth/register" className={styles.suggestLink}>
+                Register
+              </Link>
+            </div>
           </Form.Item>
         </Form>
       </ShadowBlock>

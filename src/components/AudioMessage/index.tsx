@@ -3,8 +3,8 @@ import React, { memo, RefObject, useCallback, useEffect, useRef, useState } from
 import cls from 'classnames';
 
 import styles from './styles.module.scss';
-import { AudioWaveIcon, PauseIcon, PlayIcon } from '../images';
 import { getProgress, getTimeDuration } from '../../helpers/audioHelper';
+import { AudioWaveIcon, PauseIcon, PlayIcon } from '../images';
 
 interface IAudioMessageProps {
   isMe: boolean;
@@ -12,8 +12,7 @@ interface IAudioMessageProps {
 }
 
 const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
-  let AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
-
+  const AudioRef = useRef(null) as RefObject<HTMLAudioElement> | null;
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -60,12 +59,12 @@ const AudioMessage = ({ isMe, audio }: IAudioMessageProps) => {
   }, [handlePause, AudioRef, handleInitAudioData, handleTimeUpdate]);
 
   return (
-    <div className={styles.audioContainer} onClick={togglePlay}>
+    <div className={cls(styles.audioContainer, { [styles.isMe]: isMe })} onClick={togglePlay}>
       <audio ref={AudioRef} src={audio} preload="metadata" />
 
       <div className={styles.audioProgress} style={{ width: `${getProgress(duration, currentTime)}%` }} />
 
-      <div className={cls(styles.audioInfo, { [styles.me]: isMe })}>
+      <div className={styles.audioInfo}>
         <button className={cls(styles.audioBtn, { [styles.playing]: isPlaying, [styles.paused]: !isPlaying })}>
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>

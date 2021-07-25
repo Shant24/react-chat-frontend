@@ -1,22 +1,21 @@
 import React from 'react';
 
 import cls from 'classnames';
-import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import LockOutlined from '@ant-design/icons/LockOutlined';
+import MailOutlined from '@ant-design/icons/MailOutlined';
 
 import styles from '../../styles.module.scss';
-import '../../styles.scss';
-import { Button, ShadowBlock } from '../../../../';
-import { RegisterSchema as validationSchema } from '../../../../../validations';
-import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { IRegisterValues } from '../../../../../types/auth';
+import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
+import { RegisterSchema as validationSchema } from '../../../../../validations';
+import { Button, ShadowBlock } from '../../../../';
 
-interface IRegisterFormProps extends RouteComponentProps {}
-
-const RegisterForm = ({ history }: IRegisterFormProps) => {
+const RegisterForm = ({ history }: RouteComponentProps) => {
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {
@@ -38,7 +37,7 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
       </div>
 
       <ShadowBlock className={styles.block}>
-        <Form className="authForm" initialValues={{ remember: true }} onFinish={handleSubmit} requiredMark>
+        <Form initialValues={{ remember: true }} onFinish={handleSubmit} requiredMark>
           <Form.Item
             className={styles.fieldWrapper}
             name="email"
@@ -47,8 +46,10 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
             validateStatus={validateFieldStatusHelper(values, errors, touched, 'email')}
           >
             <Input
-              className={styles.inputContainer}
+              id="email"
+              name="email"
               type="email"
+              className={cls(styles.inputContainer, { [styles.hasError]: errors.email })}
               placeholder="E-Mail"
               size="large"
               prefix={<MailOutlined className={styles.inputIcon} />}
@@ -59,14 +60,16 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
           </Form.Item>
 
           <Form.Item
-            className={styles.fieldWrapper}
             name="username"
+            className={styles.fieldWrapper}
             hasFeedback
             help={!touched.username ? null : errors.username}
             validateStatus={validateFieldStatusHelper(values, errors, touched, 'username')}
           >
             <Input
-              className={styles.inputContainer}
+              id="username"
+              name="username"
+              className={cls(styles.inputContainer, { [styles.hasError]: errors.username })}
               placeholder="Username"
               size="large"
               prefix={<UserOutlined className={styles.inputIcon} />}
@@ -84,9 +87,11 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
             validateStatus={validateFieldStatusHelper(values, errors, touched, 'password')}
           >
             <Input.Password
-              autoComplete="new-password"
-              className={cls(styles.inputContainer, styles.passwordField)}
+              id="password"
+              name="password"
               type="password"
+              className={cls(styles.inputContainer, styles.passwordField, { [styles.hasError]: errors.password })}
+              autoComplete="new-password"
               placeholder="Password"
               size="large"
               prefix={<LockOutlined className={styles.inputIcon} />}
@@ -104,8 +109,14 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
             validateStatus={validateFieldStatusHelper(values, errors, touched, 'confirmPassword')}
           >
             <Input.Password
-              className={cls(styles.inputContainer, styles.passwordField)}
+              id="confirmPassword"
+              name="confirmPassword"
               type="password"
+              className={cls(
+                styles.inputContainer,
+                styles.passwordField,
+                { [styles.hasError]: errors.confirmPassword },
+              )}
               placeholder="Confirm Password"
               size="large"
               prefix={<LockOutlined className={styles.inputIcon} />}
@@ -115,7 +126,7 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
             />
           </Form.Item>
 
-          <Form.Item className={styles.fieldWrapper}>
+          <Form.Item className={cls(styles.fieldWrapper, styles.submitBtnContainer)}>
             <Button
               className={styles.submitBtn}
               type="primary"
@@ -126,9 +137,11 @@ const RegisterForm = ({ history }: IRegisterFormProps) => {
               Register
             </Button>
 
-            <Link to="/auth/login" className={styles.suggestLink}>
-              Login to your account
-            </Link>
+            <div className={styles.suggestLinkContainer}>
+              <Link to="/auth" className={styles.suggestLink}>
+                Login to your account
+              </Link>
+            </div>
           </Form.Item>
         </Form>
       </ShadowBlock>
