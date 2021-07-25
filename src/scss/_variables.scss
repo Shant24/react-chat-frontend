@@ -5,18 +5,19 @@
   --black4: #0f0f0f;
   --black5: #181818;
   --black6: #383838;
-  --black-opacity: #0000000c;
-  --black-opacity2: #0000000f;
-  --black-opacity3: #000000ff;
-  --black-opacity4: #0000003f;
-  --black-opacity5: #0000007f;
-  --black-opacity6: #2020200A;
+  --black-opacity: rgba(0, 0, 0, 0.05);
+  --black-opacity2: rgba(0, 0, 0, 0.06);
+  --black-opacity3: rgba(0, 0, 0, 0.25);
+  --black-opacity4: rgba(0, 0, 0, 0.5);
+  --black-opacity5: rgba(0, 0, 0, 0.2);
+  --black-opacity6: rgba(32, 32, 32, 0.04);
   --white: #fff;
   --white2: #f3f7ff;
   --white3: #f5f5f5;
   --white4: #f4f7fd;
   --white5: #f7f8f9;
-  --white-opacity: #ffffff0f;
+  --white-opacity: rgba(255, 255, 255, 0.06);
+  --white-opacity2: rgba(255, 255, 255, 0.2);
   --gray: #adadad;
   --gray2: #aaaaaa;
   --gray3: #bebebe;
@@ -32,7 +33,7 @@
   --blue5: #a6bdf0;
   --blue6: #dae6ff;
   --blue7: #1890ff;
-  --blue-opacity: #3674FF33;
+  --blue-opacity: rgba(54, 116, 255, 0.2);
   --red: #FF0000;
   --red2: #f46b6b;
   --green: #00c980;
@@ -65,6 +66,7 @@
   --bg-loading-circle: var(--blue5);
   --bg-remove-overlay: var(--black);
   --bg-auth-btn: var(--blue7);
+  --bg-scrollbar: var(--black-opacity5);
 
   --color-border: var(--gray5);
   --color-auth-input-border: var(--gray8);
@@ -74,12 +76,12 @@
   --color-shadow: var(--black2);
   --color-container-shadow: var(--black-opacity6);
   --color-block-shadow: var(--black-opacity2);
-  --color-drop-shadow: var(--black-opacity5);
+  --color-drop-shadow: var(--black-opacity4);
   --color-bubble-shadow: var(--blue-opacity);
   --color-bubble-shadow-me: var(--black-opacity);
   --color-username: var(--black2);
   --color-text: var(--black2);
-  --color-input: var(--black-opacity3);
+  --color-input: var(--black);
   --color-placeholder: var(--gray2);
   --color-online-status-text: var(--black);
   --color-audio-icon: var(--white);
@@ -117,6 +119,7 @@
   --bg-loading-circle: var(--gray3);
   --bg-remove-overlay: var(--black);
   --bg-auth-btn: var(--black6);
+  --bg-scrollbar: var(--white-opacity2);
 
   --color-border: var(--black6);
   --color-auth-input-border: var(--black6);
@@ -173,6 +176,7 @@ $bg-loading: var(--bg-loading);
 $bg-loading-circle: var(--bg-loading-circle);
 $bg-remove-overlay: var(--bg-remove-overlay);
 $bg-auth-btn: var(--bg-auth-btn);
+$bg-scrollbar: var(--bg-scrollbar);
 
 $color-border: var(--color-border);
 $color-auth-input-border: var(--color-auth-input-border);

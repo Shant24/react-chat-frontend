@@ -28,7 +28,7 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
   }, [ScrollbarsRef, items, isLoading, isShowUnReads]);
 
   return (
-    <Scrollbars ref={ScrollbarsRef} autoHide>
+    <Scrollbars ref={ScrollbarsRef} className={styles.dialoguesScrollableContainer} autoHide>
       {isLoading ? (
         <Spin className={styles.loadingContainer} tip="Loading dialogues" />
       ) : !!items.length ? (
