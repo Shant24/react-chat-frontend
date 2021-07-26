@@ -11,8 +11,12 @@
     width: 100%;
     height: $height;
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: 310px 1fr;
     background: $bg-content-left;
     box-shadow: 0 0 25px $color-container-shadow;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 100%;
+    }
   }
 }
