@@ -10,6 +10,7 @@ import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { IImageFile } from '../../types/file';
+import { parseEmojis } from '../../helpers/emojiHelper';
 import { UploaderButton, EmojiButton, PreviewSingleImage } from '../';
 
 const SendMessageInput = () => {
@@ -53,6 +54,10 @@ const SendMessageInput = () => {
     setImages(images.filter(({ name }) => name !== imageName));
   };
 
+  const handleEmojiSelect = (emoji: string) => {
+    setTextValue(`${textValue}${parseEmojis(emoji)}`);
+  };
+
   return (
     <div className={styles.sendMessageContainer}>
       {/* TODO: create component from this */}
@@ -65,13 +70,13 @@ const SendMessageInput = () => {
       )}
 
       <div className={styles.sendMessageInputContainer}>
-        <EmojiButton />
+        <EmojiButton handleEmojiSelect={handleEmojiSelect} />
 
         {isMount && (
           <Textarea
             ref={TextareaRef}
             className={styles.textarea}
-            value={textValue}
+            value={parseEmojis(textValue)}
             placeholder="Enter the message..."
             autoSize={{ minRows: 1, maxRows: 3 }}
             onChange={handleTextChange}
