@@ -19,6 +19,7 @@ import { getDialoguesSelector } from '../../store/selectors/dialoguesSelector';
 import { fetchDialogues } from '../../store/actions/dialoguesAction';
 import { MoonIcon, SunIcon } from '../images';
 import Dialogues from '../Dialogues';
+import ContentEditableInput from '../ContentEditableInput';
 
 const DialoguesBar = () => {
   const dispatch = useDispatch();
@@ -80,7 +81,8 @@ const DialoguesBar = () => {
           <div className={styles.conversationsListText}>
             <TeamOutlined className={styles.listIcon} />
 
-            <span>List of dialogue</span>
+            <ContentEditableInput innerData="List of dialogue" />
+            {/*<span contentEditable >List of dialogue</span>*/}
           </div>
 
           <div className={styles.topButtonsContainer}>
