@@ -81,7 +81,7 @@ const DialoguesBar = () => {
           <div className={styles.conversationsListText}>
             <TeamOutlined className={styles.listIcon} />
 
-            <ContentEditableInput innerData="List of dialogue" />
+            <ContentEditableInput tagName="span" innerData="List of dialogue" />
             {/*<span contentEditable >List of dialogue</span>*/}
           </div>
 
