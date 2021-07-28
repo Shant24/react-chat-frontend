@@ -20,31 +20,81 @@
       height: 0;
     }
 
-    .textarea {
+    .inputAreaContainer {
       flex: auto;
-      padding: 6.5px 10px;
-      min-height: 40px;
-      font-size: 14px;
-      line-height: 25.144px;
+      border: 1px solid $color-border;
       background-color: $bg-text-field;
-      color: $color-input;
-      border-color: $color-border;
       border-radius: 4px;
-      scroll-behavior: smooth;
-      box-shadow: none;
-      resize: none;
 
-      @media (max-width: 480px) {
-        // 100vw - all buttons and margins and paddings
-        max-width: calc(100vw - 15px + 6px - 30px - 9px - 9px - 30px - 3px - 30px + 6px - 15px);
-        font-size: 16px;
+      .inputAreaScrollableContainer {
+        padding: 11.6px 0;
+        width: 100%;
+        max-height: 150px;
+        min-height: 40px;
+        height: fit-content !important;
+        //max-height: 300px;
+
+        & > div {
+          &:first-child {
+            padding: 0 10px;
+            position: relative !important;
+            height: max-content;
+
+            .inputArea {
+              margin: 0 auto;
+              //border: 1px solid black;
+              max-width: calc(100% - 20px);
+              width: 100%;
+              min-height: 16.8px;
+              position: relative;
+              font-size: 14px;
+              white-space: pre-wrap;
+              color: $color-input;
+              line-height: 16.8px;
+              //caret-color: var(--primary-color);
+
+              &[placeholder]:empty:before {
+                content: attr(placeholder);
+                position: absolute;
+                //top: 50%;
+                color: #555;
+                //transform: translateY(-50%);
+              }
+            }
+          }
+
+          &:nth-child(2), &:nth-child(3) {
+            div {
+              background-color: $bg-scrollbar !important;
+            }
+          }
+        }
       }
 
-      &::placeholder {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+      //flex: auto;
+      //padding: 6.5px 10px;
+      //min-height: 40px;
+      //font-size: 14px;
+      //line-height: 25.144px;
+      //background-color: $bg-text-field;
+      //color: $color-input;
+      //border-color: $color-border;
+      //border-radius: 4px;
+      //scroll-behavior: smooth;
+      //box-shadow: none;
+      //resize: none;
+      //
+      //@media (max-width: 480px) {
+      //  // 100vw - all buttons and margins and paddings
+      //  max-width: calc(100vw - 15px + 6px - 30px - 9px - 9px - 30px - 3px - 30px + 6px - 15px);
+      //  font-size: 16px;
+      //}
+      //
+      //&::placeholder {
+      //  white-space: nowrap;
+      //  overflow: hidden;
+      //  text-overflow: ellipsis;
+      //}
     }
 
     .actionsContainer {

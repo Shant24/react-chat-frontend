@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Empty from 'antd/lib/empty';
 import Spin from 'antd/lib/spin';
 // @ts-ignore
-import { Scrollbars } from "@manychat/react-custom-scrollbars";
+import { Scrollbars } from '@manychat/react-custom-scrollbars';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
@@ -33,7 +33,9 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
       {isLoading ? (
         <Spin className={styles.loadingContainer} tip="Loading dialogues" />
       ) : !!items.length ? (
-        items.map((item) => <DialogueItem key={item._id} {...item} />)
+        items.map((item) => (
+          <DialogueItem key={item._id} {...item} />
+        ))
       ) : (
         <Empty className={styles.emptyData} image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
       )}

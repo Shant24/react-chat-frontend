@@ -10,7 +10,7 @@ import { sortObject } from '../../helpers/sortingHelper';
 import { fetchMessages, removeMessages } from '../../store/actions/messagesAction';
 import { getAllMessagesSelector } from '../../store/selectors/messagesSelector';
 import { getDialogueById } from '../../store/selectors/dialoguesSelector';
-import { Conversations, OnlineStatus, SendMessageInput } from '..';
+import { Conversations, OnlineStatus, MessageInput } from '..';
 
 const ConversationsPart = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const ConversationsPart = () => {
 
       <Conversations items={sortedMessages} roomId={id} />
 
-      {dialogueRoom && <SendMessageInput />}
+      {dialogueRoom && <MessageInput />}
     </div>
   );
 };

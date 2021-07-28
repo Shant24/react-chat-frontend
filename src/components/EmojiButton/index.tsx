@@ -6,7 +6,7 @@ import SmileOutlined from '@ant-design/icons/SmileOutlined';
 import { Picker, BaseEmoji } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
-import styles from '../SendMessageInput/styles.module.scss';
+import styles from '../MessageInput/styles.module.scss';
 import useDarkMode from '../../hooks/useDarkMode';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
