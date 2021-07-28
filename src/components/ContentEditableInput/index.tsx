@@ -1,29 +1,29 @@
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
 interface IContentEditableInputProps {
+  tagName?: string;
   innerData?: string;
 }
 
-const ContentEditableInput = ({ innerData = '' }: IContentEditableInputProps) => {
+const ContentEditableInput = ({ tagName = 'div', innerData = '' }: IContentEditableInputProps) => {
   const [content, setContent] = useState<string>(innerData);
   const contentEditable = useRef<HTMLElement>(null);
 
   const handleChange = (e: ContentEditableEvent | { [p: string]: any }) => {
-    console.log('e.target.value', e.target.value);
-    setContent(e.target.value + 'Shant');
+    setContent(e.target.value);
   };
 
   return (
     <ContentEditable
       innerRef={contentEditable}
       html={content} // innerHTML of the editable div
-      disabled={false}       // use true to disable editing
+      disabled={false} // use true to disable editing
       onChange={handleChange} // handle innerHTML change
-      tagName="span" // Use a custom HTML tag (uses a div by default)
+      tagName={tagName} // Use a custom HTML tag (uses a div by default)
     />
   );
 };
 
-export default ContentEditableInput;
+export default memo(ContentEditableInput);
