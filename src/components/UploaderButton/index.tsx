@@ -4,7 +4,7 @@ import cls from 'classnames';
 import Button from 'antd/lib/button';
 import CameraOutlined from '@ant-design/icons/CameraOutlined';
 
-import styles from '../SendMessageInput/styles.module.scss';
+import styles from '../MessageInput/styles.module.scss';
 import { IImageFile } from '../../types/file';
 
 interface IUploaderButtonProps {

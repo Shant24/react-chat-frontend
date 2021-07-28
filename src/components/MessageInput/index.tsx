@@ -1,53 +1,33 @@
-import React, { ChangeEvent, KeyboardEvent, memo, RefObject, useEffect, useRef, useState } from 'react';
+import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
 
 import cls from 'classnames';
 import Button from 'antd/lib/button';
 import AudioOutlined from '@ant-design/icons/AudioOutlined';
 import SendOutlined from '@ant-design/icons/SendOutlined';
-import Textarea from 'rc-textarea';
-import { isMobile } from 'react-device-detect';
+// @ts-ignore
+import { Scrollbars } from '@manychat/react-custom-scrollbars';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { IImageFile } from '../../types/file';
 import { parseEmojis } from '../../helpers/emojiHelper';
-import { UploaderButton, EmojiButton, PreviewSingleImage } from '../';
+import { UploaderButton, EmojiButton, PreviewSingleImage, ContentEditableInput } from '../';
 
-const SendMessageInput = () => {
+const MessageInput = () => {
+  const InputRef = useRef() as RefObject<HTMLElement>;
   const [isMount, setIsMount] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>('');
   const [images, setImages] = useState<IImageFile[]>([]);
-
-  const TextareaRef = useRef(null) as RefObject<Textarea> | null;
-
-  const scrollToBottom = () => {
-    if (TextareaRef?.current) {
-      const { resizableTextArea: { textArea } } = TextareaRef.current;
-      textArea.scrollTo({ top: textArea.scrollHeight });
-    }
-  };
 
   useEffect(() => {
     setIsMount(true);
   }, []);
 
-  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value);
-    scrollToBottom();
-  };
-
-  const handlePressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!isMobile && !e.shiftKey) {
-      e.preventDefault();
-      // TODO: add functionality for send message when press enter
-    }
-  };
-
   const handleAudioClick = noop;
 
   const handleMessageClick = () => {
     // TODO: send message, remove textarea value and focus on it
-    TextareaRef?.current?.focus();
+    InputRef?.current?.focus();
   };
 
   const handleRemoveImage = (imageName: string) => () => {
@@ -73,16 +53,17 @@ const SendMessageInput = () => {
         <EmojiButton handleEmojiSelect={handleEmojiSelect} />
 
         {isMount && (
-          <Textarea
-            ref={TextareaRef}
-            className={styles.textarea}
-            value={parseEmojis(textValue)}
-            placeholder="Enter the message..."
-            autoSize={{ minRows: 1, maxRows: 3 }}
-            onChange={handleTextChange}
-            onPressEnter={handlePressEnter}
-            spellCheck
-          />
+          <div className={styles.inputAreaContainer}>
+            <Scrollbars className={styles.inputAreaScrollableContainer} autoHide={false}>
+              <ContentEditableInput
+                ref={InputRef}
+                className={styles.inputArea}
+                content={textValue}
+                setContent={setTextValue}
+                placeholder="Enter the message..."
+              />
+            </Scrollbars>
+          </div>
         )}
 
         <div className={cls(styles.actionsContainer, styles.rightSide)}>
@@ -111,4 +92,4 @@ const SendMessageInput = () => {
   );
 };
 
-export default memo(SendMessageInput);
+export default memo(MessageInput);
