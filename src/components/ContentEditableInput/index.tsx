@@ -9,10 +9,11 @@ interface IContentEditableInputProps extends HTMLAttributes<HTMLElement> {
   setContent: Dispatch<SetStateAction<string>>;
   tagName?: string;
   placeholder?: string;
+  autoScroll?: boolean;
 }
 
 const ContentEditableInput = (props: IContentEditableInputProps) => {
-  const { ref, content, setContent, tagName = 'div', placeholder = '', ...restProps } = props;
+  const { ref, content, setContent, tagName = 'div', placeholder = '', autoScroll = true, ...restProps } = props;
 
   const scrollToBottom = () => {
     if (ref?.current) {
@@ -24,7 +25,9 @@ const ContentEditableInput = (props: IContentEditableInputProps) => {
   const handleChange = (e: ContentEditableEvent | { [p: string]: any }) => {
     console.log('e.target.value', e.target.value);
     setContent(e.target.value);
-    scrollToBottom();
+    if (autoScroll) {
+      scrollToBottom();
+    }
   };
 
   const handleKeyUp = (e: KeyboardEvent<HTMLElement>) => {

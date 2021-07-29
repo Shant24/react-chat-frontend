@@ -1,32 +1,43 @@
-import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, memo, RefObject, useEffect, useRef, useState } from 'react';
 
 import cls from 'classnames';
 import Button from 'antd/lib/button';
 import AudioOutlined from '@ant-design/icons/AudioOutlined';
 import SendOutlined from '@ant-design/icons/SendOutlined';
-// @ts-ignore
-import { Scrollbars } from '@manychat/react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { noop } from 'lodash';
 
 import styles from './styles.module.scss';
 import { IImageFile } from '../../types/file';
+import useWindowSize from '../../hooks/useWindowSize';
 import { parseEmojis } from '../../helpers/emojiHelper';
 import { UploaderButton, EmojiButton, PreviewSingleImage, ContentEditableInput } from '../';
 
 const MessageInput = () => {
-  const InputRef = useRef() as RefObject<HTMLElement>;
+  const InputContainerRef = useRef() as RefObject<Scrollbars>;
+  const InputRef = useRef() as RefObject<HTMLDivElement>;
+  const { width } = useWindowSize();
   const [isMount, setIsMount] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>('');
   const [images, setImages] = useState<IImageFile[]>([]);
+  const [inputAreaWidth, setInputAreaWidth] = useState<number>(0);
 
   useEffect(() => {
     setIsMount(true);
   }, []);
 
+  useEffect(() => {
+    setInputAreaWidth(InputContainerRef?.current?.container.offsetWidth || 0);
+  }, [width]);
+
   const handleAudioClick = noop;
 
   const handleMessageClick = () => {
     // TODO: send message, remove textarea value and focus on it
+    console.log('textValue', textValue);
+    setTextValue('');
+    InputContainerRef?.current?.container.scrollTo({ top: 0 });
+    // TODO: this is not working, adjust this
     InputRef?.current?.focus();
   };
 
@@ -53,17 +64,22 @@ const MessageInput = () => {
         <EmojiButton handleEmojiSelect={handleEmojiSelect} />
 
         {isMount && (
-          <div className={styles.inputAreaContainer}>
-            <Scrollbars className={styles.inputAreaScrollableContainer} autoHide={false}>
-              <ContentEditableInput
-                ref={InputRef}
-                className={styles.inputArea}
-                content={textValue}
-                setContent={setTextValue}
-                placeholder="Enter the message..."
-              />
-            </Scrollbars>
-          </div>
+          <Scrollbars
+            ref={InputContainerRef}
+            style={{ '--input-area-width': `${inputAreaWidth}px` } as CSSProperties}
+            className={styles.inputAreaScrollableContainer}
+            autoHide={false}
+            autoHeight
+          >
+            <ContentEditableInput
+              ref={InputRef}
+              className={cls(styles.inputArea, { [styles.notEmpty]: !textValue.length })}
+              content={textValue}
+              setContent={setTextValue}
+              placeholder="Enter the message..."
+              tabIndex={0}
+            />
+          </Scrollbars>
         )}
 
         <div className={cls(styles.actionsContainer, styles.rightSide)}>
