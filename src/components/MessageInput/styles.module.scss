@@ -15,61 +15,68 @@
     display: flex;
     align-items: flex-end;
 
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
+    .inputAreaScrollableContainer {
+      $inputAreaWidth: var(--input-area-width);
 
-    .inputAreaContainer {
       flex: auto;
+      //padding: 2px 0;
+      height: auto;
       border: 1px solid $color-border;
       background-color: $bg-text-field;
       border-radius: 4px;
+      width: $inputAreaWidth;
+      //max-height: 150px;
+      //min-height: 40px !important;
+      //height: fit-content !important;
+      //max-height: 300px;
 
-      .inputAreaScrollableContainer {
-        padding: 11.6px 0;
-        width: 100%;
-        max-height: 150px;
-        min-height: 40px;
-        height: fit-content !important;
-        //max-height: 300px;
+      & > div {
+        &:first-child {
+          //position: absolute;
+          //height: fit-content;
+          //margin-right: unset !important;
+          //margin-bottom: unset !important;
+          //display: flex;
+          //position: relative !important;
+          //height: max-content;
 
-        & > div {
-          &:first-child {
-            padding: 0 10px;
-            position: relative !important;
-            height: max-content;
+          .inputArea {
+            //padding: 0 10px;
+            padding: 10px 0 10px 10px;
+            max-width: calc(#{$inputAreaWidth} - 10px);
+            width: $inputAreaWidth;
+            color: $color-input;
+            font-size: 14px;
+            line-height: 16.8px;
+            //margin: 0 auto;
+            //border: 1px solid black;
+            //min-height: 16.8px;
+            //position: relative;
+            white-space: pre-wrap;
+            //caret-color: var(--primary-color);
 
-            .inputArea {
-              margin: 0 auto;
-              //border: 1px solid black;
-              max-width: calc(100% - 20px);
-              width: 100%;
-              min-height: 16.8px;
-              position: relative;
-              font-size: 14px;
-              white-space: pre-wrap;
-              color: $color-input;
-              line-height: 16.8px;
-              //caret-color: var(--primary-color);
-
-              &[placeholder]:empty:before {
+            &.notEmpty {
+              &[placeholder]:before {
                 content: attr(placeholder);
-                position: absolute;
-                //top: 50%;
                 color: #555;
+                //position: absolute;
+                //top: 50%;
                 //transform: translateY(-50%);
               }
             }
           }
+        }
 
-          &:nth-child(2), &:nth-child(3) {
-            div {
-              background-color: $bg-scrollbar !important;
-            }
+        &:nth-child(2), &:nth-child(3) {
+          div {
+            background-color: $bg-scrollbar !important;
           }
         }
       }
+    }
+
+    .inputAreaContainer {
+
 
       //flex: auto;
       //padding: 6.5px 10px;

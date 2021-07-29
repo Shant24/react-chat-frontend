@@ -3,8 +3,7 @@ import React, { memo, RefObject, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Empty from 'antd/lib/empty';
 import Spin from 'antd/lib/spin';
-// @ts-ignore
-import { Scrollbars } from '@manychat/react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import styles from './styles.module.scss';
 import { IDialog } from '../../types/dialog';
