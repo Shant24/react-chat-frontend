@@ -2,8 +2,11 @@ import React from 'react';
 
 import { Redirect, Route, Switch } from 'react-router';
 
-import { PageLayout } from './components';
-import { Home, Auth } from './components/pages';
+import PageLayout from './components/PageLayout';
+import Home from './components/pages/Home';
+import Auth from './components/pages/Auth';
+
+
 
 const App = () => (
   <PageLayout>

@@ -12,7 +12,8 @@ import styles from '../../styles.module.scss';
 import { ILoginValues } from '../../../../../types/auth';
 import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { LoginSchema as validationSchema } from '../../../../../validations';
-import { Button, ShadowBlock } from '../../../../';
+import ShadowBlock from '../ShadowBlock';
+import Button from '../../../../Button';
 
 const LoginForm = ({ history }: RouteComponentProps) => {
   const formik = useFormik({

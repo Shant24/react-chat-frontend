@@ -1,7 +1,9 @@
 import React from 'react';
 
 import styles from './styles.module.scss';
-import { DialoguesBar, ConversationsPart } from '../..';
+import DialoguesBar from '../../ConversationListSidebar';
+import ConversationsPart from '../../Conversations';
+
 
 const Home = () => {
   return (

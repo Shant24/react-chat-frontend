@@ -13,7 +13,8 @@ import styles from '../../styles.module.scss';
 import { IRegisterValues } from '../../../../../types/auth';
 import { validateFieldStatusHelper } from '../../../../../helpers/validateFieldStatusHelper';
 import { RegisterSchema as validationSchema } from '../../../../../validations';
-import { Button, ShadowBlock } from '../../../../';
+import ShadowBlock from '../ShadowBlock';
+import Button from '../../../../Button';
 
 const RegisterForm = ({ history }: RouteComponentProps) => {
   const formik = useFormik({
