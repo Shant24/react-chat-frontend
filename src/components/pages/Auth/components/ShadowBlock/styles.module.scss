@@ -1,0 +1,9 @@
+@import '../../../../../scss/variables';
+
+.container {
+  padding: 45px;
+  width: max-content;
+  background-color: $bg-shadow-block;
+  box-shadow: 0 0 25px $color-block-shadow;
+  border-radius: 3px;
+}
