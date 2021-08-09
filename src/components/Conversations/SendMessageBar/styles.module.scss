@@ -3,13 +3,6 @@
 .messageInputContainer {
   background-color: $bg-content-left;
 
-  .previewImagesContainer {
-    border-top: 2px solid $color-border;
-    padding: 0 10px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
   .sendMessageInputContainer {
     padding: 10px 15px 20px;
     display: flex;

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 import { IImageFile } from '../../../../types/file';
 import PreviewSingleImage from './PreviewSingleImage';
 
