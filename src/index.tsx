@@ -1,22 +1,21 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import 'antd/dist/antd.css';
 
-import './scss/index.scss';
+import './assets/scss/index.scss';
 import App from './App';
 import history from './history';
 import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={history}>
+    <HistoryRouter history={history}>
       <Provider store={store}>
         <App />
       </Provider>
-    </Router>
+    </HistoryRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -9,26 +9,23 @@ import { formatDateDistance } from '../../../../helpers/dateHelper';
 import Avatar from '../../../Avatar';
 import MessageReadStatus from '../../../MessageReadStatus';
 
-interface IDialogueItemItemProps extends IDialog {}
+interface IDialogueItemItemProps {
+  item: IDialog;
+}
 
-const ConversationListItem = (props: IDialogueItemItemProps) => {
+const ConversationListItem = ({ item }: IDialogueItemItemProps) => {
   const {
     _id,
     fullName: name,
     isOnline,
-    message: {
-      text,
-      isRead,
-      created_at,
-      user: { fullName, avatar },
-    },
+    message: { user: { fullName, avatar }, text, isRead, created_at },
     unreadCount,
-  } = props;
+  } = item;
 
   const isMe = fullName !== name;
 
   return (
-    <NavLink to={`/m/${_id}`} className={styles.container} activeClassName={styles.active}>
+    <NavLink to={`/m/${_id}`} className={({ isActive }) => cls(styles.container, { [styles.active]: isActive })}>
       <div className={styles.userAvatarWrapper}>
         <Avatar fullName={name} avatar={avatar || ''} className={styles.userAvatar} />
 

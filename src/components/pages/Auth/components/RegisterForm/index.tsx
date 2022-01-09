@@ -1,7 +1,7 @@
 import React from 'react';
 
 import cls from 'classnames';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
@@ -16,13 +16,15 @@ import { RegisterSchema as validationSchema } from '../../../../../validations';
 import ShadowBlock from '../ShadowBlock';
 import Button from '../../../../Button';
 
-const RegisterForm = ({ history }: RouteComponentProps) => {
+const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: { email: '', username: '', password: '', confirmPassword: '' },
     onSubmit: (values: IRegisterValues) => {
       // TODO: add logic
       console.log('values register', values);
-      history.push('/auth/register/success');
+      navigate('/auth/register/success');
     },
     validationSchema,
     validateOnMount: true,

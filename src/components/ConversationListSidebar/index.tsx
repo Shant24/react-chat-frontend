@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, memo } from 'react';
+import React, { useState, useEffect, useMemo, memo, ChangeEvent } from 'react';
 
 import cls from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,14 +32,12 @@ const ConversationListSidebar = () => {
     dispatch(fetchDialogues());
   }, [dispatch]);
 
-  const filteredDialogues: IDialog[] = useMemo(
-    () =>
-      filterObject(
-        dialogues,
-        (dialog: IDialog) => !dialog.message.isRead && dialog.fullName === dialog.message.user.fullName,
-      ),
-    [dialogues],
-  );
+  const filteredDialogues: IDialog[] = useMemo(() => {
+    return filterObject(
+      dialogues,
+      (dialog: IDialog) => !dialog.message.isRead && dialog.fullName === dialog.message.user.fullName,
+    );
+  }, [dialogues]);
 
   const sortedDialogues: IDialog[] = useMemo(() => {
     let unread = false;
@@ -72,6 +70,10 @@ const ConversationListSidebar = () => {
       setIsShowUnReads(false);
     }
   }, [isShowUnReads, filteredDialogues.length]);
+
+  const handleChangeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
     <div className={styles.conversationListSidebarContainer}>
@@ -114,7 +116,7 @@ const ConversationListSidebar = () => {
             placeholder="Search in the contacts"
             allowClear
             prefix={<SearchOutlined />}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={handleChangeSearchValue}
           />
 
           {((!searchValue && !!filteredDialogues.length) || (searchValue && hasUnread)) && (
