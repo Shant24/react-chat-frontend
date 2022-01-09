@@ -1,27 +1,40 @@
 import React from 'react';
 
-import { Redirect, Route, Switch } from 'react-router';
+import { Route, Routes, Navigate } from 'react-router';
 
 import PageLayout from './components/PageLayout';
 import Home from './components/pages/Home';
 import Auth from './components/pages/Auth';
-
-
+import LoginForm from './components/pages/Auth/components/LoginForm';
+import RegisterForm from './components/pages/Auth/components/RegisterForm';
+import RegisterSuccess from './components/pages/Auth/components/RegisterSuccess';
 
 const App = () => (
   <PageLayout>
-    <Switch>
+    <Routes>
       {/* TODO: add home landing page */}
-      <Route path="/" exact component={Home} />
+      <Route path="/" element={<Home />} />
 
-      <Route path="/m" exact component={Home} />
+      <Route>
+        <Route path="/m" element={<Home />} />
 
-      <Route path="/m/:id" component={Home} exact />
+        <Route path="/m/:id" element={<Home />} />
+      </Route>
 
-      <Route path="/auth" component={Auth} />
+      <Route path="/auth/*" element={<Auth />}>
+        <Route path="*" element={<Navigate to="" replace={true} />} />
 
-      <Redirect to="/" />
-    </Switch>
+        <Route path="" element={<LoginForm />} />
+
+        <Route path="login" element={<LoginForm />} />
+
+        <Route path="register" element={<RegisterForm />} />
+
+        <Route path="register/success" element={<RegisterSuccess />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace={true} />} />
+    </Routes>
   </PageLayout>
 );
 

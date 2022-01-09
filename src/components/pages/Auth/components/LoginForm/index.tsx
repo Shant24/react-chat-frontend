@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import cls from 'classnames';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
@@ -15,13 +15,15 @@ import { LoginSchema as validationSchema } from '../../../../../validations';
 import ShadowBlock from '../ShadowBlock';
 import Button from '../../../../Button';
 
-const LoginForm = ({ history }: RouteComponentProps) => {
+const LoginForm = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     onSubmit: (values: ILoginValues) => {
       // TODO: add logic
       console.log('values login', values);
-      history.push('/auth/register');
+      navigate('/auth/register');
     },
     validationSchema,
     validateOnMount: true,

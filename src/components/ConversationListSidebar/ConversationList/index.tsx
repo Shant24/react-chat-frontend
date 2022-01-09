@@ -33,7 +33,7 @@ const Dialogues = ({ items, isShowUnReads }: IDialoguesProps) => {
         <Spin className={styles.loadingContainer} tip="Loading dialogues" />
       ) : !!items.length ? (
         items.map((item) => (
-          <ConversationListItem key={item._id} {...item} />
+          <ConversationListItem key={item._id} item={item} />
         ))
       ) : (
         <Empty className={styles.emptyData} image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
