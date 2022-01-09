@@ -17,20 +17,16 @@ const App = () => (
 
       <Route>
         <Route path="/m" element={<Home />} />
-
         <Route path="/m/:id" element={<Home />} />
+        <Route path="/m/*" element={<Navigate to="/m" replace={true} />} />
       </Route>
 
       <Route path="/auth/*" element={<Auth />}>
-        <Route path="*" element={<Navigate to="" replace={true} />} />
-
         <Route path="" element={<LoginForm />} />
-
         <Route path="login" element={<LoginForm />} />
-
         <Route path="register" element={<RegisterForm />} />
-
         <Route path="register/success" element={<RegisterSuccess />} />
+        <Route path="*" element={<Navigate to="" replace={true} />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace={true} />} />
