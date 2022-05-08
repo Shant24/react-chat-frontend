@@ -1,6 +1,6 @@
 # Demo
 
-[http://chat.shant-sargsyan.me](http://chat.shant-sargsyan.me)
+[https://chat.shant-dev.com](https://chat.shant-dev.com)
 
 # Getting Started with Create React App
 
