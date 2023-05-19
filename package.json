@@ -10,9 +10,8 @@
   "private": true,
   "scripts": {
     "prod": "pm2 start 'serve -s build -l 3000' --name chat-front",
-    "dev": "concurrently --kill-others \"npm start\" \"npm run start:server\"",
-    "start": "react-scripts start",
-    "start:server": "cd ../react-chat-backend && npm start",
+    "dev": "react-scripts start",
+    "start": "serve -s build -l 3000",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -40,7 +39,7 @@
     "react-emoji-render": "^1.2.4",
     "react-redux": "^7.2.6",
     "react-router": "^6.2.1",
-    "react-router-dom": "^6.2.1",
+    "react-router-dom": "6.2.1",
     "react-scripts": "^5.0.0",
     "react-toastify": "^8.1.0",
     "redux": "^4.1.2",
@@ -63,10 +62,13 @@
     "@types/redux-logger": "^3.0.9",
     "@types/sass": "^1.43.1",
     "@types/uuid": "^8.3.4",
-    "concurrently": "^7.0.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "typescript": "^4.5.4"
+  },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   },
   "eslintConfig": {
     "extends": [
